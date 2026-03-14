@@ -22,7 +22,8 @@ CREATE TABLE `Empleado` (
   `nombre` varchar(255),
   `apellidos` varchar(255),
   `apodo` varchar(255),
-  `categoria` varchar(255)
+  `categoria` varchar(255),
+  `contraseña` varchar(255)
 );
 
 CREATE TABLE `Citas` (
@@ -37,7 +38,7 @@ CREATE TABLE `Citas` (
 
 ALTER TABLE `Citas` ADD FOREIGN KEY (`id_cliente`) REFERENCES `Cliente` (`id_cliente`);
 
-ALTER TABLE `Citas` ADD FOREIGN KEY (`id_empleado`) REFERENCES `Empleado` (`id_empleado`);
+ALTER TABLE `Empleado` ADD FOREIGN KEY (`id_empleado`) REFERENCES `Citas` (`id_empleado`);
 
 ALTER TABLE `Citas` ADD FOREIGN KEY (`id_traje`) REFERENCES `Traje` (`id_traje`);
 
