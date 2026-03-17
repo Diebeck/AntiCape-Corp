@@ -24,9 +24,6 @@
   <widgets xsi:type="model:Icon" id="60" x="336" y="263" width="24" height="24" measuredWidth="24" measuredHeight="24" foreground="#fff" icon="options (medium)"/>
   <widgets xsi:type="model:Placeholder" id="63" x="433" y="256" width="173" height="100" text="Acciones rapidas" measuredWidth="173" measuredHeight="100"/>
   <widgets xsi:type="model:Placeholder" id="67" x="432" y="368" width="352" height="65" text="Placeholder" measuredWidth="352" measuredHeight="65"/>
-  <widgets xsi:type="model:Button" id="69" x="432" y="448" width="106" measuredWidth="106" measuredHeight="24" background="#a64d79" link="" textAlignment="Left" style="round">
-    <font italic="true"/>
-  </widgets>
   <widgets xsi:type="model:Icon" id="70" x="477" y="452" measuredWidth="16" measuredHeight="16" foreground="#fff" icon="home (small)"/>
   <widgets xsi:type="model:Chart" id="72" x="658" y="209" width="126" height="147" measuredWidth="126" measuredHeight="147" chartType="column"/>
   <hRuler/>
