@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="4" x="152" y="96" width="665" height="401" text="AntiCape-Corp" measuredWidth="665" measuredHeight="401" background="#444" alpha="128"/>
+  <widgets xsi:type="model:Panel" id="14" x="390" y="125" width="417" height="362" measuredWidth="417" measuredHeight="362" border="solid-rounded"/>
+  <widgets xsi:type="model:Panel" id="38" x="162" y="125" width="215" height="362" measuredWidth="215" measuredHeight="362" background="#741b47" border="solid-rounded"/>
+  <widgets xsi:type="model:Image" id="48" x="359" y="125" width="305" height="157" measuredWidth="305" measuredHeight="157" src="img/Isologo.png"/>
+  <widgets xsi:type="model:Button" id="49" x="193" y="312" width="153" height="41" text="    Citas" measuredWidth="153" measuredHeight="41" link="date.screen" textAlignment="Left" style="round">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="51" x="193" y="368" width="153" height="41" text="    Talleres" measuredWidth="153" measuredHeight="41" link="workshop.screen" textAlignment="Left" style="round">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="52" x="193" y="424" width="153" height="41" text="    Clientes " measuredWidth="153" measuredHeight="41" link="Client.screen" textAlignment="Left" style="round">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Panel" id="54" x="162" y="129" width="215" height="170" measuredWidth="215" measuredHeight="170" background="#4c1130" foreground="#4c1130" border="solid-rounded"/>
+  <widgets xsi:type="model:Shape" id="53" x="212" y="156" width="116" height="116" measuredWidth="116" measuredHeight="116" border="false">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Icon" id="21" x="225" y="173" width="89" height="81" measuredWidth="89" measuredHeight="81" foreground="#4c1130" icon="user (xlarge)"/>
+  <widgets xsi:type="model:Icon" id="57" x="313" y="325" measuredWidth="16" measuredHeight="16" icon="calendar2 (small)"/>
+  <widgets xsi:type="model:Icon" id="58" x="313" y="381" measuredWidth="16" measuredHeight="16" icon="wrench (small)"/>
+  <widgets xsi:type="model:Icon" id="59" x="313" y="437" measuredWidth="16" measuredHeight="16" icon="usergroup (small)"/>
+  <widgets xsi:type="model:Icon" id="60" x="336" y="263" width="24" height="24" measuredWidth="24" measuredHeight="24" foreground="#fff" icon="options (medium)"/>
+  <widgets xsi:type="model:Placeholder" id="63" x="433" y="256" width="173" height="100" text="Acciones rapidas" measuredWidth="173" measuredHeight="100"/>
+  <widgets xsi:type="model:Placeholder" id="67" x="432" y="368" width="352" height="65" text="Placeholder" measuredWidth="352" measuredHeight="65"/>
+  <widgets xsi:type="model:Icon" id="70" x="477" y="452" measuredWidth="16" measuredHeight="16" foreground="#fff" icon="home (small)"/>
+  <widgets xsi:type="model:Chart" id="72" x="658" y="209" width="126" height="147" measuredWidth="126" measuredHeight="147" chartType="column"/>
+  <hRuler/>
+  <vRuler/>
+  <font name="Century Schoolbook" size="12px" italic="true"/>
+</model:Screen>

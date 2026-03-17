@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="4" x="152" y="96" width="665" height="401" text="AntiCape-Corp" measuredWidth="665" measuredHeight="401" background="#444" alpha="128"/>
+  <widgets xsi:type="model:Panel" id="14" x="390" y="125" width="417" height="362" measuredWidth="417" measuredHeight="362" border="solid-rounded"/>
+  <widgets xsi:type="model:Panel" id="38" x="162" y="125" width="215" height="362" measuredWidth="215" measuredHeight="362" background="#741b47" border="solid-rounded"/>
+  <widgets xsi:type="model:Button" id="49" x="193" y="312" width="153" height="41" text="    Citas" measuredWidth="153" measuredHeight="41" textAlignment="Left" style="round">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="51" x="193" y="368" width="153" height="41" text="    Talleres" measuredWidth="153" measuredHeight="41" link="workshop.screen" textAlignment="Left" style="round">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="52" x="193" y="424" width="153" height="41" text="    Clientes " measuredWidth="153" measuredHeight="41" link="Client.screen" textAlignment="Left" style="round">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Panel" id="54" x="162" y="129" width="215" height="170" measuredWidth="215" measuredHeight="170" background="#4c1130" foreground="#4c1130" border="solid-rounded"/>
+  <widgets xsi:type="model:Shape" id="53" x="212" y="156" width="116" height="116" measuredWidth="116" measuredHeight="116" border="false">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Icon" id="21" x="225" y="173" width="89" height="81" measuredWidth="89" measuredHeight="81" foreground="#4c1130" icon="user (xlarge)"/>
+  <widgets xsi:type="model:Icon" id="57" x="313" y="325" measuredWidth="16" measuredHeight="16" icon="calendar2 (small)"/>
+  <widgets xsi:type="model:Icon" id="58" x="313" y="381" measuredWidth="16" measuredHeight="16" icon="wrench (small)"/>
+  <widgets xsi:type="model:Icon" id="59" x="313" y="437" measuredWidth="16" measuredHeight="16" icon="usergroup (small)"/>
+  <widgets xsi:type="model:Icon" id="60" x="336" y="263" width="24" height="24" measuredWidth="24" measuredHeight="24" foreground="#fff" icon="options (medium)"/>
+  <widgets xsi:type="model:Button" id="69" x="416" y="448" width="106" measuredWidth="106" measuredHeight="24" background="#a64d79" link="Home.screen" textAlignment="Left" style="round">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Icon" id="70" x="461" y="452" measuredWidth="16" measuredHeight="16" foreground="#fff" icon="home (small)"/>
+  <widgets xsi:type="model:Label" id="76" x="415" y="144" text="Panel de citas" measuredWidth="263" measuredHeight="56" foreground="#741b47">
+    <font size="40px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Table" id="89" x="415" y="234" width="354" height="103" text="id cita,cliente,taller&#xA;xxxx,xxxx,xxxx&#xA;xxxx,xxxx,xxxxx&#xA;xxxx,xxxx,xxxxx&#xA;xxxx,xxxx,xxxxx&#xA;xxxx,xxxx,xxxxx" measuredWidth="354" measuredHeight="103" alternative="#eee">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="90" x="415" y="199" text="Proximas citas" measuredWidth="130" measuredHeight="30" foreground="#a64d79">
+    <font size="18px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="91" x="416" y="344" text="Herramientas " measuredWidth="127" measuredHeight="30" foreground="#a64d79">
+    <font size="18px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="92" x="416" y="381" width="105" height="41" text="Agendar cita " measuredWidth="105" measuredHeight="41" background="#4c1130" link="datec.screen" style="pointright">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="93" x="546" y="381" width="105" height="41" text="Modificar cita " measuredWidth="105" measuredHeight="41" background="#4c1130" style="pointright">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="94" x="677" y="381" width="105" height="41" text="Eliminar cita " measuredWidth="105" measuredHeight="41" background="#4c1130" style="pointright">
+    <font italic="true"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Century Schoolbook" size="12px" italic="true"/>
+</model:Screen>
