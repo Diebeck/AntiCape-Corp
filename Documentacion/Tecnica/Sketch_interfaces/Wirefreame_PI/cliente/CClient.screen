@@ -32,33 +32,33 @@
   <widgets xsi:type="model:Label" id="79" x="238" y="162" text="Categoria" measuredWidth="60" measuredHeight="22" foreground="#fff">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="83" x="431" y="209" text="Nombre" measuredWidth="79" measuredHeight="31" foreground="#4c1130">
-    <font size="20px"/>
+  <widgets xsi:type="model:Label" id="83" x="431" y="209" text="Nombre :" measuredWidth="80" measuredHeight="29" foreground="#4c1130">
+    <font size="17px"/>
   </widgets>
   <widgets xsi:type="model:Button" id="85" x="416" y="433" width="109" height="29" measuredWidth="109" measuredHeight="29" background="#4c1130" icon="home (small)" link="../Home.screen">
     <font italic="true"/>
   </widgets>
   <widgets xsi:type="model:Menu" id="86" x="608" y="143" width="185" text=" &amp;Crear,&amp;Modificar,&amp;Eliminar" measuredWidth="185" measuredHeight="25" selection="0">
-    <items link="../citas/Cdate.screen" x="5" y="0" width="47" height="25" text=" &amp;Crear"/>
-    <items link="../citas/Mdate.screen" x="52" y="0" width="65" height="25" text="&amp;Modificar"/>
-    <items link="../citas/Edate.screen" x="117" y="0" width="62" height="25" text="&amp;Eliminar"/>
+    <items x="5" y="0" width="47" height="25" text=" &amp;Crear"/>
+    <items link="MClient.screen" x="52" y="0" width="65" height="25" text="&amp;Modificar"/>
+    <items link="EClient.screen" x="117" y="0" width="62" height="25" text="&amp;Eliminar"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="87" x="416" y="141" text=" Añadir cliente " measuredWidth="134" measuredHeight="29" background="#4c1130">
+  <widgets xsi:type="model:TextField" id="87" x="416" y="141" text="  Añadir cliente  " measuredWidth="144" measuredHeight="29" background="#4c1130">
     <font size="17px"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="95" x="512" y="214" width="249" measuredWidth="249" measuredHeight="22">
+  <widgets xsi:type="model:TextField" id="95" x="520" y="213" width="245" measuredWidth="245" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="96" x="431" y="252" text="Colores" measuredWidth="66" measuredHeight="29" foreground="#4c1130">
+  <widgets xsi:type="model:Label" id="96" x="431" y="252" text="Colores :" measuredWidth="76" measuredHeight="29" foreground="#4c1130">
     <font size="17px"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="97" x="496" y="256" width="249" measuredWidth="249" measuredHeight="22">
+  <widgets xsi:type="model:TextField" id="97" x="520" y="256" width="245" measuredWidth="245" measuredHeight="22">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="98" x="431" y="298" text="Superpoder" measuredWidth="100" measuredHeight="29" foreground="#4c1130">
+  <widgets xsi:type="model:Label" id="98" x="431" y="298" text="Superpoder :" measuredWidth="110" measuredHeight="29" foreground="#4c1130">
     <font size="17px"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="101" x="533" y="302" width="131" measuredWidth="131" measuredHeight="22">
+  <widgets xsi:type="model:TextField" id="101" x="549" y="302" width="216" measuredWidth="216" measuredHeight="22">
     <font/>
   </widgets>
   <widgets xsi:type="model:Button" id="102" x="663" y="433" width="109" height="29" text="Confirmar" measuredWidth="109" measuredHeight="29" background="#4c1130" link="Client.screen">

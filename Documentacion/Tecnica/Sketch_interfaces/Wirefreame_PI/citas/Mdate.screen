@@ -65,11 +65,10 @@
   <widgets xsi:type="model:Label" id="94" x="419" y="293" text="Taller  " measuredWidth="54" measuredHeight="25">
     <font size="15px"/>
   </widgets>
-  <widgets xsi:type="model:ButtonBar" id="95" x="470" y="335" width="299" text="Principal, Secundario, extra" measuredWidth="299" measuredHeight="25" selection="0">
+  <widgets xsi:type="model:ButtonBar" id="95" x="470" y="335" width="299" text="Principal, Especifico" measuredWidth="299" measuredHeight="25" selection="0">
     <font/>
-    <items x="0" y="0" width="105" height="25" text="Principal"/>
-    <items x="105" y="0" width="118" height="25" text="Secundario"/>
-    <items x="223" y="0" width="76" height="25" text="extra"/>
+    <items x="0" y="0" width="144" height="25" text="Principal"/>
+    <items x="144" y="0" width="155" height="25" text="Especifico"/>
   </widgets>
   <widgets xsi:type="model:Label" id="96" x="421" y="335" text="Traje " measuredWidth="45" measuredHeight="25">
     <font size="15px"/>

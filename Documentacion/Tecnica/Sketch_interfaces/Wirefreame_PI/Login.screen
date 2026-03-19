@@ -4,7 +4,7 @@
   <widgets xsi:type="model:Panel" id="14" x="390" y="125" width="417" height="362" measuredWidth="417" measuredHeight="362" border="solid-rounded"/>
   <widgets xsi:type="model:Panel" id="18" x="424" y="239" width="43" height="41" measuredWidth="43" measuredHeight="41" border="solid-rounded"/>
   <widgets xsi:type="model:Panel" id="19" x="424" y="311" width="43" height="41" measuredWidth="43" measuredHeight="41" border="solid-rounded"/>
-  <widgets xsi:type="model:Button" id="20" x="424" y="376" width="329" height="41" text="Login" measuredWidth="329" measuredHeight="41" background="#741b47" link="Home.screen" style="round">
+  <widgets xsi:type="model:Button" id="20" x="424" y="376" width="329" height="41" text="Login" measuredWidth="329" measuredHeight="41" background="#4c1130" link="Home.screen" style="round">
     <font italic="true"/>
   </widgets>
   <widgets xsi:type="model:Icon" id="21" x="434" y="248" measuredWidth="24" measuredHeight="24" foreground="#4c1130" icon="user (medium)"/>
@@ -17,11 +17,11 @@
     <font size="15px" italic="true"/>
   </widgets>
   <widgets xsi:type="model:Icon" id="37" x="434" y="320" measuredWidth="24" measuredHeight="24" foreground="#4c1130" icon="secure (medium)"/>
-  <widgets xsi:type="model:Panel" id="38" x="162" y="125" width="215" height="362" measuredWidth="215" measuredHeight="362" border="solid-rounded"/>
-  <widgets xsi:type="model:Image" id="11" x="166" y="181" width="207" height="231" measuredWidth="207" measuredHeight="231" src="img/logo.png"/>
+  <widgets xsi:type="model:Panel" id="38" x="162" y="125" width="215" height="362" measuredWidth="215" measuredHeight="362" background="#4c1130" border="solid-rounded"/>
   <widgets xsi:type="model:Label" id="47" x="424" y="160" text="Employee Login" measuredWidth="271" measuredHeight="51" foreground="#741b47">
     <font size="36px" italic="true"/>
   </widgets>
+  <widgets xsi:type="model:Image" id="49" x="172" y="163" width="215" height="285" measuredWidth="215" measuredHeight="285" src="img/nlogo.png"/>
   <hRuler/>
   <vRuler/>
   <font name="Century Schoolbook" size="12px" italic="true"/>

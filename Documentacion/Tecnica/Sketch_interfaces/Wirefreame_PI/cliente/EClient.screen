@@ -32,35 +32,17 @@
   <widgets xsi:type="model:Label" id="79" x="238" y="162" text="Categoria" measuredWidth="60" measuredHeight="22" foreground="#fff">
     <font/>
   </widgets>
-  <widgets xsi:type="model:Label" id="83" x="416" y="199" text="Numero de registros " measuredWidth="196" measuredHeight="31" foreground="#4c1130">
-    <font size="20px"/>
-  </widgets>
   <widgets xsi:type="model:Button" id="85" x="416" y="433" width="109" height="29" measuredWidth="109" measuredHeight="29" background="#4c1130" icon="home (small)" link="../Home.screen" style="round">
     <font italic="true"/>
-  </widgets>
-  <widgets xsi:type="model:Menu" id="86" x="608" y="143" width="185" text=" &amp;Crear,&amp;Modificar,&amp;Eliminar" measuredWidth="185" measuredHeight="25" selection="0">
-    <items link="../citas/Cdate.screen" x="5" y="0" width="47" height="25" text=" &amp;Crear"/>
-    <items link="../citas/Mdate.screen" x="52" y="0" width="65" height="25" text="&amp;Modificar"/>
-    <items link="../citas/Edate.screen" x="117" y="0" width="62" height="25" text="&amp;Eliminar"/>
   </widgets>
   <widgets xsi:type="model:TextField" id="87" x="416" y="141" text=" Gestor de clientes " measuredWidth="161" measuredHeight="29" background="#4c1130">
     <font size="17px"/>
   </widgets>
-  <widgets xsi:type="model:Chart" id="88" x="416" y="237" width="217" height="185" measuredWidth="217" measuredHeight="185" chartType="column"/>
-  <widgets xsi:type="model:Label" id="89" x="648" y="199" text="Heroes" measuredWidth="68" measuredHeight="31" foreground="#741b47">
-    <font size="20px"/>
+  <widgets xsi:type="model:Menu" id="95" x="608" y="143" width="185" text=" &amp;Crear,&amp;Modificar,&amp;Eliminar" measuredWidth="185" measuredHeight="25" selection="0">
+    <items link="CClient.screen" x="5" y="0" width="47" height="25" text=" &amp;Crear"/>
+    <items link="MClient.screen" x="52" y="0" width="65" height="25" text="&amp;Modificar"/>
+    <items link="" x="117" y="0" width="62" height="25" text="&amp;Eliminar"/>
   </widgets>
-  <widgets xsi:type="model:Label" id="90" x="648" y="310" text="Villanos" measuredWidth="82" measuredHeight="31" foreground="#4c1130">
-    <font size="20px"/>
-  </widgets>
-  <widgets xsi:type="model:TextField" id="91" x="691" y="240" width="70" measuredWidth="70" measuredHeight="22" borderColor="#4c1130">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:TextField" id="92" x="691" y="345" width="70" measuredWidth="70" measuredHeight="22" borderColor="#4c1130">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:Icon" id="93" x="648" y="235" measuredWidth="32" measuredHeight="32" icon="smile (large)"/>
-  <widgets xsi:type="model:Icon" id="94" x="648" y="340" measuredWidth="32" measuredHeight="32" icon="sad (large)"/>
   <hRuler/>
   <vRuler/>
   <font name="Century Schoolbook" size="12px" italic="true"/>
