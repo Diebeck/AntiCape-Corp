@@ -40,5 +40,12 @@ INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (006, 'Milan', 'cos
 INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (007, 'Tokio', 'costura');
 INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (008, 'Barcelona', 'costura');
 
-INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (001, 'Edna', 'Marie Mode', 'E.Moda', 'Maestro', 'admin2004');
+INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (001, 'Edna', 'Marie Mode', 'E.Moda', 'Maestro', 'admin1974');
+INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (002, 'Valerio', 'Montclair', 'V.Montclair', 'Oficial', 'admin1978');
+INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (003, 'Alessandro', 'Virelli', 'A.Virelli', 'Oficial', 'admin1982');
+INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (004, 'Luca', 'Ferrán Vidal', 'L.F.Vidal', 'Aprendiz', 'admin2001');
+INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (005, 'Noa', 'Beltrán Cruz', 'N.B.Cruz', 'Aprendiz', 'admin2003');
+INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (006, 'Thiago', 'Rivas Soler', 'T.R.Soler', 'Aprendiz', 'admin2002');
+
+
 
