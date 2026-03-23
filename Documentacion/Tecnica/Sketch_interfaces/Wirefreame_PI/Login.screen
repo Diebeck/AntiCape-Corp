@@ -4,7 +4,7 @@
   <widgets xsi:type="model:Panel" id="14" x="443" y="58" width="721" height="544" measuredWidth="721" measuredHeight="544" border="solid-rounded"/>
   <widgets xsi:type="model:Panel" id="18" x="501" y="230" width="71" height="60" measuredWidth="71" measuredHeight="60" border="solid-rounded"/>
   <widgets xsi:type="model:Panel" id="19" x="501" y="339" width="71" height="60" measuredWidth="71" measuredHeight="60" border="solid-rounded"/>
-  <widgets xsi:type="model:Button" id="20" x="501" y="437" width="568" height="60" text="Login" measuredWidth="568" measuredHeight="60" background="#4c1130" link="Home.screen" style="round">
+  <widgets xsi:type="model:Button" id="20" x="501" y="437" width="568" height="60" text="Login" measuredWidth="568" measuredHeight="60" background="#4c1130" link="Home's/Home.screen" style="round">
     <font italic="true"/>
   </widgets>
   <widgets xsi:type="model:Icon" id="21" x="519" y="244" width="39" height="35" measuredWidth="39" measuredHeight="35" foreground="#4c1130" icon="user (medium)"/>

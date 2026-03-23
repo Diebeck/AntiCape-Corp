@@ -5,62 +5,23 @@
   <widgets xsi:type="model:Icon" id="70" x="715" y="632" width="27" height="24" measuredWidth="27" measuredHeight="24" foreground="#fff" icon="home (small)"/>
   <widgets xsi:type="model:Menu" id="81" x="1049" y="174" width="194" text=" &amp;Crear,&amp;Modificar,&amp;Eliminar" measuredWidth="194" measuredHeight="25" selection="0">
     <items x="5" y="0" width="47" height="25" text=" &amp;Crear"/>
-    <items link="Mdate.screen" x="52" y="0" width="65" height="25" text="&amp;Modificar"/>
-    <items link="Edate.screen" x="117" y="0" width="62" height="25" text="&amp;Eliminar"/>
+    <items link="Mtaller.screen" x="52" y="0" width="65" height="25" text="&amp;Modificar"/>
+    <items link="Etaller.screen" x="117" y="0" width="62" height="25" text="&amp;Eliminar"/>
   </widgets>
   <widgets xsi:type="model:Button" id="85" x="614" y="599" width="188" height="43" measuredWidth="188" measuredHeight="43" background="#4c1130" icon="home (medium)" link="../Home's/Home.screen">
     <font size="20px" italic="true"/>
   </widgets>
-  <widgets xsi:type="model:TextField" id="87" x="613" y="171" width="232" text="  Agendar cita  " measuredWidth="232" measuredHeight="31" background="#4c1130">
+  <widgets xsi:type="model:TextField" id="87" x="613" y="171" width="232" text="    Gestion talleres" measuredWidth="232" measuredHeight="31" background="#4c1130">
     <font size="20px"/>
-  </widgets>
-  <widgets xsi:type="model:DateField" id="89" x="688" y="387" width="528" text="  /  /  " measuredWidth="528" measuredHeight="22"/>
-  <widgets xsi:type="model:Label" id="90" x="609" y="257" width="97" text="Cliente :" measuredWidth="97" measuredHeight="30">
-    <font size="19px"/>
-  </widgets>
-  <widgets xsi:type="model:List" id="91" x="688" y="246" width="192" height="48" text="Cliente 1&#xA;(bg:#4C1130)|Cliente 2&#xA;For List, Table and Tree" measuredWidth="192" measuredHeight="48">
-    <font size="15px"/>
-    <items x="0" y="2" width="192" height="24" text="Cliente 1"/>
-    <items x="0" y="26" width="192" height="24" text="(bg:#4C1130)|Cliente 2"/>
-    <items x="0" y="50" width="192" height="24" text="For List, Table and Tree"/>
-  </widgets>
-  <widgets xsi:type="model:Label" id="92" x="619" y="383" width="91" text="Fecha:  " measuredWidth="91" measuredHeight="30">
-    <font size="19px"/>
-  </widgets>
-  <widgets xsi:type="model:Label" id="93" x="968" y="321" width="96" text="Duracion :" measuredWidth="96" measuredHeight="30">
-    <font size="19px"/>
-  </widgets>
-  <widgets xsi:type="model:Spinner" id="94" x="1072" y="321" width="148" text="1H" measuredWidth="148" measuredHeight="29">
-    <font size="17px"/>
-  </widgets>
-  <widgets xsi:type="model:Combo" id="97" x="688" y="321" width="240" text="Madrid" measuredWidth="240" measuredHeight="29">
-    <font size="17px"/>
-  </widgets>
-  <widgets xsi:type="model:Label" id="98" x="611" y="319" width="93" text="Taller :" measuredWidth="93" measuredHeight="30">
-    <font size="19px"/>
   </widgets>
   <widgets xsi:type="model:Button" id="99" x="1028" y="599" width="235" height="43" text="Confirmar" measuredWidth="235" measuredHeight="43" background="#4c1130" link="../Home's/CreacionH.screen">
     <font size="19px" italic="true"/>
-  </widgets>
-  <widgets xsi:type="model:Label" id="102" x="614" y="521" width="135" text="Encargado:" measuredWidth="135" measuredHeight="30">
-    <font size="19px"/>
-  </widgets>
-  <widgets xsi:type="model:Combo" id="104" x="720" y="525" width="496" measuredWidth="496" measuredHeight="22">
-    <font/>
-  </widgets>
-  <widgets xsi:type="model:ButtonBar" id="105" x="693" y="455" width="528" height="37" text="Principal, Especifico" measuredWidth="528" measuredHeight="37" selection="0">
-    <font/>
-    <items x="0" y="0" width="255" height="37" text="Principal"/>
-    <items x="255" y="0" width="273" height="37" text="Especifico"/>
-  </widgets>
-  <widgets xsi:type="model:Label" id="106" x="619" y="459" width="78" text="Traje:" measuredWidth="78" measuredHeight="30">
-    <font size="19px"/>
   </widgets>
   <widgets xsi:type="model:Panel" id="122" x="169" y="139" width="372" height="545" measuredWidth="372" measuredHeight="545" background="#741b47" border="solid-rounded"/>
   <widgets xsi:type="model:Button" id="123" x="223" y="288" width="265" height="61" text="     Citas" measuredWidth="265" measuredHeight="61" link="../cliente/CClient.screen" textAlignment="Left">
     <font size="19px" italic="true"/>
   </widgets>
-  <widgets xsi:type="model:Button" id="124" x="223" y="472" width="265" height="61" text="    Talleres" measuredWidth="265" measuredHeight="61" link="../taller/Ctaller.screen" textAlignment="Left">
+  <widgets xsi:type="model:Button" id="124" x="223" y="472" width="265" height="61" text="    Talleres" measuredWidth="265" measuredHeight="61" textAlignment="Left">
     <font size="19px" italic="true"/>
   </widgets>
   <widgets xsi:type="model:Button" id="125" x="223" y="380" width="265" height="61" text="    Clientes " measuredWidth="265" measuredHeight="61" link="../cliente/CClient.screen" textAlignment="Left">
@@ -85,8 +46,32 @@
   <widgets xsi:type="model:Label" id="136" x="301" y="200" width="104" text="Categoria" measuredWidth="104" measuredHeight="30" foreground="#fff">
     <font size="19px"/>
   </widgets>
-  <widgets xsi:type="model:Button" id="137" x="1008" y="248" width="235" height="43" text="Cliente nuevo" measuredWidth="235" measuredHeight="43" background="#4c1130" link="new_client.screen">
-    <font size="17px" italic="true"/>
+  <widgets xsi:type="model:Label" id="138" x="613" y="228" text="Creacion taller" measuredWidth="298" measuredHeight="58" foreground="#4c1130">
+    <font size="43px"/>
+  </widgets>
+  <widgets xsi:type="model:List" id="140" x="830" y="432" width="365" height="125" text="         Berlin&#xA;        Tokyo&#xA;        Madrid&#xA;        Milan&#xA;(bg:#4C1130)|        Paris&#xA;For List, Table and Tree" measuredWidth="365" measuredHeight="125" horizontalLines="true">
+    <font size="15px"/>
+    <items x="0" y="2" width="365" height="24" text="         Berlin"/>
+    <items x="0" y="26" width="365" height="24" text="        Tokyo"/>
+    <items x="0" y="50" width="365" height="24" text="        Madrid"/>
+    <items x="0" y="74" width="365" height="24" text="        Milan"/>
+    <items x="0" y="98" width="365" height="24" text="(bg:#4C1130)|        Paris"/>
+    <items x="0" y="122" width="365" height="24" text="For List, Table and Tree"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="141" x="614" y="423" text="Nombre de la sala: " measuredWidth="217" measuredHeight="36" foreground="#741b47">
+    <font size="24px"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="142" x="613" y="344" text="Tipo de taller:" measuredWidth="160" measuredHeight="36" foreground="#4c1130">
+    <font size="24px"/>
+  </widgets>
+  <widgets xsi:type="model:ButtonBar" id="143" x="772" y="342" width="423" text="Diseño,Costura , Pruebas" measuredWidth="423" measuredHeight="39" selection="0">
+    <font size="19px"/>
+    <items x="0" y="0" width="127" height="39" text="Diseño"/>
+    <items x="127" y="0" width="148" height="39" text="Costura "/>
+    <items x="275" y="0" width="148" height="39" text="Pruebas"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="145" x="614" y="285" text="Cree un nuevo taller de trabajo asignando ubicacion y tipo" measuredWidth="388" measuredHeight="25" foreground="#999">
+    <font size="15px"/>
   </widgets>
   <hRuler/>
   <vRuler/>
