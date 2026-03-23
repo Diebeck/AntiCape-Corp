@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
-  <widgets xsi:type="model:Window" id="4" x="152" y="96" width="665" height="401" text="AntiCape-Corp" measuredWidth="665" measuredHeight="401" background="#444" alpha="64" minimizeButton="true" maximizeButton="true"/>
-  <widgets xsi:type="model:Panel" id="14" x="390" y="125" width="417" height="362" measuredWidth="417" measuredHeight="362" border="solid-rounded"/>
-  <widgets xsi:type="model:Panel" id="18" x="424" y="239" width="43" height="41" measuredWidth="43" measuredHeight="41" border="solid-rounded"/>
-  <widgets xsi:type="model:Panel" id="19" x="424" y="311" width="43" height="41" measuredWidth="43" measuredHeight="41" border="solid-rounded"/>
-  <widgets xsi:type="model:Button" id="20" x="424" y="376" width="329" height="41" text="Login" measuredWidth="329" measuredHeight="41" background="#4c1130" link="Home.screen" style="round">
+  <widgets xsi:type="model:Window" id="4" x="32" y="16" width="1153" height="605" text="AntiCape-Corp" measuredWidth="1153" measuredHeight="605" background="#444" alpha="64" minimizeButton="true" maximizeButton="true"/>
+  <widgets xsi:type="model:Panel" id="14" x="443" y="58" width="721" height="544" measuredWidth="721" measuredHeight="544" border="solid-rounded"/>
+  <widgets xsi:type="model:Panel" id="18" x="501" y="230" width="71" height="60" measuredWidth="71" measuredHeight="60" border="solid-rounded"/>
+  <widgets xsi:type="model:Panel" id="19" x="501" y="339" width="71" height="60" measuredWidth="71" measuredHeight="60" border="solid-rounded"/>
+  <widgets xsi:type="model:Button" id="20" x="501" y="437" width="568" height="60" text="Login" measuredWidth="568" measuredHeight="60" background="#4c1130" link="Home.screen" style="round">
     <font italic="true"/>
   </widgets>
-  <widgets xsi:type="model:Icon" id="21" x="434" y="248" measuredWidth="24" measuredHeight="24" foreground="#4c1130" icon="user (medium)"/>
-  <widgets xsi:type="model:Panel" id="28" x="480" y="239" width="273" height="41" measuredWidth="273" measuredHeight="41" border="solid-rounded"/>
-  <widgets xsi:type="model:Panel" id="29" x="480" y="309" width="273" height="45" measuredWidth="273" measuredHeight="45" border="solid-rounded"/>
-  <widgets xsi:type="model:Label" id="31" x="480" y="247" width="143" text="Username " measuredWidth="143" measuredHeight="25" textAlignment="Center" foreground="#999">
-    <font size="15px" italic="true"/>
+  <widgets xsi:type="model:Icon" id="21" x="519" y="244" width="39" height="35" measuredWidth="39" measuredHeight="35" foreground="#4c1130" icon="user (medium)"/>
+  <widgets xsi:type="model:Panel" id="28" x="599" y="230" width="471" height="60" measuredWidth="471" measuredHeight="60" border="solid-rounded"/>
+  <widgets xsi:type="model:Panel" id="29" x="599" y="336" width="471" height="66" measuredWidth="471" measuredHeight="66" border="solid-rounded"/>
+  <widgets xsi:type="model:Label" id="31" x="616" y="244" width="143" text="Username " measuredWidth="143" measuredHeight="31" textAlignment="Center" foreground="#999">
+    <font size="20px" italic="true"/>
   </widgets>
-  <widgets xsi:type="model:Label" id="32" x="480" y="319" width="143" text="Password " measuredWidth="143" measuredHeight="25" textAlignment="Center" foreground="#999">
-    <font size="15px" italic="true"/>
+  <widgets xsi:type="model:Label" id="32" x="616" y="356" width="143" text="Password " measuredWidth="143" measuredHeight="31" textAlignment="Center" foreground="#999">
+    <font size="20px" italic="true"/>
   </widgets>
-  <widgets xsi:type="model:Icon" id="37" x="434" y="320" measuredWidth="24" measuredHeight="24" foreground="#4c1130" icon="secure (medium)"/>
-  <widgets xsi:type="model:Panel" id="38" x="162" y="125" width="215" height="362" measuredWidth="215" measuredHeight="362" background="#4c1130" border="solid-rounded"/>
-  <widgets xsi:type="model:Label" id="47" x="424" y="160" text="Employee Login" measuredWidth="271" measuredHeight="51" foreground="#741b47">
-    <font size="36px" italic="true"/>
+  <widgets xsi:type="model:Icon" id="37" x="519" y="351" width="39" height="35" measuredWidth="39" measuredHeight="35" foreground="#4c1130" icon="secure (medium)"/>
+  <widgets xsi:type="model:Panel" id="38" x="48" y="58" width="370" height="544" measuredWidth="370" measuredHeight="544" border="solid-rounded"/>
+  <widgets xsi:type="model:Label" id="47" x="501" y="120" text="Employee Login" measuredWidth="447" measuredHeight="79" foreground="#741b47">
+    <font size="60px" italic="true"/>
   </widgets>
-  <widgets xsi:type="model:Image" id="49" x="172" y="163" width="215" height="285" measuredWidth="215" measuredHeight="285" src="img/nlogo.png"/>
+  <widgets xsi:type="model:Image" id="49" x="64" y="150" width="359" height="338" measuredWidth="359" measuredHeight="338" src="img/logo.png"/>
   <hRuler/>
   <vRuler/>
   <font name="Century Schoolbook" size="12px" italic="true"/>
