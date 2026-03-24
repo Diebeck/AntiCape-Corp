@@ -35,7 +35,7 @@
   <widgets xsi:type="model:Icon" id="129" x="431" y="308" width="27" height="24" measuredWidth="27" measuredHeight="24" icon="calendar2 (small)"/>
   <widgets xsi:type="model:Icon" id="130" x="431" y="492" width="27" height="24" measuredWidth="27" measuredHeight="24" icon="wrench (small)"/>
   <widgets xsi:type="model:Icon" id="131" x="431" y="400" width="27" height="24" measuredWidth="27" measuredHeight="24" icon="usergroup (small)"/>
-  <widgets xsi:type="model:Icon" id="132" x="472" y="202" width="41" height="36" measuredWidth="41" measuredHeight="36" foreground="#fff" icon="options (medium)"/>
+  <widgets xsi:type="model:Icon" id="132" x="472" y="202" width="41" height="36" measuredWidth="41" measuredHeight="36" foreground="#fff" icon="assets/oi-account-logout (custom)"/>
   <widgets xsi:type="model:Button" id="133" x="223" y="561" width="265" height="61" text="      Empleados " measuredWidth="265" measuredHeight="61" link="../empleados/Cempleados.screen" textAlignment="Left">
     <font size="19px" italic="true"/>
   </widgets>
