@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Alert" id="93" x="224" y="136" text="Eliminacion&#xA;Esta accion no se puede revertir &#xA;OK,Cancel" measuredWidth="267" measuredHeight="130" icon="warning (large)">
+    <items link="../Home's/EliminacionH.screen" x="77" y="92" width="80" height="23" text="OK"/>
+    <items link="../empleados/Eempleados.screen" x="172" y="92" width="80" height="23" text="Cancel"/>
+    <font/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Century Schoolbook" size="12px" italic="true"/>
+</model:Screen>

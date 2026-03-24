@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="4" x="152" y="96" width="1153" height="604" text="AntiCape-Corp" measuredWidth="1153" measuredHeight="604" background="#444" alpha="128" minimizeButton="true" maximizeButton="true"/>
+  <widgets xsi:type="model:Panel" id="14" x="564" y="139" width="723" height="545" measuredWidth="723" measuredHeight="545" border="solid-rounded"/>
+  <widgets xsi:type="model:Icon" id="70" x="715" y="632" width="27" height="24" measuredWidth="27" measuredHeight="24" foreground="#fff" icon="home (small)"/>
+  <widgets xsi:type="model:Button" id="85" x="609" y="603" width="188" height="43" measuredWidth="188" measuredHeight="43" background="#4c1130" icon="home (medium)" link="../Home's/Home.screen">
+    <font italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="87" x="609" y="171" width="279" text=" Gestor de clientes " measuredWidth="279" measuredHeight="31" background="#4c1130">
+    <font size="20px"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="95" x="609" y="219" width="322" text="Seleccion de cliente " measuredWidth="322" measuredHeight="42" foreground="#4c1130">
+    <font size="28px"/>
+  </widgets>
+  <widgets xsi:type="model:SearchField" id="96" x="606" y="296" width="639" text="Search" measuredWidth="639" measuredHeight="24">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="97" x="609" y="348" width="136" text="Nombre:" measuredWidth="136" measuredHeight="31" foreground="#4c1130">
+    <font size="20px"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="98" x="696" y="353" width="431" measuredWidth="431" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="99" x="609" y="411" width="104" text="Colores:" measuredWidth="104" measuredHeight="30" foreground="#4c1130">
+    <font size="19px"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="100" x="688" y="415" width="431" measuredWidth="431" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="101" x="609" y="472" width="157" text="Superpoder:" measuredWidth="157" measuredHeight="30" foreground="#4c1130">
+    <font size="19px" italic="false"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="102" x="715" y="476" width="227" measuredWidth="227" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="103" x="1037" y="603" width="188" height="43" text="Confirmar" measuredWidth="188" measuredHeight="43" background="#4c1130" link="../Home's/ModificacionH.screen">
+    <font size="19px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Panel" id="104" x="169" y="139" width="372" height="545" measuredWidth="372" measuredHeight="545" background="#741b47" border="solid-rounded"/>
+  <widgets xsi:type="model:Button" id="105" x="223" y="288" width="265" height="61" text="     Citas" measuredWidth="265" measuredHeight="61" link="../citas/Cdate.screen" textAlignment="Left">
+    <font size="19px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="106" x="223" y="472" width="265" height="61" text="    Talleres" measuredWidth="265" measuredHeight="61" link="../taller/Ctaller.screen" textAlignment="Left">
+    <font size="19px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="107" x="223" y="380" width="265" height="61" text="    Clientes " measuredWidth="265" measuredHeight="61" link="CClient.screen" textAlignment="Left">
+    <font size="19px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Panel" id="108" x="169" y="139" width="372" height="128" measuredWidth="372" measuredHeight="128" background="#4c1130" foreground="#4c1130"/>
+  <widgets xsi:type="model:Shape" id="109" x="205" y="163" width="72" height="66" measuredWidth="72" measuredHeight="66" border="false">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Icon" id="110" x="214" y="172" width="55" height="48" measuredWidth="55" measuredHeight="48" foreground="#4c1130" icon="user (large)"/>
+  <widgets xsi:type="model:Icon" id="111" x="431" y="308" width="27" height="24" measuredWidth="27" measuredHeight="24" icon="calendar2 (small)"/>
+  <widgets xsi:type="model:Icon" id="112" x="431" y="492" width="27" height="24" measuredWidth="27" measuredHeight="24" icon="wrench (small)"/>
+  <widgets xsi:type="model:Icon" id="113" x="431" y="400" width="27" height="24" measuredWidth="27" measuredHeight="24" icon="usergroup (small)"/>
+  <widgets xsi:type="model:Icon" id="114" x="472" y="202" width="41" height="36" measuredWidth="41" measuredHeight="36" foreground="#fff" icon="options (medium)"/>
+  <widgets xsi:type="model:Button" id="115" x="223" y="561" width="265" height="61" text="      Empleados " measuredWidth="265" measuredHeight="61" link="../empleados/Cempleados.screen" textAlignment="Left">
+    <font size="19px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Icon" id="116" x="431" y="581" width="27" height="24" measuredWidth="27" measuredHeight="24" icon="network (small)"/>
+  <widgets xsi:type="model:Label" id="117" x="301" y="169" width="187" text="Nombre empleado " measuredWidth="187" measuredHeight="30" foreground="#fff">
+    <font size="19px"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="118" x="301" y="200" width="104" text="Categoria" measuredWidth="104" measuredHeight="30" foreground="#fff">
+    <font size="19px"/>
+  </widgets>
+  <widgets xsi:type="model:Menu" id="120" x="1068" y="173" width="194" text=" &amp;Crear,&amp;Modificar,&amp;Eliminar" measuredWidth="194" measuredHeight="25" selection="0">
+    <items link="CClient.screen" x="5" y="0" width="47" height="25" text=" &amp;Crear"/>
+    <items x="52" y="0" width="65" height="25" text="&amp;Modificar"/>
+    <items link="EClient.screen" x="117" y="0" width="62" height="25" text="&amp;Eliminar"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="121" x="609" y="260" text="Seleccione un cliente existente para modificar sus caracteristicas " measuredWidth="432" measuredHeight="25" foreground="#999">
+    <font size="15px"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Century Schoolbook" size="12px" italic="true"/>
+</model:Screen>

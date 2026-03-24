@@ -7,6 +7,7 @@ CREATE TABLE `Cliente` (
 
 CREATE TABLE `Traje` (
   `id_traje` integer PRIMARY KEY,
+  `id_cliente` integer,
   `nombre` varchar(255),
   `estado` varchar(255)
 );
@@ -31,15 +32,26 @@ CREATE TABLE `Citas` (
   `fecha` date,
   `duracion` timestamp,
   `id_cliente` integer,
-  `id_empleado` integer,
-  `id_traje` integer,
-  `id_taller` integer
+  `id_encargado` integer,
+  `id_taller` integer,
+  `id_traje` integer
 );
+
+CREATE TABLE `asistencia` (
+  `id_empleado` integer,
+  `id_cita` integer
+);
+
+ALTER TABLE `Traje` ADD FOREIGN KEY (`id_cliente`) REFERENCES `Cliente` (`id_cliente`);
 
 ALTER TABLE `Citas` ADD FOREIGN KEY (`id_cliente`) REFERENCES `Cliente` (`id_cliente`);
 
-ALTER TABLE `Empleado` ADD FOREIGN KEY (`id_empleado`) REFERENCES `Citas` (`id_empleado`);
+ALTER TABLE `Citas` ADD FOREIGN KEY (`id_encargado`) REFERENCES `Empleado` (`id_empleado`);
+
+ALTER TABLE `Citas` ADD FOREIGN KEY (`id_taller`) REFERENCES `Taller` (`id_taller`);
 
 ALTER TABLE `Citas` ADD FOREIGN KEY (`id_traje`) REFERENCES `Traje` (`id_traje`);
 
-ALTER TABLE `Citas` ADD FOREIGN KEY (`id_taller`) REFERENCES `Taller` (`id_taller`);
+ALTER TABLE `asistencia` ADD FOREIGN KEY (`id_empleado`) REFERENCES `Empleado` (`id_empleado`);
+
+ALTER TABLE `asistencia` ADD FOREIGN KEY (`id_cita`) REFERENCES `Citas` (`id_cita`);

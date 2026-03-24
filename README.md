@@ -7,7 +7,7 @@ Este es el proyecto para la mejor empresa diseñadora de trajes para superheroes
 - BBDD
     - [Modelo Relacional](Data-Base/esquemas/modelos/Modelo-R.pdf)
     - [Modelo E/R](Data-Base/esquemas/modelos/modelo_E-R.pdf)
-    - [Creacion-inicial](Data-base/esquemas/ddl/Table-Creation.sql)
+    - [Creacion-inicial](Data-Base/esquemas/ddl/Table-Creation.sql)
 - Programación
     - [Proyecto de Java](Programacion/java)
     - [Diagrama UML](Documentacion/Tecnica/Diagramas/uml.pdf)
