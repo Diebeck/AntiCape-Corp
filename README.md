@@ -4,9 +4,10 @@ Este es el proyecto para la mejor empresa diseñadora de trajes para superheroes
 
 ### Archivos importantes
 - [Memoria](Documentacion/Proyecto/Memoria_proyecto_integrador.pdf)
+- [Diagrama de Gantt](Documentacion/Tecnica/Diagramas/gantt.pdf)
 - BBDD
     - [Modelo Relacional](Data-Base/esquemas/modelos/Modelo-R.pdf)
-    - [Modelo E/R](Data-Base/esquemas/modelos/modelo_E-R.pdf)
+    - [Modelo E/R](Data-Base/esquemas/modelos/Modelo_E-R.pdf)
     - [Creacion-inicial](Data-Base/esquemas/ddl/Table-Creation.sql)
 - Programación
     - [Proyecto de Java](Programacion/java)
