@@ -1,19 +1,15 @@
-/**
- * 
- */
 package main;
 
-/**
- * 
- */
+import control.Listener;
+import view.Ventana;
+
 public class Main {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Listener list = new Listener();
+		Ventana vent = new Ventana(list);
+		list.setVentana(vent);
+		vent.setVisible(true);
 	}
 
 }
