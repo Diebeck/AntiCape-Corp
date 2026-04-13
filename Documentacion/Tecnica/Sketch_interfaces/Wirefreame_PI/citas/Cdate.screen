@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model:Screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://wireframesketcher.com/1.0/model.ecore">
+  <widgets xsi:type="model:Window" id="4" x="152" y="96" width="1153" height="604" text="AntiCape-Corp" measuredWidth="1153" measuredHeight="604" background="#444" alpha="128" minimizeButton="true" maximizeButton="true"/>
+  <widgets xsi:type="model:Panel" id="14" x="560" y="139" width="723" height="545" measuredWidth="723" measuredHeight="545" border="solid-rounded"/>
+  <widgets xsi:type="model:Icon" id="70" x="715" y="632" width="27" height="24" measuredWidth="27" measuredHeight="24" foreground="#fff" icon="home (small)"/>
+  <widgets xsi:type="model:Menu" id="81" x="1049" y="174" width="194" text=" &amp;Crear,&amp;Modificar,&amp;Eliminar" measuredWidth="194" measuredHeight="25" selection="0">
+    <items x="5" y="0" width="47" height="25" text=" &amp;Crear"/>
+    <items link="Mdate.screen" x="52" y="0" width="65" height="25" text="&amp;Modificar"/>
+    <items link="Edate.screen" x="117" y="0" width="62" height="25" text="&amp;Eliminar"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="85" x="614" y="599" width="188" height="43" measuredWidth="188" measuredHeight="43" background="#4c1130" icon="home (medium)" link="../Home's/Home.screen">
+    <font size="20px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:TextField" id="87" x="613" y="171" width="232" text="  Agendar cita  " measuredWidth="232" measuredHeight="31" background="#4c1130">
+    <font size="20px"/>
+  </widgets>
+  <widgets xsi:type="model:DateField" id="89" x="688" y="387" width="528" text="  /  /  " measuredWidth="528" measuredHeight="22"/>
+  <widgets xsi:type="model:Label" id="90" x="609" y="257" width="97" text="Cliente :" measuredWidth="97" measuredHeight="30">
+    <font size="19px"/>
+  </widgets>
+  <widgets xsi:type="model:List" id="91" x="688" y="246" width="192" height="48" text="Cliente 1&#xA;(bg:#4C1130)|Cliente 2&#xA;For List, Table and Tree" measuredWidth="192" measuredHeight="48">
+    <font size="15px"/>
+    <items x="0" y="2" width="192" height="24" text="Cliente 1"/>
+    <items x="0" y="26" width="192" height="24" text="(bg:#4C1130)|Cliente 2"/>
+    <items x="0" y="50" width="192" height="24" text="For List, Table and Tree"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="92" x="619" y="383" width="91" text="Fecha:  " measuredWidth="91" measuredHeight="30">
+    <font size="19px"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="93" x="968" y="321" width="96" text="Duracion :" measuredWidth="96" measuredHeight="30">
+    <font size="19px"/>
+  </widgets>
+  <widgets xsi:type="model:Spinner" id="94" x="1072" y="321" width="148" text="1H" measuredWidth="148" measuredHeight="29">
+    <font size="17px"/>
+  </widgets>
+  <widgets xsi:type="model:Combo" id="97" x="688" y="321" width="240" text="Madrid" measuredWidth="240" measuredHeight="29">
+    <font size="17px"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="98" x="611" y="319" width="93" text="Taller :" measuredWidth="93" measuredHeight="30">
+    <font size="19px"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="99" x="1028" y="599" width="235" height="43" text="Confirmar" measuredWidth="235" measuredHeight="43" background="#4c1130" link="../Home's/CreacionH.screen">
+    <font size="19px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="102" x="614" y="521" width="135" text="Encargado:" measuredWidth="135" measuredHeight="30">
+    <font size="19px"/>
+  </widgets>
+  <widgets xsi:type="model:Combo" id="104" x="720" y="525" width="496" measuredWidth="496" measuredHeight="22">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:ButtonBar" id="105" x="693" y="455" width="528" height="37" text="Principal, Especifico" measuredWidth="528" measuredHeight="37" selection="0">
+    <font/>
+    <items x="0" y="0" width="255" height="37" text="Principal"/>
+    <items x="255" y="0" width="273" height="37" text="Especifico"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="106" x="619" y="459" width="78" text="Traje:" measuredWidth="78" measuredHeight="30">
+    <font size="19px"/>
+  </widgets>
+  <widgets xsi:type="model:Panel" id="122" x="169" y="139" width="372" height="545" measuredWidth="372" measuredHeight="545" background="#741b47" border="solid-rounded"/>
+  <widgets xsi:type="model:Button" id="123" x="223" y="288" width="265" height="61" text="     Citas" measuredWidth="265" measuredHeight="61" link="../cliente/CClient.screen" textAlignment="Left">
+    <font size="19px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="124" x="223" y="472" width="265" height="61" text="    Talleres" measuredWidth="265" measuredHeight="61" link="../taller/Ctaller.screen" textAlignment="Left">
+    <font size="19px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="125" x="223" y="380" width="265" height="61" text="    Clientes " measuredWidth="265" measuredHeight="61" link="../cliente/CClient.screen" textAlignment="Left">
+    <font size="19px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Panel" id="126" x="169" y="139" width="372" height="128" measuredWidth="372" measuredHeight="128" background="#4c1130" foreground="#4c1130"/>
+  <widgets xsi:type="model:Shape" id="127" x="205" y="163" width="72" height="66" measuredWidth="72" measuredHeight="66" border="false">
+    <font/>
+  </widgets>
+  <widgets xsi:type="model:Icon" id="128" x="214" y="172" width="55" height="48" measuredWidth="55" measuredHeight="48" foreground="#4c1130" icon="user (large)"/>
+  <widgets xsi:type="model:Icon" id="129" x="431" y="308" width="27" height="24" measuredWidth="27" measuredHeight="24" icon="calendar2 (small)"/>
+  <widgets xsi:type="model:Icon" id="130" x="431" y="492" width="27" height="24" measuredWidth="27" measuredHeight="24" icon="wrench (small)"/>
+  <widgets xsi:type="model:Icon" id="131" x="431" y="400" width="27" height="24" measuredWidth="27" measuredHeight="24" icon="usergroup (small)"/>
+  <widgets xsi:type="model:Icon" id="132" x="472" y="202" width="41" height="36" measuredWidth="41" measuredHeight="36" foreground="#fff" icon="assets/oi-account-logout (custom)"/>
+  <widgets xsi:type="model:Button" id="133" x="223" y="561" width="265" height="61" text="      Empleados " measuredWidth="265" measuredHeight="61" link="../empleados/Cempleados.screen" textAlignment="Left">
+    <font size="19px" italic="true"/>
+  </widgets>
+  <widgets xsi:type="model:Icon" id="134" x="431" y="581" width="27" height="24" measuredWidth="27" measuredHeight="24" icon="network (small)"/>
+  <widgets xsi:type="model:Label" id="135" x="301" y="169" width="187" text="Nombre empleado " measuredWidth="187" measuredHeight="30" foreground="#fff">
+    <font size="19px"/>
+  </widgets>
+  <widgets xsi:type="model:Label" id="136" x="301" y="200" width="104" text="Categoria" measuredWidth="104" measuredHeight="30" foreground="#fff">
+    <font size="19px"/>
+  </widgets>
+  <widgets xsi:type="model:Button" id="137" x="1008" y="248" width="235" height="43" text="Cliente nuevo" measuredWidth="235" measuredHeight="43" background="#4c1130" link="new_client.screen">
+    <font size="17px" italic="true"/>
+  </widgets>
+  <hRuler/>
+  <vRuler/>
+  <font name="Century Schoolbook" size="12px" italic="true"/>
+</model:Screen>
