@@ -17,13 +17,27 @@ public class Listener implements ActionListener {
 	Panel_login panel_login = new Panel_login(this);
 	Panel_talleres panel_talleres = new Panel_talleres(this);
 	Panel_x panel_x = new Panel_x(this);
-	Panel_maestro panel_maestro = new Panel_maestro(this);
-	Panel_logo panel_logo = new Panel_logo(this);
+	Panel_maestro panel_maestro = new Panel_maestro(this); // Nav para maestro
+	Panel_logo panel_logo = new Panel_logo(this); // Nav logo
+	Panel_nav_general panel_nav_general = new Panel_nav_general(this); // Nav para Aprendiz y Oficial
 	
 	public void setVentana(Ventana vent) {
 		this.vent = vent;
 		vent.cambiarCajaPrimario(panel_login);
 		vent.cambiarCajaNav(panel_logo);
+	}
+	
+	private void iniciarMaestro() {
+		vent.cambiarCajaPrimario(panel_home);
+		vent.cambiarCajaNav(panel_maestro);
+	}
+	private void iniciarOficial() {
+		vent.cambiarCajaPrimario(panel_citas);
+		vent.cambiarCajaNav(panel_nav_general);
+	}
+	private void iniciarAprendiz() {
+		vent.cambiarCajaPrimario(null);
+		vent.cambiarCajaNav(panel_nav_general);
 	}
 	
 	@Override
@@ -32,9 +46,16 @@ public class Listener implements ActionListener {
 		System.out.println("===\nBoton presionado: "+ cmd);
 		
 		if (cmd.equals("Login")) {
-			vent.cambiarCajaPrimario(panel_home);
-			vent.cambiarCajaNav(panel_maestro);
+			// Cambiar tipoCuenta cuando se obtenga el tipo de la cuenta del usuario introducido
+			String tipoCuenta = "maestro";
 			vent.cambiarCajaCuenta(panel_cuenta);
+			if (tipoCuenta.equals("maestro")) {
+				iniciarMaestro();
+			} else if (tipoCuenta.equals("oficial")) {
+				iniciarOficial();
+			} else if (tipoCuenta.equals("aprendiz")){
+				iniciarAprendiz();
+			}
 			
 		} else if (cmd.equals("Logout")) {
 			vent.cambiarCajaPrimario(panel_login);

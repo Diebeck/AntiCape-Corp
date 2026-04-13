@@ -12,6 +12,7 @@ import control.Listener;
 public class Panel_cuenta extends JPanel {
 	
 	JButton btn_home = new JButton("Home");
+	
 	public JButton getBotonHome() {
 		return btn_home;
 	}

@@ -21,15 +21,15 @@ public class Panel_x extends JPanel {
 	JLabel lbl_gestionX = new JLabel("Gestión de "+ estado);
 	
 	// Pone el estado y actualiza los componentes
-		public void setEstado(String estado) {
-			this.estado = estado;
-			lbl_gestionX.setText("Gestión de "+ estado);
-			System.out.println("Cambiado el estado a "+ estado);
-		}
-		// Devuelve el estado
-		public String getEstado() {
-			return estado;
-		}
+	public void setEstado(String estado) {
+		this.estado = estado;
+		lbl_gestionX.setText("Gestión de "+ estado);
+		System.out.println("Cambiado el estado a "+ estado);
+	}
+	// Devuelve el estado
+	public String getEstado() {
+		return estado;
+	}
 	
 	public Panel_x(Listener list) {
 		setLayout(null);
