@@ -1,8 +1,11 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,6 +21,7 @@ public class Panel_cuenta extends JPanel {
 	}
 	
 	public Panel_cuenta(Listener list) {
+		
 		setBackground(new Color(76, 17, 48));
 		setBounds(0, 0, 362, 127);
 		setLayout(null);
@@ -51,4 +55,6 @@ public class Panel_cuenta extends JPanel {
 		add(btn_home);
 		btn_home.addActionListener(list);
 	}
+	
+	
 }
