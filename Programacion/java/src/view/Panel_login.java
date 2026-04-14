@@ -11,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
 import control.Listener;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class Panel_login extends JPanel {
 	
@@ -49,7 +51,17 @@ public class Panel_login extends JPanel {
 		btn_login.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
 		btn_login.setBounds(61, 383, 532, 60);
 		add(btn_login);
+		
+		JLabel lblUsuarioIcono = new JLabel("");
+		lblUsuarioIcono.setIcon(new ImageIcon(Panel_login.class.getResource("/img/usuarioLogin.png")));
+		lblUsuarioIcono.setHorizontalAlignment(SwingConstants.CENTER);
+		lblUsuarioIcono.setBounds(61, 168, 60, 60);
+		add(lblUsuarioIcono);
+		
+		JLabel lblContraIcono = new JLabel("");
+		lblContraIcono.setIcon(new ImageIcon(Panel_login.class.getResource("/img/contraLogin.png")));
+		lblContraIcono.setHorizontalAlignment(SwingConstants.CENTER);
+		lblContraIcono.setBounds(61, 269, 60, 60);
+		add(lblContraIcono);
 	}
-	
-	
 }

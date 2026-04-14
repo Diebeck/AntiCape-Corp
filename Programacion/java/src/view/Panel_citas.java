@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import control.Listener;
+import javax.swing.ImageIcon;
 
 public class Panel_citas extends JPanel {
 	
@@ -37,6 +38,7 @@ public class Panel_citas extends JPanel {
 		add(lbl_yCitas);
 		
 		JButton btn_homeCitas = new JButton("Home");
+		btn_homeCitas.setIcon(new ImageIcon(Panel_citas.class.getResource("/img/home.png")));
 		btn_homeCitas.setForeground(Color.WHITE);
 		btn_homeCitas.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
 		btn_homeCitas.setBackground(new Color(76, 17, 48));

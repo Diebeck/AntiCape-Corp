@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import control.Listener;
+import javax.swing.ImageIcon;
 
 public class Panel_empleados extends JPanel {
 	
@@ -37,6 +38,7 @@ public class Panel_empleados extends JPanel {
 		add(lbl_yEmpleado);
 		
 		JButton btn_homeEmpleado = new JButton("Home");
+		btn_homeEmpleado.setIcon(new ImageIcon(Panel_empleados.class.getResource("/img/home.png")));
 		btn_homeEmpleado.setForeground(Color.WHITE);
 		btn_homeEmpleado.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
 		btn_homeEmpleado.setBackground(new Color(76, 17, 48));
