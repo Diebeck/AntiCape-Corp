@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
 import control.Listener;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class Panel_nav_maestro extends JPanel {
 
@@ -16,11 +19,21 @@ public class Panel_nav_maestro extends JPanel {
 		setLayout(null);
 		setSize(362, 410);
 		
-		JButton btn_citas = new JButton("Citas");
+		ImageIcon calendario = new ImageIcon(Panel_maestro.class.getResource("/img/calendario.png"));
+		
+		JLabel lblImgCalendar = new JLabel("");
+		lblImgCalendar.setIcon(calendario);
+//		lblImgCalendar.setBounds(255, 32, 62, 61);
+//		add(lblImgCalendar);
+		
+		JButton btn_citas = new JButton(calendario);
+		btn_citas.setToolTipText("Calendario");
+		btn_citas.setText("Citas");
 		btn_citas.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		btn_citas.setFont(new Font("Century Schoolbook", Font.PLAIN, 20));
 		btn_citas.setBackground(new Color(255, 255, 255));
 		btn_citas.setBounds(41, 32, 280, 62);
+		//btn_citas.add(lblImgCalendar);
 		add(btn_citas);
 		btn_citas.addActionListener(list);
 		
@@ -46,6 +59,8 @@ public class Panel_nav_maestro extends JPanel {
 		btn_empleados.setBackground(Color.WHITE);
 		btn_empleados.setBounds(41, 314, 280, 62);
 		add(btn_empleados);
+		
+		
 		btn_empleados.addActionListener(list);
 	}
 }

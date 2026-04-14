@@ -9,9 +9,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import control.Listener;
+
+import javax.swing.ImageIcon;
+
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
+
 
 public class Panel_talleres extends JPanel {
 
@@ -41,6 +45,7 @@ public class Panel_talleres extends JPanel {
 		add(lbl_yTaller);
 		
 		JButton btn_homeTaller = new JButton("Home");
+		btn_homeTaller.setIcon(new ImageIcon(Panel_talleres.class.getResource("/img/home.png")));
 		btn_homeTaller.setForeground(Color.WHITE);
 		btn_homeTaller.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
 		btn_homeTaller.setBackground(new Color(76, 17, 48));

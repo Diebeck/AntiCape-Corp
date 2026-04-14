@@ -48,6 +48,7 @@ public class Panel_cuenta extends JPanel {
 		btn_logout.setForeground(new Color(255, 255, 255));
 		btn_logout.setBorder(null);
 		btn_logout.setBounds(320, 87, 32, 30);
+		btn_logout.setFocusPainted(false);
 		add(btn_logout);
 		btn_logout.addActionListener(list);
 		btn_home.setIcon(new ImageIcon(Panel_cuenta.class.getResource("/img/home.png")));
@@ -57,6 +58,7 @@ public class Panel_cuenta extends JPanel {
 		btn_home.setBorder(null);
 		btn_home.setBackground(new Color(76, 17, 48));
 		btn_home.setBounds(278, 87, 32, 30);
+		btn_home.setFocusPainted(false);
 		add(btn_home);
 		
 		JLabel lblImagen = new JLabel("");
@@ -67,7 +69,7 @@ public class Panel_cuenta extends JPanel {
 		int altoDeseado = 100;
 		Image imagenEscalada = imagenPerfil.getScaledInstance(anchoDeseado, altoDeseado, Image.SCALE_SMOOTH);
 		lblImagen.setIcon(new ImageIcon(imagenEscalada));
-		lblImagen.setBounds(10, 10, 89, 89);
+		lblImagen.setBounds(10, 0, 89, 127);
 		add(lblImagen);
 		
 		

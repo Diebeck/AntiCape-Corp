@@ -32,10 +32,10 @@ public class Panel_logo extends JPanel {
 	
 	protected void paintComponent(Graphics g) {
 		
-		
+		setBackground(new Color(240, 240, 240));
 		g.drawImage(ii.getImage(), 30, 0, 300, 300, null);
 		
-		//setBackground(new Color(240, 240, 240));
+		
 		this.setOpaque(false);
 		
 		super.paintChildren(g);
