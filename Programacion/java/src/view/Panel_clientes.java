@@ -3,17 +3,25 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import control.Listener;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JRadioButton;
 
 public class Panel_clientes extends JPanel {
 	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
 	JLabel lbl_yClientes = new JLabel(modo +" un cliente");
+	private JTextField tfNombre;
+	private JTextField tfColores;
+	private JTextField tfSuperpoder;
+	private JTextField tfNombreT;
 	
 	// Pone el modo y actualiza los componentes
 	public void setModo(String modo) {
@@ -50,6 +58,90 @@ public class Panel_clientes extends JPanel {
 		btn_cCliente.setBackground(new Color(76, 17, 48));
 		btn_cCliente.setBounds(454, 455, 221, 44);
 		add(btn_cCliente);
+		
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblNombre.setBounds(38, 149, 87, 20);
+		add(lblNombre);
+		
+		JLabel lbl_cliente = new JLabel("Datos del Cliente");
+		lbl_cliente.setForeground(new Color(0, 0, 0));
+		lbl_cliente.setFont(new Font("Century Schoolbook", Font.ITALIC, 24));
+		lbl_cliente.setBackground(new Color(76, 17, 48));
+		lbl_cliente.setBounds(38, 80, 437, 52);
+		add(lbl_cliente);
+		
+		tfNombre = new JTextField();
+		tfNombre.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+		tfNombre.setBounds(168, 148, 507, 25);
+		add(tfNombre);
+		tfNombre.setColumns(10);
+		
+		JLabel lblColores = new JLabel("Colores:");
+		lblColores.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblColores.setBounds(38, 195, 87, 20);
+		add(lblColores);
+		
+		tfColores = new JTextField();
+		tfColores.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+		tfColores.setColumns(10);
+		tfColores.setBounds(168, 194, 507, 25);
+		add(tfColores);
+		
+		JLabel lblSuperpoder = new JLabel("Superpoder:");
+		lblSuperpoder.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblSuperpoder.setBounds(38, 240, 120, 20);
+		add(lblSuperpoder);
+		
+		tfSuperpoder = new JTextField();
+		tfSuperpoder.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+		tfSuperpoder.setColumns(10);
+		tfSuperpoder.setBounds(168, 239, 507, 25);
+		add(tfSuperpoder);
+		
+		JLabel lbl_traje = new JLabel("Datos del Traje");
+		lbl_traje.setForeground(Color.BLACK);
+		lbl_traje.setFont(new Font("Century Schoolbook", Font.ITALIC, 24));
+		lbl_traje.setBackground(new Color(76, 17, 48));
+		lbl_traje.setBounds(38, 275, 437, 52);
+		add(lbl_traje);
+		
+		tfNombreT = new JTextField();
+		tfNombreT.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+		tfNombreT.setColumns(10);
+		tfNombreT.setBounds(168, 337, 507, 25);
+		add(tfNombreT);
+		
+		JLabel lblNombreT = new JLabel("Nombre:");
+		lblNombreT.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblNombreT.setBounds(38, 338, 87, 20);
+		add(lblNombreT);
+		
+		JLabel lblEstado = new JLabel("Estado:");
+		lblEstado.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblEstado.setBounds(38, 392, 87, 20);
+		add(lblEstado);
+		
+		ButtonGroup bg = new ButtonGroup();
+		
+		JRadioButton rdbtnDiseno = new JRadioButton("Diseño");
+		rdbtnDiseno.setSelected(true);
+		rdbtnDiseno.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		rdbtnDiseno.setBounds(168, 392, 102, 20);
+		add(rdbtnDiseno);
+		bg.add(rdbtnDiseno);
+		
+		JRadioButton rdbtnCostura = new JRadioButton("Costura");
+		rdbtnCostura.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		rdbtnCostura.setBounds(339, 392, 102, 20);
+		add(rdbtnCostura);
+		bg.add(rdbtnCostura);
+		
+		JRadioButton rdbtnTaller = new JRadioButton("Taller");
+		rdbtnTaller.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		rdbtnTaller.setBounds(528, 392, 102, 20);
+		add(rdbtnTaller);
+		bg.add(rdbtnTaller);
 		btn_cCliente.addActionListener(list);
 	}
 }
