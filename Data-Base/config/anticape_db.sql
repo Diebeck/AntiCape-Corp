@@ -100,14 +100,14 @@ INSERT INTO Traje(id_traje, nombre, estado) VALUES(019, 'principal', 'taller');
 INSERT INTO Traje(id_traje, nombre, estado) VALUES(020, 'específico', 'diseño');
 
 
-INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (001, 'Paris', 'diseño');
-INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (002, 'Nueva York', 'diseño');
-INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (003, 'Madrid', 'pruebas');
-INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (004, 'Praga', 'pruebas');
-INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (005, 'Londres', 'pruebas');
-INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (006, 'Milan', 'costura');
-INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (007, 'Tokio', 'costura');
-INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (008, 'Barcelona', 'costura');
+INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (001, 'diseño', 'Paris');
+INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (002, 'diseño', 'Nueva York');
+INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (003, 'pruebas', 'Madrid');
+INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (004, 'pruebas', 'Praga');
+INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (005, 'pruebas', 'Londres');
+INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (006, 'costura', 'Milan');
+INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (007, 'costura', 'Tokio');
+INSERT INTO Taller(id_taller, tipo_sala, nombre_sala) VALUES (008, 'costura', 'Barcelona');
 
 INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (001, 'Edna', 'Marie Mode', 'E.Moda', 'Maestro', 'admin1974');
 INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (002, 'Valerio', 'Montclair', 'V.Montclair', 'Oficial', 'admin1978');
