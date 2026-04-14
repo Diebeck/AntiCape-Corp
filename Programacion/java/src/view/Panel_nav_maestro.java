@@ -12,9 +12,9 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
-public class Panel_maestro extends JPanel {
+public class Panel_nav_maestro extends JPanel {
 
-	public Panel_maestro(Listener list) {
+	public Panel_nav_maestro(Listener list) {
 		setBackground(new Color(116, 27, 71));
 		setLayout(null);
 		setSize(362, 410);

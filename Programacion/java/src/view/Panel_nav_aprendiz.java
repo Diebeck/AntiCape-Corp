@@ -10,15 +10,11 @@ import javax.swing.border.LineBorder;
 import control.Listener;
 import javax.swing.JLabel;
 
-public class Panel_nav_general extends JPanel {
+public class Panel_nav_aprendiz extends JPanel {
 
-	public Panel_nav_general(Listener list) {
+	public Panel_nav_aprendiz(Listener list) {
 		setBackground(new Color(116, 27, 71));
 		setLayout(null);
 		setSize(362, 410);
-		
-		JLabel lblNewLabel = new JLabel("General");
-		lblNewLabel.setBounds(140, 172, 44, 12);
-		add(lblNewLabel);
 	}
 }
