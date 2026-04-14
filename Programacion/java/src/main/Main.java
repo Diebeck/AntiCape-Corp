@@ -9,6 +9,7 @@ public class Main {
 		Listener list = new Listener();
 		Ventana vent = new Ventana(list);
 		list.setVentana(vent);
+		
 		vent.setVisible(true);
 	}
 

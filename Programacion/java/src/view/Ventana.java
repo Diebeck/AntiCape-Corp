@@ -60,6 +60,7 @@ public class Ventana extends JFrame {
 				
 		caja_cuenta.setBorder(null);
 		caja_cuenta.setBounds(5, 5, 362, 127);
+		
 
 	}
 }

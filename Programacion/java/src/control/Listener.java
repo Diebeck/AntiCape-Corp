@@ -29,6 +29,7 @@ public class Listener implements ActionListener {
 		this.vent = vent;
 		vent.cambiarCajaPrimario(panel_login);
 		vent.cambiarCajaNav(panel_logo);
+		
 	}
 	
 	private void iniciarMaestro() {
@@ -47,6 +48,7 @@ public class Listener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
+		
 		System.out.println("===\nBoton presionado: "+ cmd);
 		
 		if (cmd.equals("Login")) {
@@ -104,6 +106,13 @@ public class Listener implements ActionListener {
 			
 		} else if (cmd.equals("Confirmar")) {
 			vent.cambiarCajaPrimario(panel_x);
+			
+		}
+		
+		else if (e.getSource().equals(panel_cuenta.getBtn_logout())) { //Para que funcione el botón Logout con la imagen
+			vent.cambiarCajaPrimario(panel_login);
+			vent.cambiarCajaNav(panel_logo);
+			vent.cambiarCajaCuenta(null);
 			
 		}
 	}
