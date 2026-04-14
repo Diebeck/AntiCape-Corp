@@ -19,22 +19,31 @@ public class Ventana extends JFrame {
 	
 	// Constructor
 	public Ventana(Listener list) {
+		setResizable(false);
 		this.list = list;
 		iniciar();
 	}
 
-	// Funciones para cambiar lo que se ve en cada panel
+	
+	/** Cambia el panel del apartado primario (grande a la derecha)
+	 * @param panel
+	 */
 	public void cambiarCajaPrimario(JPanel panel) {
 		caja_primario.setViewportView(panel);
 	}
+	/** Cambia el panel del apartado de navegacion (pequeño abajo a la izquierda)
+	 * @param panel
+	 */
 	public void cambiarCajaNav(JPanel panel) {
 		caja_nav.setViewportView(panel);
 	}
+	/** Cambia el panel del apartado de cuenta (pequeño arriba a la izquierda)
+	 * @param panel
+	 */
 	public void cambiarCajaCuenta(JPanel panel) {
 		caja_cuenta.setViewportView(panel);
 	}
 	
-	// El metodo grande principal
 	private void iniciar() {
 		setSize(1153, 604);
 		

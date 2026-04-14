@@ -7,9 +7,11 @@ import view.*;
 
 public class Listener implements ActionListener {
 
+
 	private Ventana vent;
-	
-	// Cambiar tipoCuenta cuando se obtenga el tipo de la cuenta del usuario introducido
+	/** 
+	 * El tipo de la cuenta de la sesion. (maestro / oficial / aprendiz)
+	 */
 	private String tipoCuenta = "maestro";
 	
 	Panel_citas panel_citas = new Panel_citas(this);
@@ -25,6 +27,9 @@ public class Listener implements ActionListener {
 	Panel_nav_aprendiz panel_nav_aprendiz = new Panel_nav_aprendiz(this);
 	Panel_nav_oficial panel_nav_oficial = new Panel_nav_oficial(this);
 	
+	/** Asigna la referencia a la ventana principal
+	 * @param vent
+	 */
 	public void setVentana(Ventana vent) {
 		this.vent = vent;
 		vent.cambiarCajaPrimario(panel_login);
@@ -61,7 +66,7 @@ public class Listener implements ActionListener {
 				iniciarAprendiz();
 			}
 			
-		} else if (cmd.equals("Logout")) {
+		} else if (e.getSource().equals(panel_cuenta.getBtn_logout())) { //Para que funcione el botón Logout con la imagen
 			vent.cambiarCajaPrimario(panel_login);
 			vent.cambiarCajaNav(panel_logo);
 			vent.cambiarCajaCuenta(null);
@@ -106,13 +111,6 @@ public class Listener implements ActionListener {
 			
 		} else if (cmd.equals("Confirmar")) {
 			vent.cambiarCajaPrimario(panel_x);
-			
-		}
-		
-		else if (e.getSource().equals(panel_cuenta.getBtn_logout())) { //Para que funcione el botón Logout con la imagen
-			vent.cambiarCajaPrimario(panel_login);
-			vent.cambiarCajaNav(panel_logo);
-			vent.cambiarCajaCuenta(null);
 			
 		}
 	}

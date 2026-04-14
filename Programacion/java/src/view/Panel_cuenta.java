@@ -59,8 +59,6 @@ public class Panel_cuenta extends JPanel {
 		btn_home.setBounds(278, 87, 32, 30);
 		add(btn_home);
 		
-		
-		
 		JLabel lblImagen = new JLabel("");
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		ImageIcon iconoPerfil = new ImageIcon(Panel_cuenta.class.getResource("/img/cuenta.png"));
