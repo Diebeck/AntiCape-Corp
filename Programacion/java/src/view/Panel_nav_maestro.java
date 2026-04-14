@@ -19,7 +19,7 @@ public class Panel_nav_maestro extends JPanel {
 		setLayout(null);
 		setSize(362, 410);
 		
-		ImageIcon calendario = new ImageIcon(Panel_maestro.class.getResource("/img/calendario.png"));
+		ImageIcon calendario = new ImageIcon(Panel_nav_maestro.class.getResource("/img/calendario.png"));
 		
 		JLabel lblImgCalendar = new JLabel("");
 		lblImgCalendar.setIcon(calendario);
