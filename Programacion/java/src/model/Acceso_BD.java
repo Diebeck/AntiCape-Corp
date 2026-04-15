@@ -13,11 +13,9 @@ public class Acceso_BD {
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String url = "jdbc:mysql://localhost/AntiCape_db";
 	private Connection instance = null;
-	private String user = "root";
-	private String password = "1941";
-	private String usuario;
-	private String contraseña;
-	
+	private String user_db = "root";
+	private String password_db= "Rokokoso0812";
+
 	public Acceso_BD () {
 		getConexion();
 	}
@@ -25,7 +23,7 @@ public class Acceso_BD {
 	public Connection getConexion() {
 		try {
 			Class.forName(driver);
-			instance = DriverManager.getConnection(url, user, password);
+			instance = DriverManager.getConnection(url, user_db, password_db);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -40,7 +38,7 @@ public class Acceso_BD {
 		}
 	}
 	
-	public boolean consultaUser() {
+	public boolean consultaUser(String usuario) {
 		try {
 			System.out.println("Llamado metodo consulta");
 			String query = "SELECT * FROM empleado";
@@ -63,7 +61,7 @@ public class Acceso_BD {
 		return false;
 	}
 	
-	public boolean consultaContra() {
+	public boolean consultaContra(String contraseña) {
 		try {
 			System.out.println("Llamado metodo consulta");
 			String query = "SELECT * FROM empleado";
@@ -86,19 +84,46 @@ public class Acceso_BD {
 		return false;
 	}
 	
-	public String categoria(String usuario, String contraseña) {
-		try {
-			System.out.println("llamado a metodo categoria");
-			String query = "SELECT * FROM empleado WHERE apodo = " + usuario + " and contraseña =  " + contraseña;
-			Statement stmt = instance.createStatement();
-			ResultSet resultado = stmt.executeQuery(query);
-			while(resultado.next()) {
-				return resultado.getString(5);
-			}
-		} catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+	/**
+	 * Metodo publico que devuelve un objeto de tipo empleado 
+	 * en base a su coincidencia de usuario y contraseña
+	 * 
+	 * @param usuario apodo del empleado en la base de datos 
+	 * @param contraseña contraseña del empleado en la base de datos 
+	 * 
+	 * @return objeto de tipo empleado 
+	 */
+	public Empleado login(String usuario, String contraseña) {
+		System.out.println("metodo login");
+	    int id = 0;
+	    String nombre = "";
+	    String apellidos = "";
+	    String categoria = "";
+	    
+	    try {
+	        String query = "SELECT * FROM Empleado WHERE apodo = '" + usuario + "' AND contraseña = '" + contraseña + "'";
+	        Statement stmt = instance.createStatement();
+	        ResultSet resultado = stmt.executeQuery(query);
+	        
+	        if (resultado.next()) {  
+	            id = resultado.getInt("id_empleado");
+	            nombre = resultado.getString("nombre");
+	            apellidos = resultado.getString
+	            		("apellidos");
+	            categoria = resultado.getString("categoria");
+	            
+	            Empleado sesionActiva = new Empleado(id, nombre, apellidos, usuario, categoria, contraseña);
+	            
+	            resultado.close();
+	            stmt.close();
+	            return sesionActiva;
+	        }
+	        
+	        resultado.close();
+	        stmt.close();
+	    } catch(SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
 }
-
