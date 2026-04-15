@@ -19,18 +19,10 @@ public class Panel_nav_maestro extends JPanel {
 		setLayout(null);
 		setSize(362, 410);
 		
-		ImageIcon calendario = new ImageIcon(Panel_nav_maestro.class.getResource("/img/calendario.png"));
-		
-		JLabel lblImgCalendar = new JLabel("");
-		lblImgCalendar.setIcon(calendario);
-//		lblImgCalendar.setBounds(255, 32, 62, 61);
-//		add(lblImgCalendar);
-		
-		JButton btn_citas = new JButton(calendario);
-		btn_citas.setToolTipText("Calendario");
-		btn_citas.setText("Citas");
-		btn_citas.setBorder(new LineBorder(new Color(0, 0, 0), 3));
+		JButton btn_citas = new JButton("Citas");
+		btn_citas.setIcon(Ventana.escalarImagen("/img/calendario.png", 20, 20));
 		btn_citas.setFont(new Font("Century Schoolbook", Font.PLAIN, 20));
+		btn_citas.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		btn_citas.setBackground(new Color(255, 255, 255));
 		btn_citas.setBounds(41, 32, 280, 62);
 		//btn_citas.add(lblImgCalendar);
@@ -38,6 +30,7 @@ public class Panel_nav_maestro extends JPanel {
 		btn_citas.addActionListener(list);
 		
 		JButton btn_clientes = new JButton("Clientes");
+		btn_clientes.setIcon(Ventana.escalarImagen("/img/clientes.png", 20, 20));
 		btn_clientes.setFont(new Font("Century Schoolbook", Font.PLAIN, 20));
 		btn_clientes.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		btn_clientes.setBackground(Color.WHITE);
@@ -46,6 +39,7 @@ public class Panel_nav_maestro extends JPanel {
 		btn_clientes.addActionListener(list);
 		
 		JButton btn_talleres = new JButton("Talleres");
+		btn_talleres.setIcon(Ventana.escalarImagen("/img/talleres.png", 20, 20));
 		btn_talleres.setFont(new Font("Century Schoolbook", Font.PLAIN, 20));
 		btn_talleres.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		btn_talleres.setBackground(Color.WHITE);
@@ -54,6 +48,7 @@ public class Panel_nav_maestro extends JPanel {
 		btn_talleres.addActionListener(list);
 		
 		JButton btn_empleados = new JButton("Empleados");
+		btn_empleados.setIcon(Ventana.escalarImagen("/img/empleados.png", 20, 20));
 		btn_empleados.setFont(new Font("Century Schoolbook", Font.PLAIN, 20));
 		btn_empleados.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		btn_empleados.setBackground(Color.WHITE);
