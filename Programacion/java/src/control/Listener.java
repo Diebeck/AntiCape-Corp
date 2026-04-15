@@ -2,8 +2,12 @@ package control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+import javax.swing.table.DefaultTableModel;
 
 import model.Acceso_BD;
+import model.Cita;
 import model.Empleado;
 import view.*;
 
@@ -76,8 +80,26 @@ public class Listener implements ActionListener {
 			vent.cambiarCajaCuenta(null);
 			
 		} else if (cmd.equals("Citas")) {
+			ArrayList <Cita> citas = modelo.mostradoCitas();
 			vent.cambiarCajaPrimario(panel_x);
 			panel_x.setEstado("citas");
+	
+			DefaultTableModel modeloTabla = (DefaultTableModel) panel_x.getTable().getModel();
+
+			modeloTabla.setRowCount(0);
+
+			for (Cita n : citas) {
+			    Object[] fila = {
+			        n.getId_cita(),
+			        n.getFecha(),
+			        n.getDuracion(),
+			        n.getId_cliente(),
+			        n.getId_encargado(),
+			        n.getId_taller(),
+			        n.getId_traje()
+			    };
+			    modeloTabla.addRow(fila);
+			}
 			
 		} else if (cmd.equals("Clientes")) {
 			vent.cambiarCajaPrimario(panel_x);

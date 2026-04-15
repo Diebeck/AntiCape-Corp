@@ -42,7 +42,7 @@ CREATE TABLE Empleado (
 CREATE TABLE Citas (
   id_cita integer PRIMARY KEY,
   fecha date,
-  duracion timestamp,
+  duracion varchar(255),
   id_cliente integer,
   id_encargado integer,
   id_taller integer,
@@ -117,3 +117,20 @@ INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contrase�
 INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (004, 'Luca', 'Ferrán Vidal', 'L.F.Vidal', 'Aprendiz', 'admin2001');
 INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (005, 'Noa', 'Beltrán Cruz', 'N.B.Cruz', 'Aprendiz', 'admin2003');
 INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (006, 'Thiago', 'Rivas Soler', 'T.R.Soler', 'Aprendiz', 'admin2002');
+
+
+INSERT INTO Citas (id_cita, fecha, duracion, id_cliente, id_encargado, id_taller, id_traje) 
+VALUES (1, '2024-05-10', '2024-05-10 01:30:00', 001, 001, 001, 001);
+
+INSERT INTO Citas (id_cita, fecha, duracion, id_cliente, id_encargado, id_taller, id_traje) 
+VALUES (2, '2024-05-11', '2024-05-11 00:45:00', 002, 002, 003, 002);
+
+INSERT INTO Citas (id_cita, fecha, duracion, id_cliente, id_encargado, id_taller, id_traje) 
+VALUES (3, '2024-05-12', '2024-05-12 02:00:00', 003, 001, 006, 003);
+
+INSERT INTO Citas (id_cita, fecha, duracion, id_cliente, id_encargado, id_taller, id_traje) 
+VALUES (4, '2024-05-13', '2024-05-13 01:00:00', 004, 003, 002, 004);
+
+INSERT INTO Citas (id_cita, fecha, duracion, id_cliente, id_encargado, id_taller, id_traje) 
+VALUES (5, '2024-05-14', '2024-05-14 03:30:00', 008, 002, 001, 008);
+

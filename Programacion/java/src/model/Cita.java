@@ -12,7 +12,7 @@ package model;
 public class Cita {
 	private int id_cita;
 	private String fecha;
-	private int duracion;
+	private String duracion;
 	private int id_cliente;
 	private int id_encargado;
 	private int id_traje;
@@ -30,7 +30,7 @@ public class Cita {
 	 * @param id_tj identificador del traje a trabajar en la cita
 	 * @param id_t identaficar del taller de trabajo
 	 */
-	public Cita(int id, String fecha, int duracion, int id_c, int id_e, int id_tj, int id_t) {
+	public Cita(int id, String fecha, String duracion, int id_c, int id_e, int id_t, int id_tj) {
 		this.id_cita = id;
 		this.fecha = fecha;
 		this.duracion = duracion;
@@ -51,7 +51,7 @@ public class Cita {
 		return fecha;
 	}
 
-	public int getDuracion() {
+	public String getDuracion() {
 		return duracion;
 	}
 
