@@ -13,16 +13,12 @@ public class Acceso_BD {
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String url = "jdbc:mysql://localhost/AntiCape_db";
 	private Connection instance = null;
-	private String user = "";
-	private String password = "";
+	private String user = "root";
+	private String password = "1941";
 	private String usuario;
 	private String contraseña;
 	
-	public Acceso_BD (String usuario, String contraseña, String user, String password) {
-		this.usuario = usuario;
-		this.contraseña = contraseña;
-		this.password = password;
-		this.user = user;
+	public Acceso_BD () {
 		getConexion();
 	}
 	
@@ -89,4 +85,20 @@ public class Acceso_BD {
 		}
 		return false;
 	}
+	
+	public String categoria(String usuario, String contraseña) {
+		try {
+			System.out.println("llamado a metodo categoria");
+			String query = "SELECT * FROM empleado WHERE apodo = " + usuario + " and contraseña =  " + contraseña;
+			Statement stmt = instance.createStatement();
+			ResultSet resultado = stmt.executeQuery(query);
+			while(resultado.next()) {
+				return resultado.getString(5);
+			}
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
+

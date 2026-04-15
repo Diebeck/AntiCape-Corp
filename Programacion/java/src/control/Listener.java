@@ -3,16 +3,17 @@ package control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import model.Acceso_BD;
 import view.*;
 
 public class Listener implements ActionListener {
-
-
-	private Ventana vent;
+	
 	/** 
 	 * El tipo de la cuenta de la sesion. (maestro / oficial / aprendiz)
 	 */
-	private String tipoCuenta = "maestro";
+	String tipoCuenta = "maestro";
+	
+	private Ventana vent;
 	
 	Panel_citas panel_citas = new Panel_citas(this);
 	Panel_clientes panel_clientes = new Panel_clientes(this);
@@ -26,6 +27,8 @@ public class Listener implements ActionListener {
 	Panel_logo panel_logo = new Panel_logo(this); // Nav logo
 	Panel_nav_aprendiz panel_nav_aprendiz = new Panel_nav_aprendiz(this);
 	Panel_nav_oficial panel_nav_oficial = new Panel_nav_oficial(this);
+	
+	
 	
 	/** Asigna la referencia a la ventana principal
 	 * @param vent
