@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 
 public class Panel_empleados extends JPanel {
 	
+	JButton btn_homeEmpleado = new JButton("");
+	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
 	JLabel lbl_yEmpleado = new JLabel(modo +" un empleado");
@@ -46,7 +48,7 @@ public class Panel_empleados extends JPanel {
 		lbl_yEmpleado.setBounds(38, 25, 437, 52);
 		add(lbl_yEmpleado);
 		
-		JButton btn_homeEmpleado = new JButton("Home");
+		
 		btn_homeEmpleado.setIcon(new ImageIcon(Panel_empleados.class.getResource("/img/home.png")));
 		btn_homeEmpleado.setForeground(Color.WHITE);
 		btn_homeEmpleado.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
@@ -118,4 +120,13 @@ public class Panel_empleados extends JPanel {
 		add(tfContrasena);
 		btn_cEmpleado.addActionListener(list);
 	}
+
+	/**
+	 * @return the btn_homeEmpleado
+	 */
+	public JButton getBtn_homeEmpleado() {
+		return btn_homeEmpleado;
+	}
+	
+	
 }

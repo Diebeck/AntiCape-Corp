@@ -15,13 +15,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 import javax.swing.border.LineBorder;
+import javax.swing.JTextField;
 
 
 public class Panel_talleres extends JPanel {
+	
+	JButton btn_homeTaller = new JButton("");
 
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
 	JLabel lbl_yTaller = new JLabel(modo +" un taller");
+	private JTextField txtNombre;
 	
 	// Pone el modo y actualiza los componentes
 	public void setModo(String modo) {
@@ -44,7 +48,7 @@ public class Panel_talleres extends JPanel {
 		lbl_yTaller.setBounds(38, 25, 437, 52);
 		add(lbl_yTaller);
 		
-		JButton btn_homeTaller = new JButton("Home");
+		
 		btn_homeTaller.setIcon(new ImageIcon(Panel_talleres.class.getResource("/img/home.png")));
 		btn_homeTaller.setForeground(Color.WHITE);
 		btn_homeTaller.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
@@ -97,10 +101,17 @@ public class Panel_talleres extends JPanel {
 		lblNombre.setBounds(38, 219, 180, 20);
 		add(lblNombre);
 		
-		JComboBox cbNombre = new JComboBox();
-		cbNombre.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		cbNombre.setBounds(223, 219, 410, 25);
-		add(cbNombre);
+		txtNombre = new JTextField();
+		txtNombre.setBounds(223, 220, 410, 25);
+		add(txtNombre);
+		txtNombre.setColumns(10);
 		btn_cTaller.addActionListener(list);
+	}
+
+	/**
+	 * @return the btn_homeTaller
+	 */
+	public JButton getBtn_homeTaller() {
+		return btn_homeTaller;
 	}
 }

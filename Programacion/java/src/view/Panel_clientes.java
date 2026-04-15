@@ -19,6 +19,8 @@ import javax.swing.JRadioButton;
 
 public class Panel_clientes extends JPanel {
 	
+	JButton btn_homeClientes = new JButton("");
+	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
 	JLabel lbl_yClientes = new JLabel(modo +" un cliente");
@@ -48,7 +50,7 @@ public class Panel_clientes extends JPanel {
 		lbl_yClientes.setBounds(38, 25, 437, 52);
 		add(lbl_yClientes);
 		
-		JButton btn_homeClientes = new JButton("Home");
+		
 		btn_homeClientes.setIcon(new ImageIcon(Panel_clientes.class.getResource("/img/home.png")));
 		btn_homeClientes.setForeground(Color.WHITE);
 		btn_homeClientes.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
@@ -149,4 +151,13 @@ public class Panel_clientes extends JPanel {
 		bg.add(rdbtnTaller);
 		btn_cCliente.addActionListener(list);
 	}
+
+	/**
+	 * @return the btn_homeClientes
+	 */
+	public JButton getBtn_homeClientes() {
+		return btn_homeClientes;
+	}
+	
+	
 }
