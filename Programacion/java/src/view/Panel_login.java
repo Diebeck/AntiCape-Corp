@@ -14,18 +14,24 @@ import control.Listener;
 import javax.swing.SwingConstants;
 
 public class Panel_login extends JPanel {
+	private JLabel lbl_login1; 
+	private JTextField textField_usuario;
+	private JPasswordField passwordField_contrasena;
+	private JButton btn_login;
+	private JLabel lblUsuarioIcono;
+	private JLabel lblContraIcono;
 	
 	public Panel_login(Listener list) {
 		setLayout(null);
 		setSize(723, 545);
 		
-		JLabel lbl_login1 = new JLabel("Employee Login");
+		lbl_login1 = new JLabel("Employee Login");
 		lbl_login1.setForeground(new Color(116, 27, 71));
 		lbl_login1.setFont(new Font("Century Schoolbook", Font.ITALIC, 60));
 		lbl_login1.setBounds(61, 46, 579, 88);
 		add(lbl_login1);
 		
-		JTextField textField_usuario;
+		
 		textField_usuario = new JTextField();
 		textField_usuario.setFont(new Font("Century Schoolbook", Font.PLAIN, 30));
 		textField_usuario.setBorder(new LineBorder(new Color(171, 173, 179), 3, true));
@@ -34,7 +40,6 @@ public class Panel_login extends JPanel {
 		add(textField_usuario);
 		textField_usuario.setColumns(10);
 		
-		JPasswordField passwordField_contrasena;
 		passwordField_contrasena = new JPasswordField();
 		passwordField_contrasena.setFont(new Font("Century Schoolbook", Font.PLAIN, 30));
 		passwordField_contrasena.setBorder(new LineBorder(new Color(171, 173, 179), 3, true));
@@ -43,7 +48,7 @@ public class Panel_login extends JPanel {
 		passwordField_contrasena.setBounds(161, 269, 432, 60);
 		add(passwordField_contrasena);
 		
-		JButton btn_login = new JButton("Login");
+		btn_login = new JButton("Login");
 		btn_login.addActionListener(list);
 		btn_login.setForeground(new Color(255, 255, 255));
 		btn_login.setBackground(new Color(76, 17, 48));
@@ -51,14 +56,14 @@ public class Panel_login extends JPanel {
 		btn_login.setBounds(61, 403, 532, 60);
 		add(btn_login);
 		
-		JLabel lblUsuarioIcono = new JLabel("");
-		lblUsuarioIcono.setIcon(Ventana.escalarImagen("/img/usuarioLogin.png", 60, 60));
+		lblUsuarioIcono = new JLabel("");
+		lblUsuarioIcono.setIcon(new ImageIcon(Panel_login.class.getResource("/img/usuarioLogin.png")));
 		lblUsuarioIcono.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuarioIcono.setBounds(61, 168, 60, 60);
 		add(lblUsuarioIcono);
 		
-		JLabel lblContraIcono = new JLabel("");
-		lblContraIcono.setIcon(Ventana.escalarImagen("/img/contraLogin.png", 60, 60));
+		lblContraIcono = new JLabel("");
+		lblContraIcono.setIcon(new ImageIcon(Panel_login.class.getResource("/img/contraLogin.png")));
 		lblContraIcono.setHorizontalAlignment(SwingConstants.CENTER);
 		lblContraIcono.setBounds(61, 269, 60, 60);
 		add(lblContraIcono);
@@ -69,4 +74,31 @@ public class Panel_login extends JPanel {
 		lblErrorInicio.setBounds(161, 351, 432, 27);
 		add(lblErrorInicio);
 	}
+	
+	public JLabel getLbl_login1() {
+		return lbl_login1;
+	}
+
+	public JTextField getTextField_usuario() {
+		return textField_usuario;
+	}
+
+	public String getPasswordField_contrasena() {
+		char [] con = passwordField_contrasena.getPassword();
+		String contraseña = new String(con);
+		return contraseña;
+	}
+
+	public JButton getBtn_login() {
+		return btn_login;
+	}
+
+	public JLabel getLblUsuarioIcono() {
+		return lblUsuarioIcono;
+	}
+
+	public JLabel getLblContraIcono() {
+		return lblContraIcono;
+	}
+
 }

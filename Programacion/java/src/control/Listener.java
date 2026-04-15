@@ -4,14 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.Acceso_BD;
+import model.Empleado;
 import view.*;
 
 public class Listener implements ActionListener {
 	
-	/** 
-	 * El tipo de la cuenta de la sesion. (maestro / oficial / aprendiz)
-	 */
-	String tipoCuenta = "aprendiz";
+
+	private Acceso_BD modelo = new Acceso_BD();
+	private Empleado sesion;
 	
 	private Ventana vent;
 	
@@ -27,8 +27,7 @@ public class Listener implements ActionListener {
 	Panel_logo panel_logo = new Panel_logo(this); // Nav logo
 	Panel_nav_aprendiz panel_nav_aprendiz = new Panel_nav_aprendiz(this);
 	Panel_nav_oficial panel_nav_oficial = new Panel_nav_oficial(this);
-	
-	
+	Panel_prim_aprendiz panel_prim_aprendiz = new Panel_prim_aprendiz(this);
 	
 	/** Asigna la referencia a la ventana principal
 	 * @param vent
@@ -37,7 +36,6 @@ public class Listener implements ActionListener {
 		this.vent = vent;
 		vent.cambiarCajaPrimario(panel_login);
 		vent.cambiarCajaNav(panel_logo);
-		
 	}
 	
 	private void iniciarMaestro() {
@@ -49,8 +47,9 @@ public class Listener implements ActionListener {
 		vent.cambiarCajaNav(panel_nav_oficial);
 	}
 	private void iniciarAprendiz() {
-		vent.cambiarCajaPrimario(null);
+		vent.cambiarCajaPrimario(panel_prim_aprendiz);
 		vent.cambiarCajaNav(panel_nav_aprendiz);
+		panel_cuenta.esconderHome();
 	}
 	
 	@Override
@@ -60,12 +59,15 @@ public class Listener implements ActionListener {
 		System.out.println("===\nBoton presionado: "+ cmd);
 		
 		if (cmd.equals("Login")) {
+			sesion = modelo.login(panel_login.getTextField_usuario().getText(), panel_login.getPasswordField_contrasena());
+			String tipoCuenta = sesion.getCategoria();
 			vent.cambiarCajaCuenta(panel_cuenta);
-			if (tipoCuenta.equals("maestro")) {
+			panel_cuenta.mostrarHome();
+			if (tipoCuenta.equals("Maestro")) {
 				iniciarMaestro();
-			} else if (tipoCuenta.equals("oficial")) {
+			} else if (tipoCuenta.equals("Oficial")) {
 				iniciarOficial();
-			} else if (tipoCuenta.equals("aprendiz")){
+			} else if (tipoCuenta.equals("Aprendiz")){
 				iniciarAprendiz();
 			}
 			
