@@ -1,17 +1,11 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 
 import control.Listener;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 
 public class Panel_logo extends JPanel {
@@ -36,7 +30,7 @@ public class Panel_logo extends JPanel {
 		g.drawImage(ii.getImage(), 40, 0, 300, 300, null);
 		
 		
-		this.setOpaque(false);
+		setOpaque(false);
 		
 		super.paintChildren(g);
 	}

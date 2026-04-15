@@ -73,7 +73,7 @@ public class Panel_cuenta extends JPanel {
 	}
 
 	/**
-	 * @return the btn_logout
+	 * @return el btn_logout
 	 */
 	public JButton getBtn_logout() {
 		return btn_logout;
