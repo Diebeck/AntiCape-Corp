@@ -10,12 +10,7 @@ import javax.swing.JLabel;
 
 public class Panel_logo extends JPanel {
 	
-//	ImageIcon ii;
-
 	public Panel_logo(Listener list) {
-		
-//		ii = new ImageIcon("src/img/logo.png");
-		
 		
 		setBackground(new Color(240, 240, 240));
 		setLayout(null);

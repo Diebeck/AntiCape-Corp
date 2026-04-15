@@ -13,6 +13,7 @@ import view.*;
 
 public class Listener implements ActionListener {
 	
+
 	private Acceso_BD modelo = new Acceso_BD();
 	private Empleado sesion;
 	
