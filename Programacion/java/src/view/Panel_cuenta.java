@@ -63,12 +63,8 @@ public class Panel_cuenta extends JPanel {
 		
 		JLabel lblImagen = new JLabel("");
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
-		ImageIcon iconoPerfil = new ImageIcon(Panel_cuenta.class.getResource("/img/cuenta.png"));
-		Image imagenPerfil = iconoPerfil.getImage();
-		int anchoDeseado = 100; 
-		int altoDeseado = 100;
-		Image imagenEscalada = imagenPerfil.getScaledInstance(anchoDeseado, altoDeseado, Image.SCALE_SMOOTH);
-		lblImagen.setIcon(new ImageIcon(imagenEscalada));
+		
+		lblImagen.setIcon(Ventana.escalarImagen("/img/cuenta.png", 80, 80));
 		lblImagen.setBounds(10, 0, 89, 127);
 		add(lblImagen);
 		
@@ -82,6 +78,5 @@ public class Panel_cuenta extends JPanel {
 	public JButton getBtn_logout() {
 		return btn_logout;
 	}
-	
 	
 }

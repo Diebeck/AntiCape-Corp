@@ -33,7 +33,7 @@ public class Panel_logo extends JPanel {
 	protected void paintComponent(Graphics g) {
 		
 		setBackground(new Color(240, 240, 240));
-		g.drawImage(ii.getImage(), 30, 0, 300, 300, null);
+		g.drawImage(ii.getImage(), 40, 0, 300, 300, null);
 		
 		
 		this.setOpaque(false);

@@ -1,9 +1,11 @@
 package view;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import control.Listener;
 import java.awt.Color;
+import java.awt.Image;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
@@ -70,6 +72,18 @@ public class Ventana extends JFrame {
 		caja_cuenta.setBorder(null);
 		caja_cuenta.setBounds(5, 5, 362, 127);
 		
-
+	}
+	
+	/** Devuelve una imagen reescalada
+	 * @param link El link a la imagen
+	 * @param ancho El ancho de la imagen en pixeles
+	 * @param alto El alto de la imagen en pixeles
+	 * @return La imagen reescalada
+	 */
+	public static ImageIcon escalarImagen(String link, int ancho, int alto) {
+		ImageIcon icono = new ImageIcon(Panel_cuenta.class.getResource(link));
+		Image imagen = icono.getImage();
+		Image imagenEscalada = imagen.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+		return new ImageIcon(imagenEscalada);
 	}
 }
