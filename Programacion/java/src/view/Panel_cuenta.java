@@ -17,7 +17,7 @@ import javax.swing.SwingConstants;
 public class Panel_cuenta extends JPanel {
 	
 	JButton btn_home = new JButton("");
-	JButton btn_logout;
+	JButton btn_logout = new JButton("");
 	
 	public JButton getBotonHome() {
 		return btn_home;
@@ -41,7 +41,6 @@ public class Panel_cuenta extends JPanel {
 		lbl_categoria.setBounds(109, 69, 101, 30);
 		add(lbl_categoria);
 		
-		btn_logout = new JButton("");
 		btn_logout.setIcon(new ImageIcon(Panel_cuenta.class.getResource("/img/logout.png")));
 		btn_logout.setFont(new Font("Century Schoolbook", Font.BOLD, 10));
 		btn_logout.setBackground(new Color(76, 17, 48));
@@ -51,8 +50,8 @@ public class Panel_cuenta extends JPanel {
 		btn_logout.setFocusPainted(false);
 		add(btn_logout);
 		btn_logout.addActionListener(list);
-		btn_home.setIcon(new ImageIcon(Panel_cuenta.class.getResource("/img/home.png")));
 		
+		btn_home.setIcon(new ImageIcon(Panel_cuenta.class.getResource("/img/home.png")));
 		btn_home.setForeground(Color.WHITE);
 		btn_home.setFont(new Font("Century Schoolbook", Font.BOLD, 10));
 		btn_home.setBorder(null);
@@ -77,6 +76,20 @@ public class Panel_cuenta extends JPanel {
 	 */
 	public JButton getBtn_logout() {
 		return btn_logout;
+	}
+	
+	/**
+	 * Esconde el boton de home
+	 */
+	public void esconderHome() {
+		remove(btn_home);
+	}
+	
+	/**
+	 * Muestra el boton de home
+	 */
+	public void mostrarHome() {
+		add(btn_home);
 	}
 	
 }

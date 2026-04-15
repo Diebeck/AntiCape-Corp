@@ -54,7 +54,7 @@ public class Panel_login extends JPanel {
 		btn_login.setForeground(new Color(255, 255, 255));
 		btn_login.setBackground(new Color(76, 17, 48));
 		btn_login.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
-		btn_login.setBounds(61, 383, 532, 60);
+		btn_login.setBounds(61, 403, 532, 60);
 		add(btn_login);
 		
 		lblUsuarioIcono = new JLabel("");
@@ -68,6 +68,12 @@ public class Panel_login extends JPanel {
 		lblContraIcono.setHorizontalAlignment(SwingConstants.CENTER);
 		lblContraIcono.setBounds(61, 269, 60, 60);
 		add(lblContraIcono);
+		
+		JLabel lblErrorInicio = new JLabel("");
+		lblErrorInicio.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		lblErrorInicio.setForeground(new Color(255, 0, 0));
+		lblErrorInicio.setBounds(161, 351, 432, 27);
+		add(lblErrorInicio);
 	}
 	
 	public JLabel getLbl_login1() {
