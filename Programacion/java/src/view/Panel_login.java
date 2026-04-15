@@ -12,7 +12,6 @@ import javax.swing.border.LineBorder;
 
 import control.Listener;
 import javax.swing.SwingConstants;
-import javax.swing.ImageIcon;
 
 public class Panel_login extends JPanel {
 	

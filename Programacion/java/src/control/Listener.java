@@ -11,7 +11,7 @@ public class Listener implements ActionListener {
 	/** 
 	 * El tipo de la cuenta de la sesion. (maestro / oficial / aprendiz)
 	 */
-	String tipoCuenta = "maestro";
+	String tipoCuenta = "aprendiz";
 	
 	private Ventana vent;
 	
