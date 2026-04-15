@@ -23,6 +23,8 @@ import javax.swing.JRadioButton;
 
 public class Panel_citas extends JPanel {
 	
+	JButton btn_homeCitas = new JButton("");
+	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
 	JLabel lbl_yCitas = new JLabel(modo +" una cita");
@@ -48,7 +50,7 @@ public class Panel_citas extends JPanel {
 		lbl_yCitas.setBounds(38, 25, 437, 52);
 		add(lbl_yCitas);
 		
-		JButton btn_homeCitas = new JButton("Home");
+		
 		btn_homeCitas.setIcon(new ImageIcon(Panel_citas.class.getResource("/img/home.png")));
 		btn_homeCitas.setForeground(Color.WHITE);
 		btn_homeCitas.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
@@ -137,4 +139,13 @@ public class Panel_citas extends JPanel {
 		add(cbEncargado);
 		btn_cCita.addActionListener(list);
 	}
+
+	/**
+	 * @return the btn_homeCitas
+	 */
+	public JButton getBtn_homeCitas() {
+		return btn_homeCitas;
+	}
+	
+	
 }

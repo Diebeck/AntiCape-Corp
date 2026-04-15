@@ -69,7 +69,7 @@ public class Listener implements ActionListener {
 				iniciarAprendiz();
 			}
 			
-		} else if (e.getSource().equals(panel_cuenta.getBtn_logout())) { //Para que funcione el botón Logout con la imagen
+		} else if (e.getSource()== panel_cuenta.getBtn_logout()) { //Para que funcione el botón Logout con la imagen
 			vent.cambiarCajaPrimario(panel_login);
 			vent.cambiarCajaNav(panel_logo);
 			vent.cambiarCajaCuenta(null);
@@ -109,7 +109,16 @@ public class Listener implements ActionListener {
 		} else if (e.getSource() == panel_cuenta.getBotonHome()) {
 			vent.cambiarCajaPrimario(panel_home);
 		
-		} else if (cmd.equals("Home")) {
+		} else if (e.getSource() == panel_talleres.getBtn_homeTaller()) {
+			vent.cambiarCajaPrimario(panel_x);
+			
+		} else if (e.getSource() == panel_clientes.getBtn_homeClientes()) {
+			vent.cambiarCajaPrimario(panel_x);
+			
+		} else if (e.getSource() == panel_empleados.getBtn_homeEmpleado()) {
+			vent.cambiarCajaPrimario(panel_x);
+			
+		} else if (e.getSource() == panel_citas.getBtn_homeCitas()) {
 			vent.cambiarCajaPrimario(panel_x);
 			
 		} else if (cmd.equals("Confirmar")) {

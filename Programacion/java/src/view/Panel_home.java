@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import control.Listener;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 
 public class Panel_home extends JPanel {
 	private JTable table;
@@ -43,5 +44,11 @@ public class Panel_home extends JPanel {
 		
 		table_1 = new JTable();
 		scrollPane_1.setViewportView(table_1);
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setIcon(Ventana.escalarImagen("/img/logo.png", 50, 50));
+		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogo.setBounds(36, 25, 74, 65);
+		add(lblLogo);
 	}
 }

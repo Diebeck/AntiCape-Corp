@@ -49,19 +49,25 @@ public class Panel_login extends JPanel {
 		btn_login.setForeground(new Color(255, 255, 255));
 		btn_login.setBackground(new Color(76, 17, 48));
 		btn_login.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
-		btn_login.setBounds(61, 383, 532, 60);
+		btn_login.setBounds(61, 403, 532, 60);
 		add(btn_login);
 		
 		JLabel lblUsuarioIcono = new JLabel("");
-		lblUsuarioIcono.setIcon(new ImageIcon(Panel_login.class.getResource("/img/usuarioLogin.png")));
+		lblUsuarioIcono.setIcon(Ventana.escalarImagen("/img/usuarioLogin.png", 60, 60));
 		lblUsuarioIcono.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsuarioIcono.setBounds(61, 168, 60, 60);
 		add(lblUsuarioIcono);
 		
 		JLabel lblContraIcono = new JLabel("");
-		lblContraIcono.setIcon(new ImageIcon(Panel_login.class.getResource("/img/contraLogin.png")));
+		lblContraIcono.setIcon(Ventana.escalarImagen("/img/contraLogin.png", 60, 60));
 		lblContraIcono.setHorizontalAlignment(SwingConstants.CENTER);
 		lblContraIcono.setBounds(61, 269, 60, 60);
 		add(lblContraIcono);
+		
+		JLabel lblErrorInicio = new JLabel("");
+		lblErrorInicio.setFont(new Font("Tahoma", Font.ITALIC, 16));
+		lblErrorInicio.setForeground(new Color(255, 0, 0));
+		lblErrorInicio.setBounds(161, 351, 432, 27);
+		add(lblErrorInicio);
 	}
 }
