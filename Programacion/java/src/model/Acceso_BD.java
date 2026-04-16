@@ -17,7 +17,7 @@ public class Acceso_BD {
 	private String url = "jdbc:mysql://localhost/AntiCape_db";
 	private Connection instance = null;
 	private String user_db = "root";
-	private String password_db= "Rokokoso0812";
+	private String password_db= "1941";
 
 	/**
 	 * Metodo que prende la conexion con la base de datos 
@@ -187,4 +187,33 @@ public class Acceso_BD {
 	        return new ArrayList<>(); // Devolver lista vacía en lugar de null
 	    }
 	}
+	
+	public ArrayList<Empleado> mostradoEmpleados() {
+	    ArrayList<Empleado> empleados = new ArrayList<>();
+	    String query = "SELECT * FROM Empleado";
+	    
+	    try (Statement stmt = instance.createStatement();
+	         ResultSet resultado = stmt.executeQuery(query)) {
+	        
+	        while(resultado.next()) {
+	            Empleado empleado = new Empleado(
+	            		resultado.getInt(1),
+	            		resultado.getString(2),
+	            		resultado.getString(3),
+	            		resultado.getString(4),
+	            		resultado.getString(5),
+	            		resultado.getString(6)
+	            );
+	            empleados.add(empleado);
+	        }
+	        
+	        return empleados;
+	        
+	    } catch(SQLException e) {
+	        e.printStackTrace();
+	        return new ArrayList<>(); // Devolver lista vacía en lugar de null
+	    }
+	}
+	
+	
 }
