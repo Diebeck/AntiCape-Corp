@@ -17,7 +17,7 @@ public class Acceso_BD {
 	private String url = "jdbc:mysql://localhost/AntiCape_db";
 	private Connection instance = null;
 	private String user_db = "root";
-	private String password_db= "1941";
+	private String password_db= "Rokokoso0812";
 
 	/**
 	 * Metodo que prende la conexion con la base de datos 
@@ -89,10 +89,10 @@ public class Acceso_BD {
 	 * @param contraseña contraseña a buscar en la base de datos
 	 * @return true en caso de que la contraseña se halla encontrado, false si no se encontro 
 	 */
-	public boolean consultaContra(String contraseña) {
+	public boolean consultaContra(String contraseña, String usuario) {
 		try {
 			System.out.println("Llamado metodo consulta");
-			String query = "SELECT * FROM empleado";
+			String query = "SELECT * FROM empleado WHERE apodo = '" + usuario +"'";
 			Statement stmt = instance.createStatement();
 			ResultSet resultado = stmt.executeQuery(query);
 			
@@ -133,6 +133,7 @@ public class Acceso_BD {
 	    String apellidos = "";
 	    String categoria = "";
 	    
+	    if (consultaUser(usuario) && consultaContra(contraseña, usuario)) {
 	    try {
 	        String query = "SELECT * FROM Empleado WHERE apodo = '" + usuario + "' AND contraseña = '" + contraseña + "'";
 	        Statement stmt = instance.createStatement();
@@ -155,6 +156,7 @@ public class Acceso_BD {
 	        stmt.close();
 	    } catch(SQLException e) {
 	        e.printStackTrace();
+	    }
 	    }
 	    return null;
 	}
@@ -184,7 +186,7 @@ public class Acceso_BD {
 	        
 	    } catch(SQLException e) {
 	        e.printStackTrace();
-	        return new ArrayList<>(); // Devolver lista vacía en lugar de null
+	        return new ArrayList<>(); 
 	    }
 	}
 	
@@ -208,7 +210,7 @@ public class Acceso_BD {
 		        return clientes;
 		    } catch(SQLException e) {
 		        e.printStackTrace();
-		        return new ArrayList<>(); // Devolver lista vacía en lugar de null
+		        return new ArrayList<>(); 
 		    }
 	}
 	
@@ -234,7 +236,31 @@ public class Acceso_BD {
 		        return empleados;
 		    } catch(SQLException e) {
 		        e.printStackTrace();
-		        return new ArrayList<>(); // Devolver lista vacía en lugar de null
+		        return new ArrayList<>(); 
+		    }
+	}
+	
+	
+	public ArrayList<Taller> mostrarTalleres(){
+		   ArrayList<Taller> talleres = new ArrayList<>();
+		    String query = "SELECT * FROM Taller";
+		    
+		    try (Statement stmt = instance.createStatement();
+		         ResultSet resultado = stmt.executeQuery(query)) {
+		        
+		        while(resultado.next()) {
+		            Taller taller = new Taller(
+		            		resultado.getInt(1),
+		            		resultado.getString(2),
+		            		resultado.getString(3)
+		            );
+		            talleres.add(taller);
+		        }
+		        
+		        return talleres;
+		    } catch(SQLException e) {
+		        e.printStackTrace();
+		        return new ArrayList<>();
 		    }
 	}
 }

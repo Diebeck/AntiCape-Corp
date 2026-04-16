@@ -51,8 +51,8 @@ public class Panel_x extends JPanel {
 		add(scrollPane);
 		
 		table = new JTable();
-		table.setForeground(new Color(128, 0, 64));
-		table.setFont(new Font("Century Schoolbook", Font.ITALIC, 10));
+	    table.setForeground(new Color(0, 0, 0)); 
+	    table.setFont(new Font("Century Schoolbook", Font.PLAIN, 10)); 
 		
 		scrollPane.setViewportView(table);
 		
