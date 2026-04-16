@@ -3,15 +3,11 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.border.LineBorder;
+import javax.swing.*;
 
 import control.Listener;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 public class Panel_login extends JPanel {
 	private JLabel lbl_login1; 

@@ -88,7 +88,6 @@ public class Listener implements ActionListener {
 			DefaultTableModel modeloTabla = (DefaultTableModel) panel_x.getTable().getModel();
 
 			modeloTabla.setRowCount(0);
-
 			for (Cita n : citas) {
 			    Object[] fila = {
 			        n.getId_cita(),

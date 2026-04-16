@@ -11,27 +11,27 @@ DROP TABLE IF EXISTS Cliente;
 
 
 CREATE TABLE Cliente (
-  id_cliente integer PRIMARY KEY,
+  id_cliente integer PRIMARY KEY auto_increment,
   nombre varchar(255),
   colores varchar(255),
   superpoder varchar(255)
 );
 
 CREATE TABLE Traje (
-  id_traje integer PRIMARY KEY,
+  id_traje integer PRIMARY KEY auto_increment,
   id_cliente integer,
   nombre varchar(255),
   estado varchar(255)
 );
 
 CREATE TABLE Taller (
-  id_taller integer PRIMARY KEY,
+  id_taller integer PRIMARY KEY auto_increment,
   tipo_sala varchar(255),
   nombre_sala varchar(255)
 );
 
 CREATE TABLE Empleado (
-  id_empleado integer PRIMARY KEY,
+  id_empleado integer PRIMARY KEY auto_increment,
   nombre varchar(255),
   apellidos varchar(255),
   apodo varchar(255),
@@ -40,7 +40,7 @@ CREATE TABLE Empleado (
 );
 
 CREATE TABLE Citas (
-  id_cita integer PRIMARY KEY,
+  id_cita integer PRIMARY KEY auto_increment,
   fecha date,
   duracion varchar(255),
   id_cliente integer,
