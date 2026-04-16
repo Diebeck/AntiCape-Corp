@@ -132,8 +132,31 @@ public class Listener implements ActionListener {
 		    }
 			
 		} else if (cmd.equals("Empleados")) {
-			vent.cambiarCajaPrimario(panel_x);
-			panel_x.setEstado("empleados");
+			 ArrayList<Empleado> empleados = modelo.mostrarEmpleados();
+			    vent.cambiarCajaPrimario(panel_x);
+			    panel_x.setEstado("empleados");
+			    
+			    // El controlador crea y configura el modelo
+			    String[] columnas = {"ID", "Nombre", "Apellidos", "Apodo", "Categoria", "Contraseña"};
+			    DefaultTableModel nuevoModelo = new DefaultTableModel(columnas, 0);
+			    
+			    // Llenar el modelo con los datos
+			    if (empleados != null) {
+			        for (Empleado n : empleados) {
+			            Object[] fila = {
+			                n.getId_empleado(),
+			                n.getNombre(),
+			                n.getApellidos(),
+			                n.getApodo(),
+			                n.getCategoria(),
+			                n.getContraseña()
+			            };
+			            nuevoModelo.addRow(fila);
+			        }
+			        // Asignar el nuevo modelo a la tabla existente
+				    panel_x.getTable().setModel(nuevoModelo);
+				
+			    }
 			
 		} else if (cmd.equals("Talleres")) {
 			vent.cambiarCajaPrimario(panel_x);
