@@ -214,7 +214,7 @@ public class Acceso_BD {
 	
 	public ArrayList<Empleado> mostrarEmpleados(){
 		   ArrayList<Empleado> empleados = new ArrayList<>();
-		    String query = "SELECT * FROM Cliente";
+		    String query = "SELECT * FROM Empleado";
 		    
 		    try (Statement stmt = instance.createStatement();
 		         ResultSet resultado = stmt.executeQuery(query)) {
