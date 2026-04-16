@@ -50,9 +50,7 @@ public class Panel_x extends JPanel {
 		scrollPane.setBounds(40, 101, 632, 374);
 		add(scrollPane);
 		
-		String [] columnas = {"ID", "Fecha", "Duracion", "Cliente", "Encargado", "Taller", "Traje"};
-		DefaultTableModel  forma = new DefaultTableModel(columnas, 0);
-		table = new JTable(forma);
+		table = new JTable();
 		table.setForeground(new Color(128, 0, 64));
 		table.setFont(new Font("Century Schoolbook", Font.ITALIC, 10));
 		
