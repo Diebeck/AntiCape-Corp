@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Acceso_BD;
 import model.Cita;
 import model.Empleado;
+import model.Cliente;
 import view.*;
 
 public class Listener implements ActionListener {
@@ -81,29 +82,54 @@ public class Listener implements ActionListener {
 			vent.cambiarCajaCuenta(null);
 			
 		} else if (cmd.equals("Citas")) {
-			ArrayList <Cita> citas = modelo.mostradoCitas();
-			vent.cambiarCajaPrimario(panel_x);
-			panel_x.setEstado("citas");
-	
-			DefaultTableModel modeloTabla = (DefaultTableModel) panel_x.getTable().getModel();
-
-			modeloTabla.setRowCount(0);
-			for (Cita n : citas) {
-			    Object[] fila = {
-			        n.getId_cita(),
-			        n.getFecha(),
-			        n.getDuracion(),
-			        n.getId_cliente(),
-			        n.getId_encargado(),
-			        n.getId_taller(),
-			        n.getId_traje()
-			    };
-			    modeloTabla.addRow(fila);
-			}
+		    ArrayList<Cita> citas = modelo.mostradoCitas();
+		    vent.cambiarCajaPrimario(panel_x);
+		    panel_x.setEstado("citas");
+		    
+		    // El controlador crea y configura el modelo
+		    String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
+		    DefaultTableModel nuevoModelo = new DefaultTableModel(columnas, 0);
+		    
+		    // Llenar el modelo con los datos
+		    if (citas != null) {
+		        for (Cita n : citas) {
+		            Object[] fila = {
+		                n.getId_cita(),
+		                n.getFecha(),
+		                n.getDuracion(),
+		                n.getId_cliente(),
+		                n.getId_encargado(),
+		                n.getId_taller(),
+		                n.getId_traje()
+		            };
+		            nuevoModelo.addRow(fila);
+		        }
+		        // Asignar el nuevo modelo a la tabla existente
+			    panel_x.getTable().setModel(nuevoModelo);
+			
+		    }
 			
 		} else if (cmd.equals("Clientes")) {
+			ArrayList <Cliente> clientes = modelo.mostrarClientes();
 			vent.cambiarCajaPrimario(panel_x);
 			panel_x.setEstado("clientes");
+			
+			 // El controlador crea y configura el modelo
+		    String[] columnas = {"ID", "Nombre", "Colores", "Superpoder"};
+		    DefaultTableModel nuevoModelo = new DefaultTableModel(columnas, 0);
+		    
+		    if (clientes != null) {
+		    	for (Cliente n : clientes) {
+		    		Object [] fila = {
+		    				n.getId_cliente(),
+		    				n.getNombre(),
+		    				n.getColores(),
+		    				n.getSuperpoder()
+		    		};
+		    		nuevoModelo.addRow(fila);
+		    	}
+		    	panel_x.getTable().setModel(nuevoModelo);;
+		    }
 			
 		} else if (cmd.equals("Empleados")) {
 			vent.cambiarCajaPrimario(panel_x);

@@ -187,4 +187,28 @@ public class Acceso_BD {
 	        return new ArrayList<>(); // Devolver lista vacía en lugar de null
 	    }
 	}
+	
+	public ArrayList<Cliente> mostrarClientes(){
+		   ArrayList<Cliente> clientes = new ArrayList<>();
+		    String query = "SELECT * FROM Cliente";
+		    
+		    try (Statement stmt = instance.createStatement();
+		         ResultSet resultado = stmt.executeQuery(query)) {
+		        
+		        while(resultado.next()) {
+		            Cliente cliente = new Cliente(
+		                 resultado.getInt(1),
+		                 resultado.getString(2),
+		                 resultado.getString(3),
+		                 resultado.getString(4)
+		            );
+		            clientes.add(cliente);
+		        }
+		        
+		        return clientes;
+		    } catch(SQLException e) {
+		        e.printStackTrace();
+		        return new ArrayList<>(); // Devolver lista vacía en lugar de null
+		    }
+	}
 }
