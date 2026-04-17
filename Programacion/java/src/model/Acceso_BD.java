@@ -398,7 +398,7 @@ public class Acceso_BD {
 	        //Cambio la duración a string, convertir el número del formulario a "X H"
 	        String duracionFormateada = duracion + " H";
 	        
-	        // 6. Insertar la cita
+	        //Insertar la cita
 	        stmt.setString(1, fecha);
 	        stmt.setString(2, duracionFormateada);
 	        stmt.setInt(3, idCliente);
@@ -420,5 +420,133 @@ public class Acceso_BD {
 	    }
 	    
 	    return false;
+	}
+	
+	/**
+	 * Metodo para añadir un cliente a la base de datos 
+	 * 
+	 * @param nombre nombre del nuevo cliente
+	 * @param colores colores del nuevo cliente
+	 * @param poder poderes del nuevo cliente 
+	 * 
+	 * @return true si la creacion fue exitosa, false para el caso contrario
+	 */
+	public boolean crearCliente(String nombre, String colores, String poder) {
+			String query = "INSERT INTO Cliente(nombre, colores, superpoder) VALUES (?,?,?)";
+			
+			try(PreparedStatement stmt = instance.prepareStatement(query)){
+			stmt.setString(1, nombre);
+			stmt.setString(2, colores);
+			stmt.setString(3, poder);
+			
+			int filas = stmt.executeUpdate();
+			
+			if (filas > 0) {
+				System.out.println("Añadido de cliente exitoso");
+				return true;
+			}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return false;
+	}
+	
+	/**
+	 * Metodo para añadir un traje a la base de datos 
+	 * 
+	 * @param cliente nombre del cliente al que sera asociado el traje 
+	 * 
+	 * @param nombre nombre del nuevo traje 
+	 * @param estado estado del nuevo traje 
+	 * 
+	 * @return true en caso de insercion exitosa, false para lo contrario
+	 * @see ObtencionID#obtenerIdCliente(String)
+	 */
+	public boolean crearTraje(String cliente, String nombre, String estado) {
+		String query = "INSERT INTO Traje (id_cliente, nombre, estado) VALUES (?,?,?)";
+		int id_cliente;
+		
+		//llamado al metodo obtenerIdCliente para asociar el id en la misma creacion 
+		id_cliente = ids.obtenerIdCliente(cliente);
+		
+		try(PreparedStatement stmt = instance.prepareStatement(query)){
+		stmt.setInt(1, id_cliente);
+		stmt.setString(2, nombre);
+		stmt.setString(3, estado);
+		
+		int filas = stmt.executeUpdate();
+		
+		if (filas > 0) {
+			System.out.println("Añadido de cliente exitoso");
+			return true;
+		}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * Metodo para añadir un nuevo taller a la base de datos 
+	 * 
+	 * @param tipo String del tipo de sala del taller 
+	 * @param nombre String del nombre del taller 
+	 * 
+	 * @return true si la creacion se hizo correctamente, false para el caso contrario
+	 */
+	public boolean crearTaller(String tipo, String nombre) {
+		String query = "INSERT INTO Taller (tipo_sala, nombre_sala) VALUES (?,?)";
+		
+		try(PreparedStatement stmt = instance.prepareStatement(query)){
+		stmt.setString(1, tipo);
+		stmt.setString(2, nombre);
+		
+		int filas = stmt.executeUpdate();
+		
+		if (filas > 0) {
+			System.out.println("Añadido de Taller exitoso");
+			return true;
+		}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * Metodo para añadir un nuevo empleado a la base de datos 
+	 * 
+	 * @param nombre String con el nombre del empleado
+	 * @param apellidos String con los apellidos del empleado
+	 * @param apodo String con el apodo que sera usado como usuario del empleado
+	 * @param categoria String con la categoria del empleado (Maestro, Oficial, Aprendiz)
+	 * @param contraseña String con la contraseña de la cuenta del empleado 
+	 * 
+	 * @return true en caso de creacion exitosa y false para cracion fallida
+	 */
+	public boolean crearEmpleado (String nombre, String apellidos, String apodo, String categoria, String contraseña) {
+	String query = "INSERT INTO Empleado (nombre, apellidos, apodo, categoria, contraseña) VALUES (?,?,?,?,?)";
+		
+		try(PreparedStatement stmt = instance.prepareStatement(query)){
+		stmt.setString(1, nombre);
+		stmt.setString(2, apellidos);
+		stmt.setString(3, apodo);
+		stmt.setString(4, categoria);
+		stmt.setString(5, contraseña);
+		
+		int filas = stmt.executeUpdate();
+		
+		if (filas > 0) {
+			System.out.println("Añadido de empleado exitoso");
+			return true;
+		}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

@@ -183,7 +183,7 @@ public class Control_tablas {
      */
     public void cargarTalleres() {
         ArrayList<Taller> talleres = modelo.mostrarTalleres();
-        String[] columnas = {"ID", "Nombre", "Tipo sala"};
+        String[] columnas = {"ID", "Tipo de sala", "Nombre"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
         tableModel.setRowCount(0);
 

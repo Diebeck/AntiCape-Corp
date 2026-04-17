@@ -35,8 +35,8 @@ public class Listener implements ActionListener {
 	Panel_nav_oficial panel_nav_oficial = new Panel_nav_oficial(this);
 	Panel_prim_aprendiz panel_prim_aprendiz = new Panel_prim_aprendiz(this);
 	
-	private Control_tablas ControladorTablas = new Control_tablas(modelo, panel_x, panel_home);
-	private Control_creacion Controlador_creacion = new Control_creacion (modelo, panel_clientes, panel_empleados, panel_citas, panel_talleres);
+	private Control_tablas controlador_tablas = new Control_tablas(modelo, panel_x, panel_home);
+	private Control_creacion controlador_creacion = new Control_creacion (modelo, panel_clientes, panel_empleados, panel_citas, panel_talleres);
 	
 	/** Asigna la referencia a la ventana principal
 	 * @param vent
@@ -54,8 +54,8 @@ public class Listener implements ActionListener {
 		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
 		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
 		// rellenado de tablas de la home 
-		ControladorTablas.citasRecientes();
-		ControladorTablas.cargarOcupacionTalleres();
+		controlador_tablas.citasRecientes();
+		controlador_tablas.cargarOcupacionTalleres();
 	}
 	private void iniciarOficial() {
 		vent.cambiarCajaPrimario(panel_x);
@@ -93,25 +93,25 @@ public class Listener implements ActionListener {
 			
 		} else if (cmd.equals("Citas")) {
 		    vent.cambiarCajaPrimario(panel_x);
-		    ControladorTablas.cargarCitas();
+		    controlador_tablas.cargarCitas();
 			
 		} else if (cmd.equals("Clientes")) {
 			vent.cambiarCajaPrimario(panel_x);
-			ControladorTablas.cargarClientes();
+			controlador_tablas.cargarClientes();
 		
 		} else if (cmd.equals("Empleados")) {
 			 vent.cambiarCajaPrimario(panel_x);
-			 ControladorTablas.cargarEmpleados();
+			 controlador_tablas.cargarEmpleados();
 			
 		} else if (cmd.equals("Talleres")) {
 			 vent.cambiarCajaPrimario(panel_x);
-			 ControladorTablas.cargarTalleres();
+			 controlador_tablas.cargarTalleres();
 			
 			
 		} else if (cmd.equals("Crear") || cmd.equals("Modificar")) {
 			if (panel_x.getEstado().equals("citas")) {
 				vent.cambiarCajaPrimario(panel_citas);
-				Controlador_creacion.formularioCitas();
+				controlador_creacion.formularioCitas();
 			} else if (panel_x.getEstado().equals("clientes")) {
 				vent.cambiarCajaPrimario(panel_clientes);
 			} else if (panel_x.getEstado().equals("talleres")) {
@@ -141,20 +141,33 @@ public class Listener implements ActionListener {
 			vent.cambiarCajaPrimario(panel_x);
 			// Recargar la tabla de citas al volver
 			if (panel_x.getEstado().equals("citas")) {
-				ControladorTablas.cargarCitas();
+				controlador_tablas.cargarCitas();
 			}
 			
 		// Listener para el boton Confirmar del panel_citas
 		} else if (e.getSource() == panel_citas.getBtn_cCita()) {
 			// Crear la cita
-			Controlador_creacion.crearCita();
+			controlador_creacion.crearCita();
 			
 			// Recargar todas las tablas que muestran informacion de citas
-			ControladorTablas.cargarCitas();           
-			ControladorTablas.citasRecientes();       
-			ControladorTablas.cargarOcupacionTalleres();
+			controlador_tablas.cargarCitas();           
+			controlador_tablas.citasRecientes();       
+			controlador_tablas.cargarOcupacionTalleres();
 			
 			// Volver al panel_x
+			vent.cambiarCajaPrimario(panel_x);
+		} else if (e.getSource() == panel_clientes.getBtn_cCliente()) {
+			controlador_creacion.crearCliente();
+			controlador_tablas.cargarClientes();
+			vent.cambiarCajaPrimario(panel_x);
+		} else if (e.getSource() == panel_talleres.getBtn_cTaller()) {
+			controlador_creacion.crearTaller();
+			controlador_tablas.cargarTalleres();
+			controlador_tablas.cargarOcupacionTalleres();
+			vent.cambiarCajaPrimario(panel_x);
+		} else if (e.getSource() == panel_empleados.getBtn_cEmpleado()) {
+			controlador_creacion.crearEmpleado();
+			controlador_tablas.cargarEmpleados();
 			vent.cambiarCajaPrimario(panel_x);
 		}
 	}
