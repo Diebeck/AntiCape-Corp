@@ -35,7 +35,7 @@ public class Listener implements ActionListener {
 	Panel_nav_oficial panel_nav_oficial = new Panel_nav_oficial(this);
 	Panel_prim_aprendiz panel_prim_aprendiz = new Panel_prim_aprendiz(this);
 	
-	private Control_tablas ControladorTablas = new Control_tablas(modelo, panel_x);
+	private Control_tablas ControladorTablas = new Control_tablas(modelo, panel_x, panel_home);
 	
 	/** Asigna la referencia a la ventana principal
 	 * @param vent
@@ -49,6 +49,8 @@ public class Listener implements ActionListener {
 	private void iniciarMaestro() {
 		vent.cambiarCajaPrimario(panel_home);
 		vent.cambiarCajaNav(panel_nav_maestro);
+		ControladorTablas.citasRecientes();
+		ControladorTablas.cargarOcupacionTalleres();
 	}
 	private void iniciarOficial() {
 		vent.cambiarCajaPrimario(panel_x);

@@ -134,3 +134,4 @@ VALUES (4, '2024-05-13', '2024-05-13 01:00:00', 004, 003, 002, 004);
 INSERT INTO Citas (id_cita, fecha, duracion, id_cliente, id_encargado, id_taller, id_traje) 
 VALUES (5, '2024-05-14', '2024-05-14 03:30:00', 008, 002, 001, 008);
 
+

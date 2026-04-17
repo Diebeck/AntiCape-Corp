@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.*;
 import model.*;
+import view.Panel_home;
 import view.Panel_x;
 
 /**
@@ -21,6 +22,7 @@ public class Control_tablas {
 
     private Acceso_BD modelo;
     private Panel_x panel_x;
+    private Panel_home panel_home;
 
     /**
      * Contructor de la clase de control de tablas 
@@ -28,9 +30,10 @@ public class Control_tablas {
      * @param modelo acceso a la base de datos necesario para invocacion de metodos
      * @param panel_x panel principal donde se encuentran las tablas
      */
-    public Control_tablas(Acceso_BD modelo, Panel_x panel_x) {
+    public Control_tablas(Acceso_BD modelo, Panel_x panel_x, Panel_home panel_home) {
         this.modelo = modelo;
         this.panel_x = panel_x;
+        this.panel_home = panel_home;
     }
     
     /**
@@ -47,6 +50,7 @@ public class Control_tablas {
     private DefaultTableModel crearModelo(String[] columna, JTable tabla) {
         DefaultTableModel modelo = new DefaultTableModel(columna, 0) {
             @Override
+            // eliminacion de la propiedad editable de las celdas
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
@@ -56,7 +60,9 @@ public class Control_tablas {
         
         // Estilo para la cabecera de la tabla
         JTableHeader cabecera = tabla.getTableHeader();
-        cabecera.setFont(new Font("Century Schoolbook", Font.ITALIC, 10));
+        //fuente 
+        cabecera.setFont(new Font("Century Schoolbook", Font.ITALIC, 15));
+        //color
         cabecera.setForeground(new Color(128, 0, 64));
         
         return modelo;
@@ -67,6 +73,14 @@ public class Control_tablas {
      * que muestra los datos de todas las citas pendientes
      * 
      * @see #crearModelo(String[])
+     * 
+     * Los cometarios en este metodo funcionan como explicacion
+     * a los metodos de rellenado de tablas 
+     * 
+     * @see #cargarTalleres()
+     * @see #cargarClientes()
+     * @see #cargarEmpleados()
+     * @see #cargarTalleres()
      */
     public void cargarCitas() {
     	// invocacion del metodo que consulta a la base de datos
@@ -75,6 +89,9 @@ public class Control_tablas {
         String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
         // genero un nuevo modelo de tabla y le asigno los titulos 
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
+        
+        //reset de la tabla para evitar duplicado de datos 
+        tableModel.setRowCount(0);
         
         //verificacion de que si existan citas en el sistema 
         if (citas != null) {
@@ -111,6 +128,7 @@ public class Control_tablas {
         ArrayList<Cliente> clientes = modelo.mostrarClientes();
         String[] columnas = {"ID", "Nombre", "Colores", "Superpoder"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
+        tableModel.setRowCount(0);
 
         if (clientes != null) {
             for (Cliente n : clientes) {
@@ -136,6 +154,7 @@ public class Control_tablas {
         ArrayList<Empleado> empleados = modelo.mostrarEmpleados();
         String[] columnas = {"ID", "Nombre", "Apellidos", "Apodo", "Categoria"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
+        tableModel.setRowCount(0);
 
         if (empleados != null) {
             for (Empleado n : empleados) {
@@ -162,6 +181,7 @@ public class Control_tablas {
         ArrayList<Taller> talleres = modelo.mostrarTalleres();
         String[] columnas = {"ID", "Nombre", "Tipo sala"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
+        tableModel.setRowCount(0);
 
         if (talleres != null) {
             for (Taller n : talleres) {
@@ -174,5 +194,59 @@ public class Control_tablas {
         }
         panel_x.getTable().setModel(tableModel);
         panel_x.setEstado("talleres");
+    }
+    
+    public void citasRecientes() {
+        ArrayList<Cita> citas = modelo.CitasRecientes();
+        String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
+        DefaultTableModel tableModel = crearModelo(columnas, panel_home.getTablaClientes());
+        tableModel.setRowCount(0);
+
+        if (citas != null) {
+            for (Cita n : citas) {
+ 
+                tableModel.addRow(new Object[]{
+                    n.getId_cita(),
+                    n.getFecha(),
+                    n.getDuracion(),
+                    n.getId_cliente(),
+                    n.getId_encargado(),
+                    n.getId_taller(),
+                    n.getId_traje()
+                });
+            }
+    }
+        panel_home.getTablaClientes().setModel(tableModel);
+}
+    
+    /**
+     * Metodo publico que genera un rellenado de la tabla
+     * que muestra la ocupación de cada taller (nombre y número de citas)
+     * 
+     * @see #crearModelo(String[], JTable)
+     */
+    public void cargarOcupacionTalleres() {
+        ArrayList<String[]> ocupacionTalleres = modelo.ocupacionTaller();
+        String[] columnas = {"Taller", "Número de Citas"};
+
+        DefaultTableModel tableModel = crearModelo(columnas, panel_home.getTablaTalleres());
+        
+        tableModel.setRowCount(0);
+        
+        if (ocupacionTalleres != null) {
+            for (String[] taller : ocupacionTalleres) {
+                tableModel.addRow(new Object[]{
+                    taller[0],  
+                    taller[1]  
+                });
+            }
+        } else {
+            // Si no hay datos, mostrar mensaje
+            tableModel.addRow(new Object[]{"No hay talleres con citas", "0"});
+        }
+        
+        // Aplicar el modelo a la tabla
+        panel_home.getTablaTalleres().setModel(tableModel);
+        
     }
 }

@@ -52,7 +52,7 @@ public class Panel_x extends JPanel {
 		
 		table = new JTable();
 	    table.setForeground(new Color(0, 0, 0)); 
-	    table.setFont(new Font("Century Schoolbook", Font.PLAIN, 10)); 
+	    table.setFont(new Font("Century Schoolbook", Font.ITALIC, 10)); 
 		
 		scrollPane.setViewportView(table);
 		
