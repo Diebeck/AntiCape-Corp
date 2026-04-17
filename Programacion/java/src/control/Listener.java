@@ -1,16 +1,16 @@
+/**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
 package control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.table.DefaultTableModel;
 
 import model.Acceso_BD;
-import model.Cita;
 import model.Empleado;
-import model.Taller;
-import model.Cliente;
 import view.*;
 
 public class Listener implements ActionListener {
@@ -36,6 +36,7 @@ public class Listener implements ActionListener {
 	Panel_prim_aprendiz panel_prim_aprendiz = new Panel_prim_aprendiz(this);
 	
 	private Control_tablas ControladorTablas = new Control_tablas(modelo, panel_x, panel_home);
+	private Control_creacion Controlador_creacion = new Control_creacion (modelo, panel_clientes, panel_empleados, panel_citas, panel_talleres);
 	
 	/** Asigna la referencia a la ventana principal
 	 * @param vent
@@ -49,6 +50,10 @@ public class Listener implements ActionListener {
 	private void iniciarMaestro() {
 		vent.cambiarCajaPrimario(panel_home);
 		vent.cambiarCajaNav(panel_nav_maestro);
+		//Cambio del nombre y rol en el panel de cuenta 
+		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
+		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
+		// rellenado de tablas de la home 
 		ControladorTablas.citasRecientes();
 		ControladorTablas.cargarOcupacionTalleres();
 	}
@@ -106,6 +111,7 @@ public class Listener implements ActionListener {
 		} else if (cmd.equals("Crear") || cmd.equals("Modificar")) {
 			if (panel_x.getEstado().equals("citas")) {
 				vent.cambiarCajaPrimario(panel_citas);
+				Controlador_creacion.formularioCitas();
 			} else if (panel_x.getEstado().equals("clientes")) {
 				vent.cambiarCajaPrimario(panel_clientes);
 			} else if (panel_x.getEstado().equals("talleres")) {
@@ -133,10 +139,23 @@ public class Listener implements ActionListener {
 			
 		} else if (e.getSource() == panel_citas.getBtn_homeCitas()) {
 			vent.cambiarCajaPrimario(panel_x);
+			// Recargar la tabla de citas al volver
+			if (panel_x.getEstado().equals("citas")) {
+				ControladorTablas.cargarCitas();
+			}
 			
-		} else if (cmd.equals("Confirmar")) {
+		// Listener para el boton Confirmar del panel_citas
+		} else if (e.getSource() == panel_citas.getBtn_cCita()) {
+			// Crear la cita
+			Controlador_creacion.crearCita();
+			
+			// Recargar todas las tablas que muestran informacion de citas
+			ControladorTablas.cargarCitas();           
+			ControladorTablas.citasRecientes();       
+			ControladorTablas.cargarOcupacionTalleres();
+			
+			// Volver al panel_x
 			vent.cambiarCajaPrimario(panel_x);
-			
 		}
 	}
 

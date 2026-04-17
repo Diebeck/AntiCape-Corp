@@ -18,6 +18,7 @@ public class Acceso_BD {
 	private Connection instance = null;
 	private String user_db = "root";
 	private String password_db = "Rokokoso0812";
+	private ObtencionID ids;
 
 	/**
 	 * Metodo que prende la conexion con la base de datos
@@ -26,6 +27,7 @@ public class Acceso_BD {
 	 */
 	public Acceso_BD() {
 		getConexion();
+		ids = new ObtencionID(instance);
 	}
 
 	/**
@@ -89,8 +91,7 @@ public class Acceso_BD {
 	 * contraseña de un usuario
 	 * 
 	 * @param contraseña contraseña a buscar en la base de datos
-	 * @return true en caso de que la contraseña se halla encontrado, false si no se
-	 *         encontro
+	 * @return true en caso de que la contraseña se encuentre, false si no
 	 */
 	public boolean consultaContra(String contraseña, String usuario) {
 		try {
@@ -165,6 +166,13 @@ public class Acceso_BD {
 		return null;
 	}
 
+	
+	/**
+	 * Metodo publico que consulta a la base de datos todos los registros 
+	 * de citas en el sistema 
+	 * 
+	 * @return ArrayList de objetos tipo cita 
+	 */
 	public ArrayList<Cita> mostradoCitas() {
 		ArrayList<Cita> citas = new ArrayList<>();
 		String query = "SELECT * FROM Citas";
@@ -184,7 +192,13 @@ public class Acceso_BD {
 			return new ArrayList<>();
 		}
 	}
-
+	
+	/**
+	 * Metodo publico que consulta a la base de datos los registros
+	 * existentes de clientes en el sistema 
+	 * 
+	 * @return ArraList de objetos tipo cliente 
+	 */
 	public ArrayList<Cliente> mostrarClientes() {
 		ArrayList<Cliente> clientes = new ArrayList<>();
 		String query = "SELECT * FROM Cliente";
@@ -203,7 +217,13 @@ public class Acceso_BD {
 			return new ArrayList<>();
 		}
 	}
-
+	
+	/**
+	 * Metodo que consulta a la base de datos la totalidad de 
+	 * empleados inscritos en el sistema 
+	 * 
+	 * @return ArrayList de objetos de tipo empleado 
+	 */
 	public ArrayList<Empleado> mostrarEmpleados() {
 		ArrayList<Empleado> empleados = new ArrayList<>();
 		String query = "SELECT * FROM Empleado";
@@ -222,7 +242,13 @@ public class Acceso_BD {
 			return new ArrayList<>();
 		}
 	}
-
+	
+	/**
+	 * Metodo que consult a la base de datos la informacion 
+	 * de todos los talleres existentes en el sistema 
+	 * 
+	 * @return ArrayList de objetos de tipo taller
+	 */
 	public ArrayList<Taller> mostrarTalleres() {
 		ArrayList<Taller> talleres = new ArrayList<>();
 		String query = "SELECT * FROM Taller";
@@ -240,7 +266,38 @@ public class Acceso_BD {
 			return new ArrayList<>();
 		}
 	}
+	
+	/**
+	 * Metodo que consulta a la base de datos la totalidad de 
+	 * trajes registrados en el sistema 
+	 * 
+	 * @param nombre del usuario que tiene asociado los trajes
+	 * @return ArrayList de objetos de tipo empleado 
+	 */
+	public ArrayList<Traje> mostrarTrajes(String nombre) {
+		ArrayList<Traje> trajes = new ArrayList<>();
+		String query = "SELECT * FROM Traje WHERE id_cliente IN (SELECT id_cliente FROM Cliente WHERE nombre = " + "'" + nombre + "')";
 
+		try (Statement stmt = instance.createStatement(); ResultSet resultado = stmt.executeQuery(query)) {
+
+			while (resultado.next()) {
+				Traje traje = new Traje(resultado.getInt(1), resultado.getInt(2), resultado.getString(3), resultado.getString(4));
+				trajes.add(traje);
+			}
+
+			return trajes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+	
+	/**
+	 * Metodo que consulta a la base de datos la totalidad 
+	 * de citas en base a su fecha (de la mas proxima a la mas lejana)
+	 * 
+	 * @return ArrayList de objetos de tipo cita 
+	 */
 	public ArrayList<Cita> CitasRecientes() {
 		ArrayList<Cita> citasRecientes = new ArrayList<>();
 		String query = "SELECT * FROM Citas ORDER BY fecha ASC";
@@ -291,4 +348,77 @@ public class Acceso_BD {
 	}
 	
 	
+	/**
+	 * Metodo de insercion de una nueva cita en la base de datos 
+	 * 
+	 * @param cliente Nombre del cliente de la cita 
+	 * @param taller Nombre del taller donde se realizara la cita 
+	 * @param fecha Fecha en la que se realizara la cita 
+	 * @param duracion Duracion que tendra la cita ( en formato ejem: 1 H )
+	 * @param traje Nombre del traje que sera trabajado 
+	 * @param encargado Nombre del empleado encargado de la cita 
+	 * 
+	 * @return true si se creo la cita, false si no 
+	 */
+	public boolean crearCita(String cliente, String taller, String fecha, int duracion, String traje, String encargado) {
+		//probando un poco el prepared statemend :)
+	    String query = "INSERT INTO Citas (fecha, duracion, id_cliente, id_encargado, id_taller, id_traje) VALUES (?, ?, ?, ?, ?, ?)";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        
+	        //Obtencion id del cliente por su nombre
+	        int idCliente = ids.obtenerIdCliente(cliente);
+	        if (idCliente == -1) {
+	        	//prints de debug futuro
+	            System.out.println("Cliente no encontrado: " + cliente);
+	            return false;
+	        }
+	        
+	        // btencion id del empleado por su nombre
+	        int idEncargado = ids.obtenerIdEmpleado(encargado);
+	        if (idEncargado == -1) {
+	            System.out.println("Empleado no encontrado: " + encargado);
+	            return false;
+	        }
+	        
+	        // Obtencion id del taller por su nombre
+	        int idTaller = ids.obtenerIdTaller(taller);
+	        if (idTaller == -1) {
+	            System.out.println("Taller no encontrado: " + taller);
+	            return false;
+	        }
+	        
+	        // Obtencion id del traje por nombre del cliente y nombre del traje
+	        int idTraje = ids.obtenerIdTraje(cliente, traje);
+	        if (idTraje == -1) {
+	            System.out.println("Traje no encontrado para el cliente: " + cliente);
+	            return false;
+	        }
+	        
+	        //Cambio la duración a string, convertir el número del formulario a "X H"
+	        String duracionFormateada = duracion + " H";
+	        
+	        // 6. Insertar la cita
+	        stmt.setString(1, fecha);
+	        stmt.setString(2, duracionFormateada);
+	        stmt.setInt(3, idCliente);
+	        stmt.setInt(4, idEncargado);
+	        stmt.setInt(5, idTaller);
+	        stmt.setInt(6, idTraje);
+	        
+	        //metodo usado para cosas de DML en la base de datos 
+	        int filasAfectadas = stmt.executeUpdate();
+	        
+	        if (filasAfectadas > 0) {
+	        	//print de debug 
+	            System.out.println("Cita creada exitosamente");
+	            return true;
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return false;
+	}
 }

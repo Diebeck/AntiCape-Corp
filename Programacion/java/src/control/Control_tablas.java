@@ -73,6 +73,7 @@ public class Control_tablas {
      * que muestra los datos de todas las citas pendientes
      * 
      * @see #crearModelo(String[])
+     * @see Acceso_BD#mostradoCitas()
      * 
      * Los cometarios en este metodo funcionan como explicacion
      * a los metodos de rellenado de tablas 
@@ -123,6 +124,7 @@ public class Control_tablas {
      * que muestra los datos de todos los clientes en el sistema
      * 
      * @see #crearModelo(String[])
+     * @see Acceso_BD#mostrarClientes()
      */
     public void cargarClientes() {
         ArrayList<Cliente> clientes = modelo.mostrarClientes();
@@ -149,6 +151,7 @@ public class Control_tablas {
      * que muestra los datos de todos los empleados en el sistema
      * 
      * @see #crearModelo(String[])
+     * @see Acceso_BD#mostrarEmpleados()
      */
     public void cargarEmpleados() {
         ArrayList<Empleado> empleados = modelo.mostrarEmpleados();
@@ -176,6 +179,7 @@ public class Control_tablas {
      * que muestra los datos de todos los talleres en el sistema
      * 
      * @see #crearModelo(String[])
+     * @see Acceso_BD#mostrarTalleres()
      */
     public void cargarTalleres() {
         ArrayList<Taller> talleres = modelo.mostrarTalleres();
@@ -196,6 +200,12 @@ public class Control_tablas {
         panel_x.setEstado("talleres");
     }
     
+    /**
+     * Metodo que rellena la tabla de citas recientes
+     * con el contenido de un ArrayList de citas 
+     * 
+     * @see Acceso_BD#CitasRecientes()
+     */
     public void citasRecientes() {
         ArrayList<Cita> citas = modelo.CitasRecientes();
         String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
@@ -224,6 +234,7 @@ public class Control_tablas {
      * que muestra la ocupación de cada taller (nombre y número de citas)
      * 
      * @see #crearModelo(String[], JTable)
+     * @see Acceso_BD#ocupacionTaller()
      */
     public void cargarOcupacionTalleres() {
         ArrayList<String[]> ocupacionTalleres = modelo.ocupacionTaller();
@@ -241,11 +252,10 @@ public class Control_tablas {
                 });
             }
         } else {
-            // Si no hay datos, mostrar mensaje
+            // Como es un string manejamos mensaje de inexistencia de citas 
             tableModel.addRow(new Object[]{"No hay talleres con citas", "0"});
         }
-        
-        // Aplicar el modelo a la tabla
+       
         panel_home.getTablaTalleres().setModel(tableModel);
         
     }
