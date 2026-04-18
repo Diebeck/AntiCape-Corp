@@ -293,6 +293,29 @@ public class Acceso_BD {
 	}
 	
 	/**
+	 * Metodo que obtiene el nombre del traje de un cliente especifico
+	 * 
+	 * @param idCliente ID del cliente
+	 * @return nombre del traje del cliente, null si no tiene
+	 */
+	public String obtenerNombreTrajePorCliente(int idCliente) {
+	    String query = "SELECT nombre FROM Traje WHERE id_cliente = ? LIMIT 1";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, idCliente);
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            return rs.getString("nombre");
+	        }
+	        rs.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
+	}
+	
+	/**
 	 * Metodo que consulta a la base de datos la totalidad 
 	 * de citas en base a su fecha (de la mas proxima a la mas lejana)
 	 * 
@@ -548,5 +571,222 @@ public class Acceso_BD {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	/**
+	 * Metodo para modificar una cita existente
+	 * 
+	 * @param id ID de la cita a modificar
+	 * @param cliente nombre del cliente
+	 * @param taller nombre del taller
+	 * @param fecha fecha de la cita
+	 * @param duracion duracion en horas
+	 * @param traje nombre del traje
+	 * @param encargado nombre del encargado
+	 * @return true si se modificó correctamente, false si no
+	 */
+	public boolean modificarCita(int id, String cliente, String taller, String fecha, int duracion, String traje, String encargado) {
+	    String query = "UPDATE Citas SET fecha = ?, duracion = ?, id_cliente = ?, id_encargado = ?, id_taller = ?, id_traje = ? WHERE id_cita = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        
+	        int idCliente = ids.obtenerIdCliente(cliente);
+	        int idEncargado = ids.obtenerIdEmpleado(encargado);
+	        int idTaller = ids.obtenerIdTaller(taller);
+	        int idTraje = ids.obtenerIdTraje(cliente, traje);
+	        
+	        if (idCliente == -1 || idEncargado == -1 || idTaller == -1 || idTraje == -1) {
+	            System.out.println("ERROR: No se encontraron todos los datos necesarios");
+	            return false;
+	        }
+	        
+	        String duracionFormateada = duracion + " H";
+	        
+	        stmt.setString(1, fecha);
+	        stmt.setString(2, duracionFormateada);
+	        stmt.setInt(3, idCliente);
+	        stmt.setInt(4, idEncargado);
+	        stmt.setInt(5, idTaller);
+	        stmt.setInt(6, idTraje);
+	        stmt.setInt(7, id);
+	        
+	        int filasAfectadas = stmt.executeUpdate();
+	        
+	        if (filasAfectadas > 0) {
+	            System.out.println("Cita modificada exitosamente. ID: " + id);
+	            return true;
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return false;
+	}
+
+	/**
+	 * Metodo para modificar un cliente existente
+	 * 
+	 * @param id ID del cliente a modificar
+	 * @param nombre nuevo nombre
+	 * @param colores nuevos colores
+	 * @param superpoder nuevo superpoder
+	 * @return true si se modificó correctamente, false si no
+	 */
+	public boolean modificarCliente(int id, String nombre, String colores, String superpoder) {
+	    String query = "UPDATE Cliente SET nombre = ?, colores = ?, superpoder = ? WHERE id_cliente = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        
+	        stmt.setString(1, nombre);
+	        stmt.setString(2, colores);
+	        stmt.setString(3, superpoder);
+	        stmt.setInt(4, id);
+	        
+	        int filasAfectadas = stmt.executeUpdate();
+	        
+	        if (filasAfectadas > 0) {
+	            System.out.println("Cliente modificado exitosamente. ID: " + id);
+	            return true;
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return false;
+	}
+
+	/**
+	 * Metodo para modificar un traje existente
+	 * 
+	 * @param idCliente ID del cliente dueño del traje
+	 * @param nombreTrajeActual nombre actual del traje
+	 * @param nombreTrajeNuevo nuevo nombre del traje
+	 * @param estadoTraje nuevo estado del traje
+	 * @return true si se modificó correctamente, false si no
+	 */
+	public boolean modificarTraje(int idCliente, String nombreTrajeActual, String nombreTrajeNuevo, String estadoTraje) {
+	    String query = "UPDATE Traje SET nombre = ?, estado = ? WHERE id_cliente = ? AND nombre = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        
+	        stmt.setString(1, nombreTrajeNuevo);
+	        stmt.setString(2, estadoTraje);
+	        stmt.setInt(3, idCliente);
+	        stmt.setString(4, nombreTrajeActual);
+	        
+	        int filasAfectadas = stmt.executeUpdate();
+	        
+	        if (filasAfectadas > 0) {
+	            System.out.println("Traje modificado exitosamente");
+	            return true;
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return false;
+	}
+
+	/**
+	 * Metodo para modificar un cliente y su traje simultáneamente
+	 * 
+	 * @param idCliente ID del cliente a modificar
+	 * @param nombre nuevo nombre del cliente
+	 * @param colores nuevos colores
+	 * @param superpoder nuevo superpoder
+	 * @param nombreTrajeActual nombre actual del traje
+	 * @param nombreTrajeNuevo nuevo nombre del traje
+	 * @param estadoTraje nuevo estado del traje
+	 * @return true si se modificó correctamente, false si no
+	 */
+	public boolean modificarClienteConTraje(int idCliente, String nombre, String colores, String superpoder,
+	                                        String nombreTrajeActual, String nombreTrajeNuevo, String estadoTraje) {
+	    
+	    boolean exitoCliente = modificarCliente(idCliente, nombre, colores, superpoder);
+	    
+	    if (exitoCliente) {
+	        boolean exitoTraje = modificarTraje(idCliente, nombreTrajeActual, nombreTrajeNuevo, estadoTraje);
+	        if (exitoTraje) {
+	            System.out.println("Cliente y traje modificados exitosamente");
+	            return true;
+	        } else {
+	            System.out.println("ERROR: Cliente modificado pero fallo al modificar el traje");
+	        }
+	    } else {
+	        System.out.println("ERROR: Fallo al modificar el cliente");
+	    }
+	    
+	    return false;
+	}
+
+	/**
+	 * Metodo para modificar un empleado existente
+	 * 
+	 * @param id ID del empleado a modificar
+	 * @param nombre nuevo nombre
+	 * @param apellidos nuevos apellidos
+	 * @param apodo nuevo apodo
+	 * @param categoria nueva categoria
+	 * @param contraseña nueva contraseña
+	 * @return true si se modificó correctamente, false si no
+	 */
+	public boolean modificarEmpleado(int id, String nombre, String apellidos, String apodo, String categoria, String contraseña) {
+	    String query = "UPDATE Empleado SET nombre = ?, apellidos = ?, apodo = ?, categoria = ?, contraseña = ? WHERE id_empleado = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        
+	        stmt.setString(1, nombre);
+	        stmt.setString(2, apellidos);
+	        stmt.setString(3, apodo);
+	        stmt.setString(4, categoria);
+	        stmt.setString(5, contraseña);
+	        stmt.setInt(6, id);
+	        
+	        int filasAfectadas = stmt.executeUpdate();
+	        
+	        if (filasAfectadas > 0) {
+	            System.out.println("Empleado modificado exitosamente. ID: " + id);
+	            return true;
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return false;
+	}
+
+	/**
+	 * Metodo para modificar un taller existente
+	 * 
+	 * @param id ID del taller a modificar
+	 * @param tipo_sala nuevo tipo de sala
+	 * @param nombre_sala nuevo nombre de la sala
+	 * @return true si se modificó correctamente, false si no
+	 */
+	public boolean modificarTaller(int id, String tipo_sala, String nombre_sala) {
+	    String query = "UPDATE Taller SET tipo_sala = ?, nombre_sala = ? WHERE id_taller = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        
+	        stmt.setString(1, tipo_sala);
+	        stmt.setString(2, nombre_sala);
+	        stmt.setInt(3, id);
+	        
+	        int filasAfectadas = stmt.executeUpdate();
+	        
+	        if (filasAfectadas > 0) {
+	            System.out.println("Taller modificado exitosamente. ID: " + id);
+	            return true;
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return false;
 	}
 }

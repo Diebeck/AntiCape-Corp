@@ -265,6 +265,10 @@ public class Control_creacion {
 	    }
 	}
 	
+	/**
+	 * Metodo para crear un empleado en base a los datos del formulario
+	 * en la aplicacion 
+	 */
 	public void crearEmpleado() {
 		try {
 			boolean exito = false;

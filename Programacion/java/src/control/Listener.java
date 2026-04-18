@@ -1,9 +1,3 @@
-/**
- * @author Breixo García Canovacas
- * @author Robinson Tamayo Guerrero
- * @author Romeo Rey Alonso
- * @author Sara Cardeña Carpio 
- */
 package control;
 
 import java.awt.event.ActionEvent;
@@ -29,18 +23,16 @@ public class Listener implements ActionListener {
 	Panel_login panel_login = new Panel_login(this);
 	Panel_talleres panel_talleres = new Panel_talleres(this);
 	Panel_x panel_x = new Panel_x(this);
-	Panel_nav_maestro panel_nav_maestro = new Panel_nav_maestro(this); // Nav para maestro
-	Panel_logo panel_logo = new Panel_logo(this); // Nav logo
+	Panel_nav_maestro panel_nav_maestro = new Panel_nav_maestro(this);
+	Panel_logo panel_logo = new Panel_logo(this);
 	Panel_nav_aprendiz panel_nav_aprendiz = new Panel_nav_aprendiz(this);
 	Panel_nav_oficial panel_nav_oficial = new Panel_nav_oficial(this);
 	Panel_prim_aprendiz panel_prim_aprendiz = new Panel_prim_aprendiz(this);
 	
-	private Control_tablas controlador_tablas = new Control_tablas(modelo, panel_x, panel_home);
-	private Control_creacion controlador_creacion = new Control_creacion (modelo, panel_clientes, panel_empleados, panel_citas, panel_talleres);
+	private Control_tablas ControladorTablas = new Control_tablas(modelo, panel_x, panel_home);
+	private Control_creacion Controlador_creacion = new Control_creacion(modelo, panel_clientes, panel_empleados, panel_citas, panel_talleres);
+	private Control_ediciones Controlador_ediciones = new Control_ediciones(modelo, panel_x, panel_citas, panel_clientes, panel_empleados, panel_talleres);
 	
-	/** Asigna la referencia a la ventana principal
-	 * @param vent
-	 */
 	public void setVentana(Ventana vent) {
 		this.vent = vent;
 		vent.cambiarCajaPrimario(panel_login);
@@ -50,17 +42,17 @@ public class Listener implements ActionListener {
 	private void iniciarMaestro() {
 		vent.cambiarCajaPrimario(panel_home);
 		vent.cambiarCajaNav(panel_nav_maestro);
-		//Cambio del nombre y rol en el panel de cuenta 
 		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
 		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
-		// rellenado de tablas de la home 
-		controlador_tablas.citasRecientes();
-		controlador_tablas.cargarOcupacionTalleres();
+		ControladorTablas.citasRecientes();
+		ControladorTablas.cargarOcupacionTalleres();
 	}
+	
 	private void iniciarOficial() {
 		vent.cambiarCajaPrimario(panel_x);
 		vent.cambiarCajaNav(panel_nav_oficial);
 	}
+	
 	private void iniciarAprendiz() {
 		vent.cambiarCajaPrimario(panel_prim_aprendiz);
 		vent.cambiarCajaNav(panel_nav_aprendiz);
@@ -86,90 +78,157 @@ public class Listener implements ActionListener {
 				iniciarAprendiz();
 			}
 			
-		} else if (e.getSource()== panel_cuenta.getBtn_logout()) { //Para que funcione el botón Logout con la imagen
+		} else if (e.getSource()== panel_cuenta.getBtn_logout()) {
 			vent.cambiarCajaPrimario(panel_login);
 			vent.cambiarCajaNav(panel_logo);
 			vent.cambiarCajaCuenta(null);
 			
 		} else if (cmd.equals("Citas")) {
 		    vent.cambiarCajaPrimario(panel_x);
-		    controlador_tablas.cargarCitas();
+		    ControladorTablas.cargarCitas();
 			
 		} else if (cmd.equals("Clientes")) {
 			vent.cambiarCajaPrimario(panel_x);
-			controlador_tablas.cargarClientes();
+			ControladorTablas.cargarClientes();
 		
 		} else if (cmd.equals("Empleados")) {
 			 vent.cambiarCajaPrimario(panel_x);
-			 controlador_tablas.cargarEmpleados();
+			 ControladorTablas.cargarEmpleados();
 			
 		} else if (cmd.equals("Talleres")) {
 			 vent.cambiarCajaPrimario(panel_x);
-			 controlador_tablas.cargarTalleres();
+			 ControladorTablas.cargarTalleres();
 			
-			
-		} else if (cmd.equals("Crear") || cmd.equals("Modificar")) {
+		} else if (cmd.equals("Crear")) {
+			// Solo creación
 			if (panel_x.getEstado().equals("citas")) {
 				vent.cambiarCajaPrimario(panel_citas);
-				controlador_creacion.formularioCitas();
+				Controlador_creacion.formularioCitas();
+				panel_citas.setModo("Crear");
 			} else if (panel_x.getEstado().equals("clientes")) {
 				vent.cambiarCajaPrimario(panel_clientes);
+				panel_clientes.setModo("Crear");
 			} else if (panel_x.getEstado().equals("talleres")) {
 				vent.cambiarCajaPrimario(panel_talleres);
+				panel_talleres.setModo("Crear");
 			} else if (panel_x.getEstado().equals("empleados")) {
 				vent.cambiarCajaPrimario(panel_empleados);
+				panel_empleados.setModo("Crear");
 			}
-			// Pone el modo a "Crear" o "Modificar"
-			panel_citas.setModo(cmd);
-			panel_clientes.setModo(cmd);
-			panel_talleres.setModo(cmd);
-			panel_empleados.setModo(cmd);
+			
+		} else if (cmd.equals("Modificar")) {
+			// Solo edición
+			if (panel_x.getEstado().equals("citas")) {
+				Object[] fila = Controlador_ediciones.getFilaSeleccionada();
+				if (fila != null) {
+					vent.cambiarCajaPrimario(panel_citas);
+					Controlador_creacion.formularioCitas(); // Para llenar combos
+					Controlador_ediciones.cargarCitaParaEditar(fila);
+					panel_citas.setModo("Modificar");
+				} else {
+					System.out.println("ERROR: Seleccione una fila para modificar");
+				}
+			} else if (panel_x.getEstado().equals("clientes")) {
+				Object[] fila = Controlador_ediciones.getFilaSeleccionada();
+				if (fila != null) {
+					vent.cambiarCajaPrimario(panel_clientes);
+					Controlador_ediciones.cargarClienteParaEditar(fila);
+					panel_clientes.setModo("Modificar");
+				} else {
+					System.out.println("ERROR: Seleccione una fila para modificar");
+				}
+			} else if (panel_x.getEstado().equals("talleres")) {
+				Object[] fila = Controlador_ediciones.getFilaSeleccionada();
+				if (fila != null) {
+					vent.cambiarCajaPrimario(panel_talleres);
+					Controlador_ediciones.cargarTallerParaEditar(fila);
+					panel_talleres.setModo("Modificar");
+				} else {
+					System.out.println("ERROR: Seleccione una fila para modificar");
+				}
+			} else if (panel_x.getEstado().equals("empleados")) {
+				Object[] fila = Controlador_ediciones.getFilaSeleccionada();
+				if (fila != null) {
+					vent.cambiarCajaPrimario(panel_empleados);
+					Controlador_ediciones.cargarEmpleadoParaEditar(fila);
+					panel_empleados.setModo("Modificar");
+				} else {
+					System.out.println("ERROR: Seleccione una fila para modificar");
+				}
+			}
 
 		} else if (e.getSource() == panel_cuenta.getBotonHome()) {
 			vent.cambiarCajaPrimario(panel_home);
 		
 		} else if (e.getSource() == panel_talleres.getBtn_homeTaller()) {
 			vent.cambiarCajaPrimario(panel_x);
+			if (panel_x.getEstado().equals("talleres")) {
+				ControladorTablas.cargarTalleres();
+			}
 			
 		} else if (e.getSource() == panel_clientes.getBtn_homeClientes()) {
 			vent.cambiarCajaPrimario(panel_x);
+			if (panel_x.getEstado().equals("clientes")) {
+				ControladorTablas.cargarClientes();
+			}
 			
 		} else if (e.getSource() == panel_empleados.getBtn_homeEmpleado()) {
 			vent.cambiarCajaPrimario(panel_x);
+			if (panel_x.getEstado().equals("empleados")) {
+				ControladorTablas.cargarEmpleados();
+			}
 			
 		} else if (e.getSource() == panel_citas.getBtn_homeCitas()) {
 			vent.cambiarCajaPrimario(panel_x);
-			// Recargar la tabla de citas al volver
 			if (panel_x.getEstado().equals("citas")) {
-				controlador_tablas.cargarCitas();
+				ControladorTablas.cargarCitas();
 			}
 			
-		// Listener para el boton Confirmar del panel_citas
 		} else if (e.getSource() == panel_citas.getBtn_cCita()) {
-			// Crear la cita
-			controlador_creacion.crearCita();
-			
-			// Recargar todas las tablas que muestran informacion de citas
-			controlador_tablas.cargarCitas();           
-			controlador_tablas.citasRecientes();       
-			controlador_tablas.cargarOcupacionTalleres();
-			
-			// Volver al panel_x
+			// Boton confirmar en citas
+			if (panel_citas.getModo().equals("Crear")) {
+				Controlador_creacion.crearCita();
+			} else {
+				Controlador_ediciones.editarCita();
+			}
+			// Recargar tablas
+			ControladorTablas.cargarCitas();
+			ControladorTablas.citasRecientes();
+			ControladorTablas.cargarOcupacionTalleres();
 			vent.cambiarCajaPrimario(panel_x);
+			
 		} else if (e.getSource() == panel_clientes.getBtn_cCliente()) {
-			controlador_creacion.crearCliente();
-			controlador_tablas.cargarClientes();
+			// Boton confirmar en clientes
+			if (panel_clientes.getModo().equals("Crear")) {
+				Controlador_creacion.crearCliente();
+			} else {
+				Controlador_ediciones.editarCliente();
+			}
+			// Recargar tablas
+			ControladorTablas.cargarClientes();
 			vent.cambiarCajaPrimario(panel_x);
+			
 		} else if (e.getSource() == panel_talleres.getBtn_cTaller()) {
-			controlador_creacion.crearTaller();
-			controlador_tablas.cargarTalleres();
-			controlador_tablas.cargarOcupacionTalleres();
+			// Boton confirmar en talleres
+			if (panel_talleres.getModo().equals("Crear")) {
+				Controlador_creacion.crearTaller();
+			} else {
+				Controlador_ediciones.editarTaller();
+			}
+			// Recargar tablas
+			ControladorTablas.cargarTalleres();
 			vent.cambiarCajaPrimario(panel_x);
+			
 		} else if (e.getSource() == panel_empleados.getBtn_cEmpleado()) {
-			controlador_creacion.crearEmpleado();
-			controlador_tablas.cargarEmpleados();
+			// Boton confirmar en empleados
+			if (panel_empleados.getModo().equals("Crear")) {
+				Controlador_creacion.crearEmpleado();
+			} else {
+				Controlador_ediciones.editarEmpleado();
+			}
+			// Recargar tablas
+			ControladorTablas.cargarEmpleados();
 			vent.cambiarCajaPrimario(panel_x);
 		}
 	}
-
 }
