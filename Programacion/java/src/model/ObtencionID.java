@@ -105,4 +105,91 @@ public class ObtencionID {
 		}
 		return -1;
 	}
+	
+	/**
+	 * 	Metodo para obtener el nombre de un cliente
+	 * en base a su id
+	 * 
+	 * @param idCliente int del id del cliente a bucar
+	 * @return String con el nombre asociado al id
+	 */
+	public String obtenerNombreCliente(int idCliente) {
+	    String query = "SELECT nombre FROM Cliente WHERE id_cliente = ?";
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, idCliente);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("nombre");
+	        }
+	        rs.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    //print de error
+	    return "Desconocido";
+	}
+	
+	/**
+	 * Metodo para obtener el nombre de un empleado en base a su id
+	 * 
+	 * @param idEmpleado int del id del empleado
+	 * 
+	 * @return String con el nombre relacionado al id
+	 */
+	public String obtenerNombreEmpleado(int idEmpleado) {
+	    String query = "SELECT nombre FROM Empleado WHERE id_empleado = ?";
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, idEmpleado);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("nombre");
+	        }
+	        rs.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return "Desconocido";
+	}
+
+	/**
+	 * Metodo para obtener el nombre de un taller en base a su id
+	 * 
+	 * @param idTaller int del id de un taller
+	 * @return String con el nombre asociado al id 
+	 */
+	public String obtenerNombreTaller(int idTaller) {
+	    String query = "SELECT nombre_sala FROM Taller WHERE id_taller = ?";
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, idTaller);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("nombre_sala");
+	        }
+	        rs.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return "Desconocido";
+	}
+	
+	/**
+	 * Metodo para obtener el nombre de un traje a partir de su id
+	 * 
+	 * @param idTraje int del id del traje 
+	 * @return string del nombre asociado al id
+	 */
+	public String obtenerNombreTraje(int idTraje) {
+	    String query = "SELECT nombre FROM Traje WHERE id_traje = ?";
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, idTraje);
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getString("nombre");
+	        }
+	        rs.close();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return "Desconocido";
+	}
 }

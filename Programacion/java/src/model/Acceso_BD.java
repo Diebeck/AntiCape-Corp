@@ -347,7 +347,7 @@ public class Acceso_BD {
 	 */
 	public ArrayList<String[]> ocupacionTaller() {
 	    ArrayList<String[]> citasPorTaller = new ArrayList<>();
-	    String query = "SELECT t.tipo_sala, COUNT(c.id_cita) AS total_citas " +
+	    String query = "SELECT t.nombre_sala, COUNT(c.id_cita) AS total_citas " +
 	                   "FROM Taller t, Citas c " +
 	                   "WHERE t.id_taller = c.id_taller " +
 	                   "GROUP BY t.id_taller, t.nombre_sala " +
@@ -358,7 +358,7 @@ public class Acceso_BD {
 	        
 	        while (rs.next()) {
 	            String[] tallerInfo = new String[2];
-	            tallerInfo[0] = rs.getString("tipo_sala");
+	            tallerInfo[0] = rs.getString("nombre_sala");
 	            tallerInfo[1] = String.valueOf(rs.getInt("total_citas"));
 	            citasPorTaller.add(tallerInfo);
 	        }

@@ -49,12 +49,16 @@ public class Control_ediciones {
 	}
 
 	/**
-	 * Obtiene la fila seleccionada de la tabla actual
+	 * Metodo que devuelve un array con los elementos 
+	 * de la fila seleccionada en una tabla
+	 * @return
 	 */
 	public Object[] getFilaSeleccionada() {
 		JTable tabla = panel_x.getTable();
+		//obtener señal de la fila en forma de int
 		int filaSeleccionada = tabla.getSelectedRow();
 
+		// si hay fila seleccionada (diferente a -1 que se interpreta como no seleccion)
 		if (filaSeleccionada != -1) {
 			Object[] fila = new Object[tabla.getColumnCount()];
 			for (int i = 0; i < tabla.getColumnCount(); i++) {
@@ -62,49 +66,65 @@ public class Control_ediciones {
 			}
 			return fila;
 		}
-		System.out.println("ERROR: No hay ninguna fila seleccionada");
+		System.out.println("No hay ninguna fila seleccionada");
 		return null;
 	}
 
 	/**
-	 * Edita una cita con los datos del formulario
+	 * Metodo de edicion de una cita con los datos del formulario
+	 * 
+	 * @see Acceso_BD#modificarCita(int, String, String, String, int, String, String)
 	 */
 	public void editarCita() {
 		try {
+			/*
+			 * si en el listener principal se cambia el estado del id de la cita seleccionada
+			 * esta clausula if no se activa 
+			 */
 			if (idCitaEditando == -1) {
-				System.out.println("ERROR: No hay cita seleccionada para editar");
+				System.out.println("No hay cita seleccionada para editar");
 				return;
 			}
-
+			
+			//guardado de los elementos del formulario
 			String cliente = (String) panel_citas.getCbCliente().getSelectedItem();
 			String taller = (String) panel_citas.getCbTaller().getSelectedItem();
 			String traje = (String) panel_citas.getCbTrajes().getSelectedItem();
 			String encargado = (String) panel_citas.getCbEncargado().getSelectedItem();
-
+			
+			//Guardado de la fecha 
 			Date date = (Date) panel_citas.getSpFecha().getValue();
+			//formateo de la fecha segun el formato que esta en el spinner
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 			String fecha = sdf.format(date);
 
 			int duracion = (int) panel_citas.getSpDuracion().getValue();
-
+			
+			// si algun dato esta vacio se lanza un error
 			if (cliente == null || taller == null || traje == null || encargado == null) {
-				System.out.println("ERROR: Campos vacíos en el formulario");
+				System.out.println("Campos vacíos en el formulario");
 				return;
 			}
-
+			
+			// clausula if exclusiva de trajes debido a su manejo como string 
 			if (traje.equals("Sin trajes disponibles")) {
 				System.out.println("ERROR: El cliente no tiene trajes disponibles");
 				return;
 			}
-
+			
+			//edicion de la ciita 
 			boolean exito = modelo.modificarCita(idCitaEditando, cliente, taller, fecha, duracion, traje, encargado);
 
 			if (exito) {
-				System.out.println("EXITO: Cita modificada correctamente");
+				System.out.println("Cita modificada correctamente");
+				/**
+				 * reestablecimiento de la variable del ID para evitar 
+				 * llenados del formulario repetidos
+				 */
 				idCitaEditando = -1;
 				Utilidades.limpiarFormularioCitas(panel_citas);
 			} else {
-				System.out.println("ERROR: Fallo al modificar la cita");
+				System.out.println("Fallo al modificar la cita");
 			}
 
 		} catch (Exception e) {
@@ -113,12 +133,14 @@ public class Control_ediciones {
 	}
 
 	/**
-	 * Edita un cliente con su traje
+	 * Metodo de edicion de un cliente con sus traje
+	 * 
+	 * @see Acceso_BD#modificarCliente(int, String, String, String)
 	 */
 	public void editarCliente() {
 		try {
 			if (idClienteEditando == -1) {
-				System.out.println("ERROR: No hay cliente seleccionado para editar");
+				System.out.println("No hay cliente seleccionado para editar");
 				return;
 			}
 
@@ -129,10 +151,11 @@ public class Control_ediciones {
 			String estado = "";
 
 			if (nombre.isEmpty() || colores.isEmpty() || superpoder.isEmpty() || nomTraje.isEmpty()) {
-				System.out.println("ERROR: Campos vacios en el formulario de cliente");
+				System.out.println("Campos vacios en el formulario de cliente");
 				return;
 			}
 
+			//guardado del estado del traje 
 			if (panel_clientes.getRdbtnDiseno().isSelected()) {
 				estado = "diseño";
 			} else if (panel_clientes.getRdbtnCostura().isSelected()) {
@@ -140,17 +163,18 @@ public class Control_ediciones {
 			} else if (panel_clientes.getRdbtnTaller().isSelected()) {
 				estado = "taller";
 			}
-
+			
+			//invocacion de la modificacion
 			boolean exito = modelo.modificarClienteConTraje(idClienteEditando, nombre, colores, superpoder,
 					nombreTrajeActual, nomTraje, estado);
 
 			if (exito) {
-				System.out.println("EXITO: Cliente modificado correctamente");
+				System.out.println("Cliente modificado correctamente");
 				idClienteEditando = -1;
 				nombreTrajeActual = null;
 				Utilidades.limpiarFormularioCliente(panel_clientes);
 			} else {
-				System.out.println("ERROR: Fallo al modificar el cliente");
+				System.out.println("Fallo al modificar el cliente");
 			}
 
 		} catch (Exception e) {
@@ -159,12 +183,15 @@ public class Control_ediciones {
 	}
 
 	/**
-	 * Edita un empleado
+	 * Metodo de edicion de un empleado con los datos 
+	 * del formulario
+	 * 
+	 * @see Acceso_BD#modificarEmpleado(int, String, String, String, String, String)
 	 */
 	public void editarEmpleado() {
 		try {
 			if (idEmpleadoEditando == -1) {
-				System.out.println("ERROR: No hay empleado seleccionado para editar");
+				System.out.println("No hay empleado seleccionado para editar");
 				return;
 			}
 
@@ -175,7 +202,7 @@ public class Control_ediciones {
 			String categoria = "";
 
 			if (nombre.isEmpty() || apellidos.isEmpty() || usuario.isEmpty() || contrasena.isEmpty()) {
-				System.out.println("ERROR: Campos vacios en el formulario de empleado");
+				System.out.println("Campos vacios en el formulario de empleado");
 				return;
 			}
 
@@ -190,11 +217,11 @@ public class Control_ediciones {
 			boolean exito = modelo.modificarEmpleado(idEmpleadoEditando, nombre, apellidos, usuario, categoria, contrasena);
 
 			if (exito) {
-				System.out.println("EXITO: Empleado modificado correctamente");
+				System.out.println("Empleado modificado correctamente");
 				idEmpleadoEditando = -1;
 				Utilidades.limpiarFormularioEmpleado(panel_empleados);
 			} else {
-				System.out.println("ERROR: Fallo al modificar el empleado");
+				System.out.println("Fallo al modificar el empleado");
 			}
 
 		} catch (Exception e) {
@@ -203,7 +230,9 @@ public class Control_ediciones {
 	}
 
 	/**
-	 * Edita un taller
+	 * Metodo de modificaddo de un taller con los datos del formulario
+	 * 
+	 * @see Acceso_BD#modificarTaller(int, String, String)
 	 */
 	public void editarTaller() {
 		try {
@@ -219,7 +248,8 @@ public class Control_ediciones {
 				System.out.println("ERROR: El nombre del taller no puede estar vacío");
 				return;
 			}
-
+			
+			// obtencion datos del radio button
 			if (panel_talleres.getRdbtnCostura().isSelected()) {
 				tipo = "costura";
 			} else if (panel_talleres.getRdbtnDiseno().isSelected()) {
@@ -227,15 +257,16 @@ public class Control_ediciones {
 			} else if (panel_talleres.getRdbtnPruebas().isSelected()) {
 				tipo = "pruebas";
 			}
-
+			
+			//invocacion de la modificacion del taller 
 			boolean exito = modelo.modificarTaller(idTallerEditando, tipo, nombre);
 
 			if (exito) {
-				System.out.println("EXITO: Taller modificado correctamente");
+				System.out.println("Taller modificado correctamente");
 				idTallerEditando = -1;
 				Utilidades.limpiarFormularioTaller(panel_talleres);
 			} else {
-				System.out.println("ERROR: Fallo al modificar el taller");
+				System.out.println("Fallo al modificar el taller");
 			}
 
 		} catch (Exception e) {
@@ -244,74 +275,76 @@ public class Control_ediciones {
 	}
 
 	/**
-	 * Carga los datos de una cita en el formulario para editar
+	 * Metodo que carga en la modificacion los datos seleccionados en la tabla 
+	 * 
+	 * @param datosCita Array de objetos genericos que contiene los datos de la fila seleccionada
 	 */
 	public void cargarCitaParaEditar(Object[] datosCita) {
-		// datosCita: [ID, Fecha, Duración, Cliente, Encargado, Taller, Traje]
-		
-		// Obtener ID
-		if (datosCita[0] instanceof Integer) {
-			idCitaEditando = (int) datosCita[0];
-		} else {
-			idCitaEditando = Integer.parseInt((String) datosCita[0]);
-		}
-
-		// Cliente
-		String nombreCliente = (String) datosCita[3];
-		for (int i = 0; i < panel_citas.getCbCliente().getItemCount(); i++) {
-			if (panel_citas.getCbCliente().getItemAt(i).equals(nombreCliente)) {
-				panel_citas.getCbCliente().setSelectedIndex(i);
-				break;
-			}
-		}
-
-		// Encargado
-		String nombreEncargado = (String) datosCita[4];
-		for (int i = 0; i < panel_citas.getCbEncargado().getItemCount(); i++) {
-			if (panel_citas.getCbEncargado().getItemAt(i).equals(nombreEncargado)) {
-				panel_citas.getCbEncargado().setSelectedIndex(i);
-				break;
-			}
-		}
-
-		// Taller
-		String nombreTaller = (String) datosCita[5];
-		for (int i = 0; i < panel_citas.getCbTaller().getItemCount(); i++) {
-			if (panel_citas.getCbTaller().getItemAt(i).equals(nombreTaller)) {
-				panel_citas.getCbTaller().setSelectedIndex(i);
-				break;
-			}
-		}
-
-		// Fecha
-		String fecha = (String) datosCita[1];
-		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			Date fechaDate = sdf.parse(fecha);
-			panel_citas.getSpFecha().setValue(fechaDate);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		// Duracion
-		String duracionStr = (String) datosCita[2];
-		int duracion = Integer.parseInt(duracionStr.split(" ")[0]);
-		panel_citas.getSpDuracion().setValue(duracion);
-
-		// Traje
-		String nombreTraje = (String) datosCita[6];
-		for (int i = 0; i < panel_citas.getCbTrajes().getItemCount(); i++) {
-			if (panel_citas.getCbTrajes().getItemAt(i).equals(nombreTraje)) {
-				panel_citas.getCbTrajes().setSelectedIndex(i);
-				break;
-			}
-		}
-
-		System.out.println("Cargada cita con ID: " + idCitaEditando + " para editar");
+	    // datosCita tiene: [ID, Fecha, Duración, Cliente, Encargado, Taller, Traje]
+	    
+	    idCitaEditando = (int) datosCita[0];
+	    
+	    // Asignacion del cliente
+	    String nombreCliente = (String) datosCita[3];
+	    for (int i = 0; i < panel_citas.getCbCliente().getItemCount(); i++) {
+	        if (panel_citas.getCbCliente().getItemAt(i).equals(nombreCliente)) {
+	            panel_citas.getCbCliente().setSelectedIndex(i);
+	            break;
+	        }
+	    }
+	    
+	    // Asignacion del encargado
+	    String nombreEncargado = (String) datosCita[4];
+	    for (int i = 0; i < panel_citas.getCbEncargado().getItemCount(); i++) {
+	        if (panel_citas.getCbEncargado().getItemAt(i).equals(nombreEncargado)) {
+	            panel_citas.getCbEncargado().setSelectedIndex(i);
+	            break;
+	        }
+	    }
+	    
+	    // Asignacion del encargado
+	    String nombreTaller = (String) datosCita[5];
+	    for (int i = 0; i < panel_citas.getCbTaller().getItemCount(); i++) {
+	        if (panel_citas.getCbTaller().getItemAt(i).equals(nombreTaller)) {
+	            panel_citas.getCbTaller().setSelectedIndex(i);
+	            break;
+	        }
+	    }
+	    
+	    //Asignacion de la fecha con su conversion de formato 
+	    String fecha = (String) datosCita[1];
+	    try {
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        Date fechaDate = sdf.parse(fecha);
+	        panel_citas.getSpFecha().setValue(fechaDate);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+	    // Asignacion de la duracioon
+	    String duracionStr = (String) datosCita[2];
+	    //hago el split del String ejem: "1 H" y paso a int el char del indice 0
+	    int duracion = Integer.parseInt(duracionStr.split(" ")[0]);
+	    panel_citas.getSpDuracion().setValue(duracion);
+	    
+	    // Asignacion del nombre del traje
+	    String nombreTraje = (String) datosCita[6];
+	    for (int i = 0; i < panel_citas.getCbTrajes().getItemCount(); i++) {
+	        if (panel_citas.getCbTrajes().getItemAt(i).equals(nombreTraje)) {
+	            panel_citas.getCbTrajes().setSelectedIndex(i);
+	            break;
+	        }
+	    }
+	    
+	    //print de debug
+	    System.out.println("Cargada cita con ID: " + idCitaEditando + " para editar");
 	}
 
 	/**
-	 * Carga los datos de un cliente en el formulario para editar
+	 * Metodo que carga los datos de un cliente en el formulario para editar
+	 * 
+	 * @param datosCliente Array de objetos genericos con los datos del cliente
+	 * @see Acceso_BD#obtenerNombreTrajePorCliente(int)
 	 */
 	public void cargarClienteParaEditar(Object[] datosCliente) {
 		// datosCliente: [ID, Nombre, Colores, Superpoder]
@@ -335,13 +368,16 @@ public class Control_ediciones {
 		if (nombreTrajeActual != null && !nombreTrajeActual.isEmpty()) {
 			panel_clientes.getTfNombreT().setText(nombreTrajeActual);
 		}
-
+		
+		//print de debug
 		System.out.println("Cargado cliente con ID: " + idClienteEditando + " para editar");
 		System.out.println("Traje actual: " + nombreTrajeActual);
 	}
 
 	/**
-	 * Carga los datos de un empleado en el formulario para editar
+	 * Metodo que carga en el formulario los datos de un empleado a modificar
+	 * 
+	 * @param datosEmpleado Array de objetos genericos con los datos del empleado
 	 */
 	public void cargarEmpleadoParaEditar(Object[] datosEmpleado) {
 		// datosEmpleado: [ID, Nombre, Apellidos, Apodo, Categoria]
@@ -355,7 +391,8 @@ public class Control_ediciones {
 		panel_empleados.getTfNombre().setText((String) datosEmpleado[1]);
 		panel_empleados.getTfApellidos().setText((String) datosEmpleado[2]);
 		panel_empleados.getTfUsuario().setText((String) datosEmpleado[3]);
-
+		
+		//set de la seleccion en el radioButton
 		String categoria = (String) datosEmpleado[4];
 		if (categoria.equalsIgnoreCase("aprendiz")) {
 			panel_empleados.getRdbtnAprendiz().setSelected(true);
@@ -369,7 +406,8 @@ public class Control_ediciones {
 	}
 
 	/**
-	 * Carga los datos de un taller en el formulario para editar
+	 *Metodo que carga los datos de un taller en el formulario para modificar
+	 * 
 	 */
 	public void cargarTallerParaEditar(Object[] datosTaller) {
 		// datosTaller: [ID, Nombre, Tipo sala]

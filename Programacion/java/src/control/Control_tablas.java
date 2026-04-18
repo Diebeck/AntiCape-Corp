@@ -23,7 +23,7 @@ public class Control_tablas {
     private Acceso_BD modelo;
     private Panel_x panel_x;
     private Panel_home panel_home;
-
+    private ObtencionID ids;
     /**
      * Contructor de la clase de control de tablas 
      * 
@@ -34,6 +34,7 @@ public class Control_tablas {
         this.modelo = modelo;
         this.panel_x = panel_x;
         this.panel_home = panel_home;
+        ids = new ObtencionID(modelo.getConexion());
     }
     
     /**
@@ -84,38 +85,37 @@ public class Control_tablas {
      * @see #cargarTalleres()
      */
     public void cargarCitas() {
-    	// invocacion del metodo que consulta a la base de datos
+    	//Almacenado del array con los datos de la base de datos
         ArrayList<Cita> citas = modelo.mostradoCitas();
-        // titulos de la tabla y su posterior añadido al modelo de la tabla 
+        //Array de strings con los titulos de la tabla 
         String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
-        // genero un nuevo modelo de tabla y le asigno los titulos 
+        //Creacion del modelo de la tabla 
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
-        
-        //reset de la tabla para evitar duplicado de datos 
         tableModel.setRowCount(0);
         
-        //verificacion de que si existan citas en el sistema 
+        //si el array logro capturar datos 
         if (citas != null) {
             for (Cita n : citas) {
-            	
-            	/** en base a cada objeto de tipo cita en el array de citas
-            	 * creo un Objeto generico que contenga cada elemento de la cita
-            	 * y a su vez lo añado al array 
-            	 */
+                // Obtener los nombres usando los IDs asociados a las citas 
+                String nombreCliente = ids.obtenerNombreCliente(n.getId_cliente());
+                String nombreEncargado = ids.obtenerNombreEmpleado(n.getId_encargado());
+                String nombreTaller = ids.obtenerNombreTaller(n.getId_taller());
+                String nombreTraje = ids.obtenerNombreTraje(n.getId_traje());
+                
+                //Añadido al modelo de la tabla los datos de la cita
                 tableModel.addRow(new Object[]{
                     n.getId_cita(),
                     n.getFecha(),
                     n.getDuracion(),
-                    n.getId_cliente(),
-                    n.getId_encargado(),
-                    n.getId_taller(),
-                    n.getId_traje()
+                    nombreCliente,    
+                    nombreEncargado,  
+                    nombreTaller,     
+                    nombreTraje       
                 });
             }
         }
-        //le paso el modelo ya formado a la tabla del panel_x
+        //A la tabla de panel le pasamos el modelo formateado
         panel_x.getTable().setModel(tableModel);
-        //muevo el estado del panel 
         panel_x.setEstado("citas");
     }
     
@@ -205,29 +205,34 @@ public class Control_tablas {
      * con el contenido de un ArrayList de citas 
      * 
      * @see Acceso_BD#CitasRecientes()
+     * @see #crearModelo(String[])
      */
     public void citasRecientes() {
         ArrayList<Cita> citas = modelo.CitasRecientes();
         String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
-        DefaultTableModel tableModel = crearModelo(columnas, panel_home.getTablaClientes());
+        DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
         tableModel.setRowCount(0);
-
+        
         if (citas != null) {
             for (Cita n : citas) {
- 
+                String nombreCliente = ids.obtenerNombreCliente(n.getId_cliente());
+                String nombreEncargado = ids.obtenerNombreEmpleado(n.getId_encargado());
+                String nombreTaller = ids.obtenerNombreTaller(n.getId_taller());
+                String nombreTraje = ids.obtenerNombreTraje(n.getId_traje());
+                
                 tableModel.addRow(new Object[]{
                     n.getId_cita(),
                     n.getFecha(),
                     n.getDuracion(),
-                    n.getId_cliente(),
-                    n.getId_encargado(),
-                    n.getId_taller(),
-                    n.getId_traje()
+                    nombreCliente,   
+                    nombreEncargado, 
+                    nombreTaller,     
+                    nombreTraje       
                 });
             }
-    }
+        }
         panel_home.getTablaClientes().setModel(tableModel);
-}
+    }
     
     /**
      * Metodo publico que genera un rellenado de la tabla
