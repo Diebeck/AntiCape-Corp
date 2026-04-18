@@ -20,10 +20,15 @@ import view.Panel_x;
  */
 public class Control_tablas {
 
-    private Acceso_BD modelo;
+    @SuppressWarnings("unused")
+	private Acceso_BD modelo;
     private Panel_x panel_x;
     private Panel_home panel_home;
     private ObtencionID ids;
+    private ConsultasCliente consultas_cliente;
+    private ConsultasCita consultas_cita;
+    private ConsultasTaller consultas_taller;
+    private ConsultasEmpleado consultas_empleado;
     /**
      * Contructor de la clase de control de tablas 
      * 
@@ -34,7 +39,11 @@ public class Control_tablas {
         this.modelo = modelo;
         this.panel_x = panel_x;
         this.panel_home = panel_home;
-        ids = new ObtencionID(modelo.getConexion());
+        this.ids = new ObtencionID(modelo.getConexion());
+        this.consultas_cliente = new ConsultasCliente(modelo.getConexion());
+        this.consultas_cita = new ConsultasCita(modelo.getConexion());
+        this.consultas_taller = new ConsultasTaller(modelo.getConexion());
+        this.consultas_empleado = new ConsultasEmpleado(modelo.getConexion());
     }
     
     /**
@@ -58,6 +67,12 @@ public class Control_tablas {
         };
         
         tabla.setModel(modelo);
+        
+        // Evitar que se puedan mover/reordenar las columnas
+        tabla.getTableHeader().setReorderingAllowed(false);
+        
+        // Evitar seleccion multiple de filas 
+        tabla.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         
         // Estilo para la cabecera de la tabla
         JTableHeader cabecera = tabla.getTableHeader();
@@ -86,7 +101,7 @@ public class Control_tablas {
      */
     public void cargarCitas() {
     	//Almacenado del array con los datos de la base de datos
-        ArrayList<Cita> citas = modelo.mostradoCitas();
+        ArrayList<Cita> citas = consultas_cita.mostradoCitas();
         //Array de strings con los titulos de la tabla 
         String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
         //Creacion del modelo de la tabla 
@@ -127,7 +142,7 @@ public class Control_tablas {
      * @see Acceso_BD#mostrarClientes()
      */
     public void cargarClientes() {
-        ArrayList<Cliente> clientes = modelo.mostrarClientes();
+        ArrayList<Cliente> clientes = consultas_cliente.mostrarClientes();
         String[] columnas = {"ID", "Nombre", "Colores", "Superpoder"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
         tableModel.setRowCount(0);
@@ -154,7 +169,7 @@ public class Control_tablas {
      * @see Acceso_BD#mostrarEmpleados()
      */
     public void cargarEmpleados() {
-        ArrayList<Empleado> empleados = modelo.mostrarEmpleados();
+        ArrayList<Empleado> empleados = consultas_empleado.mostrarEmpleados();
         String[] columnas = {"ID", "Nombre", "Apellidos", "Apodo", "Categoria"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
         tableModel.setRowCount(0);
@@ -182,7 +197,7 @@ public class Control_tablas {
      * @see Acceso_BD#mostrarTalleres()
      */
     public void cargarTalleres() {
-        ArrayList<Taller> talleres = modelo.mostrarTalleres();
+        ArrayList<Taller> talleres = consultas_taller.mostrarTalleres();
         String[] columnas = {"ID", "Tipo de sala", "Nombre"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
         tableModel.setRowCount(0);
@@ -208,9 +223,9 @@ public class Control_tablas {
      * @see #crearModelo(String[])
      */
     public void citasRecientes() {
-        ArrayList<Cita> citas = modelo.CitasRecientes();
+        ArrayList<Cita> citas = consultas_cita.CitasRecientes();
         String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
-        DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
+        DefaultTableModel tableModel = crearModelo(columnas, panel_home.getTablaClientes());
         tableModel.setRowCount(0);
         
         if (citas != null) {
@@ -242,7 +257,7 @@ public class Control_tablas {
      * @see Acceso_BD#ocupacionTaller()
      */
     public void cargarOcupacionTalleres() {
-        ArrayList<String[]> ocupacionTalleres = modelo.ocupacionTaller();
+        ArrayList<String[]> ocupacionTalleres = consultas_taller.ocupacionTaller();
         String[] columnas = {"Taller", "Número de Citas"};
 
         DefaultTableModel tableModel = crearModelo(columnas, panel_home.getTablaTalleres());

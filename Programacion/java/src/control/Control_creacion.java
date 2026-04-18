@@ -23,11 +23,18 @@ import view.Panel_talleres;
  */
 public class Control_creacion {
 
+	@SuppressWarnings("unused")
 	private Acceso_BD modelo;
 	private Panel_clientes panel_cliente;
 	private Panel_empleados panel_empleados;
 	private Panel_citas panel_cita;
 	private Panel_talleres panel_taller;
+	private ConsultasCliente consultas_cliente;
+	private ConsultasCita consultas_cita;
+	private ConsultasTaller consultas_taller;
+	private ConsultasEmpleado consultas_empleado;
+	private ConsultasTraje consultas_traje;
+	
 
 	public Control_creacion(Acceso_BD modelo, Panel_clientes clientes, Panel_empleados empleados, Panel_citas citas,
 			Panel_talleres talleres) {
@@ -37,6 +44,11 @@ public class Control_creacion {
 		this.panel_cita = citas;
 		this.panel_empleados = empleados;
 		this.panel_taller = talleres;
+		this.consultas_cliente = new ConsultasCliente(modelo.getConexion());
+		this.consultas_cita = new ConsultasCita(modelo.getConexion());
+		this.consultas_taller = new ConsultasTaller(modelo.getConexion());
+		this.consultas_empleado = new ConsultasEmpleado(modelo.getConexion());
+		this.consultas_traje = new ConsultasTraje(modelo.getConexion());
 	}
 
 	/**
@@ -51,9 +63,9 @@ public class Control_creacion {
 	@SuppressWarnings("unchecked")
 	public void formularioCitas() {
 		// cargado de los arrays con los datos de la base de datos
-		ArrayList<Cliente> clientes = modelo.mostrarClientes();
-		ArrayList<Empleado> empleados = modelo.mostrarEmpleados();
-		ArrayList<Taller> talleres = modelo.mostrarTalleres();
+		ArrayList<Cliente> clientes = consultas_cliente.mostrarClientes();
+		ArrayList<Empleado> empleados = consultas_empleado.mostrarEmpleados();
+		ArrayList<Taller> talleres = consultas_taller.mostrarTalleres();
 
 		// Limpiado de los combos para evitar duplicados
 		panel_cita.getCbCliente().removeAllItems();
@@ -107,7 +119,7 @@ public class Control_creacion {
 
 		if (seleccion != null) {
 			// llenado del array de trajes
-			ArrayList<Traje> trajes = modelo.mostrarTrajes(seleccion);
+			ArrayList<Traje> trajes = consultas_traje.mostrarTrajes(seleccion);
 
 			// Limpiado combo de trajes
 			panel_cita.getCbTrajes().removeAllItems();
@@ -160,7 +172,7 @@ public class Control_creacion {
 			}
 
 			// Llamar al metodo crearCita del modelo
-			boolean exito = modelo.crearCita(cliente, taller, fecha, duracion, traje, encargado);
+			boolean exito = consultas_cita.crearCita(cliente, taller, fecha, duracion, traje, encargado);
 
 			if (exito) {
 				Utilidades.limpiarFormularioCitas(panel_cita);
@@ -204,11 +216,10 @@ public class Control_creacion {
 				estado = "taller";
 			}
 
-			boolean exitoCliente = modelo.crearCliente(nombre, colores, superpoder);
+			boolean exitoCliente = consultas_cliente.crearCliente(nombre, colores, superpoder);
 
 			if (exitoCliente) {
-				System.out.println("Cliente creado correctamente");
-				boolean exitoTraje = modelo.crearTraje(nombre, nomTraje, estado);
+				boolean exitoTraje = consultas_traje.crearTraje(nombre, nomTraje, estado);
 
 				if (exitoTraje) {
 					System.out.println("Traje creado correctamente");
@@ -250,7 +261,7 @@ public class Control_creacion {
 	        }
 
 	        if (!tipo.isEmpty() && !nombre.isEmpty()) {
-	            exito = modelo.crearTaller(tipo, nombre);
+	            exito = consultas_taller.crearTaller(tipo, nombre);
 	        }
 	        
 	        if (exito) {
@@ -287,7 +298,7 @@ public class Control_creacion {
 			}
 			
 			if (!nombre.isEmpty() && !apellido.isEmpty() && !usuario.isEmpty() && !contraseña.isEmpty() && contraseña != null) {
-				exito = modelo.crearEmpleado(nombre, apellido, usuario, categoria, contraseña);
+				exito = consultas_empleado.crearEmpleado(nombre, apellido, usuario, categoria, contraseña);
 			}
 			
 			if (exito) {

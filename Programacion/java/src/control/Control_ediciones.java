@@ -12,6 +12,11 @@ import java.util.Date;
 import javax.swing.JTable;
 
 import model.Acceso_BD;
+import model.ConsultasCita;
+import model.ConsultasCliente;
+import model.ConsultasEmpleado;
+import model.ConsultasTaller;
+import model.ConsultasTraje;
 import view.Panel_citas;
 import view.Panel_clientes;
 import view.Panel_empleados;
@@ -23,12 +28,18 @@ import view.Panel_x;
  */
 public class Control_ediciones {
 
+	@SuppressWarnings("unused")
 	private Acceso_BD modelo;
 	private Panel_x panel_x;
 	private Panel_citas panel_citas;
 	private Panel_clientes panel_clientes;
 	private Panel_empleados panel_empleados;
 	private Panel_talleres panel_talleres;
+	private ConsultasCliente consultas_cliente;
+	private ConsultasCita consultas_cita;
+	private ConsultasTaller consultas_taller;
+	private ConsultasEmpleado consultas_empleado;
+	private ConsultasTraje consultas_traje;
 	
 	// Variables internas para guardar los IDs
 	private int idCitaEditando = -1;
@@ -46,6 +57,11 @@ public class Control_ediciones {
 		this.panel_clientes = panel_clientes;
 		this.panel_empleados = panel_empleados;
 		this.panel_talleres = panel_talleres;
+		this.consultas_cliente = new ConsultasCliente(modelo.getConexion());
+		this.consultas_cita = new ConsultasCita(modelo.getConexion());
+		this.consultas_taller = new ConsultasTaller(modelo.getConexion());
+		this.consultas_empleado = new ConsultasEmpleado(modelo.getConexion());
+		this.consultas_traje = new ConsultasTraje(modelo.getConexion());
 	}
 
 	/**
@@ -113,7 +129,7 @@ public class Control_ediciones {
 			}
 			
 			//edicion de la ciita 
-			boolean exito = modelo.modificarCita(idCitaEditando, cliente, taller, fecha, duracion, traje, encargado);
+			boolean exito = consultas_cita.modificarCita(idCitaEditando, cliente, taller, fecha, duracion, traje, encargado);
 
 			if (exito) {
 				System.out.println("Cita modificada correctamente");
@@ -165,7 +181,7 @@ public class Control_ediciones {
 			}
 			
 			//invocacion de la modificacion
-			boolean exito = modelo.modificarClienteConTraje(idClienteEditando, nombre, colores, superpoder,
+			boolean exito = consultas_cliente.modificarClienteConTraje(idClienteEditando, nombre, colores, superpoder,
 					nombreTrajeActual, nomTraje, estado);
 
 			if (exito) {
@@ -214,7 +230,7 @@ public class Control_ediciones {
 				categoria = "maestro";
 			}
 
-			boolean exito = modelo.modificarEmpleado(idEmpleadoEditando, nombre, apellidos, usuario, categoria, contrasena);
+			boolean exito = consultas_empleado.modificarEmpleado(idEmpleadoEditando, nombre, apellidos, usuario, categoria, contrasena);
 
 			if (exito) {
 				System.out.println("Empleado modificado correctamente");
@@ -232,7 +248,7 @@ public class Control_ediciones {
 	/**
 	 * Metodo de modificaddo de un taller con los datos del formulario
 	 * 
-	 * @see Acceso_BD#modificarTaller(int, String, String)
+	 * @see ConsultasTaller#modificarTaller(int, String, String)
 	 */
 	public void editarTaller() {
 		try {
@@ -259,7 +275,7 @@ public class Control_ediciones {
 			}
 			
 			//invocacion de la modificacion del taller 
-			boolean exito = modelo.modificarTaller(idTallerEditando, tipo, nombre);
+			boolean exito = consultas_taller.modificarTaller(idTallerEditando, tipo, nombre);
 
 			if (exito) {
 				System.out.println("Taller modificado correctamente");
@@ -357,7 +373,7 @@ public class Control_ediciones {
 		}
 		
 		// Obtener el nombre del traje actual desde la base de datos
-		nombreTrajeActual = modelo.obtenerNombreTrajePorCliente(idClienteEditando);
+		nombreTrajeActual = consultas_traje.obtenerNombreTrajePorCliente(idClienteEditando);
 
 		// Cargar datos en el formulario
 		panel_clientes.getTfNombre().setText((String) datosCliente[1]);
