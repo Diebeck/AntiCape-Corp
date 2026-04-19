@@ -2,15 +2,10 @@ package control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
-import javax.swing.table.DefaultTableModel;
+import java.awt.event.KeyEvent;
 
 import model.Acceso_BD;
-import model.Cita;
 import model.Empleado;
-import model.Taller;
-import model.Cliente;
 import view.*;
 
 public class Listener implements ActionListener {
@@ -64,59 +59,15 @@ public class Listener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		
-		System.out.println("===\nBoton presionado: "+ cmd);
+		System.out.println("===\nBoton presionado: "+ cmd); // Imprime lo que ponia en el boton
 		
-		if (cmd.equals("Login")) {
-			sesion = modelo.login(panel_login.getTextField_usuario().getText(), panel_login.getPasswordField_contrasena());
-			String tipoCuenta = sesion.getCategoria();
-			vent.cambiarCajaCuenta(panel_cuenta);
-			panel_cuenta.mostrarHome();
-			if (tipoCuenta.equals("Maestro")) {
-				iniciarMaestro();
-			} else if (tipoCuenta.equals("Oficial")) {
-				iniciarOficial();
-			} else if (tipoCuenta.equals("Aprendiz")){
-				iniciarAprendiz();
-			}
-			
-		} else if (e.getSource()== panel_cuenta.getBtn_logout()) { //Para que funcione el botón Logout con la imagen
+		// Eventos para botones que necesitan getter (botones especificos)
+		
+		if (e.getSource()== panel_cuenta.getBtn_logout()) {
 			vent.cambiarCajaPrimario(panel_login);
 			vent.cambiarCajaNav(panel_logo);
 			vent.cambiarCajaCuenta(null);
-			
-		} else if (cmd.equals("Citas")) {
-		    vent.cambiarCajaPrimario(panel_x);
-		    ControladorTablas.cargarCitas();
-			
-		} else if (cmd.equals("Clientes")) {
-			vent.cambiarCajaPrimario(panel_x);
-			ControladorTablas.cargarClientes();
 		
-		} else if (cmd.equals("Empleados")) {
-			 vent.cambiarCajaPrimario(panel_x);
-			 ControladorTablas.cargarEmpleados();
-			
-		} else if (cmd.equals("Talleres")) {
-			 vent.cambiarCajaPrimario(panel_x);
-			 ControladorTablas.cargarTalleres();
-			
-			
-		} else if (cmd.equals("Crear") || cmd.equals("Modificar")) {
-			if (panel_x.getEstado().equals("citas")) {
-				vent.cambiarCajaPrimario(panel_citas);
-			} else if (panel_x.getEstado().equals("clientes")) {
-				vent.cambiarCajaPrimario(panel_clientes);
-			} else if (panel_x.getEstado().equals("talleres")) {
-				vent.cambiarCajaPrimario(panel_talleres);
-			} else if (panel_x.getEstado().equals("empleados")) {
-				vent.cambiarCajaPrimario(panel_empleados);
-			}
-			// Pone el modo a "Crear" o "Modificar"
-			panel_citas.setModo(cmd);
-			panel_clientes.setModo(cmd);
-			panel_talleres.setModo(cmd);
-			panel_empleados.setModo(cmd);
-
 		} else if (e.getSource() == panel_cuenta.getBotonHome()) {
 			vent.cambiarCajaPrimario(panel_home);
 		
@@ -136,6 +87,67 @@ public class Listener implements ActionListener {
 			vent.cambiarCajaPrimario(panel_x);
 			
 		}
+		
+		// Eventos para los botones que se obtienen con un String
+		switch (cmd) {
+		
+		case "Login":
+			sesion = modelo.login(panel_login.getTextField_usuario().getText(), panel_login.getPasswordField_contrasena());
+			String tipoCuenta = sesion.getCategoria();
+			vent.cambiarCajaCuenta(panel_cuenta);
+			panel_cuenta.mostrarHome();
+			if (tipoCuenta.equals("Maestro")) {
+				iniciarMaestro();
+			} else if (tipoCuenta.equals("Oficial")) {
+				iniciarOficial();
+			} else if (tipoCuenta.equals("Aprendiz")){
+				iniciarAprendiz();
+			}
+			break;
+		
+		case "Citas":
+		    vent.cambiarCajaPrimario(panel_x);
+		    ControladorTablas.cargarCitas();
+		    break;
+			
+		case "Clientes":
+			vent.cambiarCajaPrimario(panel_x);
+			ControladorTablas.cargarClientes();
+			break;
+		
+		case "Empleados":
+			 vent.cambiarCajaPrimario(panel_x);
+			 ControladorTablas.cargarEmpleados();
+			 break;
+			
+		case "Talleres":
+			 vent.cambiarCajaPrimario(panel_x);
+			 ControladorTablas.cargarTalleres();
+			 break;
+		
+		case "Crear":
+		case "Modificar":
+			if (panel_x.getEstado().equals("citas")) {
+				vent.cambiarCajaPrimario(panel_citas);
+			} else if (panel_x.getEstado().equals("clientes")) {
+				vent.cambiarCajaPrimario(panel_clientes);
+			} else if (panel_x.getEstado().equals("talleres")) {
+				vent.cambiarCajaPrimario(panel_talleres);
+			} else if (panel_x.getEstado().equals("empleados")) {
+				vent.cambiarCajaPrimario(panel_empleados);
+			}
+			// Pone el modo a "Crear" o "Modificar"
+			panel_citas.setModo(cmd);
+			panel_clientes.setModo(cmd);
+			panel_talleres.setModo(cmd);
+			panel_empleados.setModo(cmd);
+			break;
+		}
+	}
+	
+	public void keyPressed (KeyEvent e)
+	{
+	     System.out.println(e);
 	}
 
 }

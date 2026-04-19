@@ -39,7 +39,6 @@ public class Panel_login extends JPanel {
 		passwordField_contrasena = new JPasswordField();
 		passwordField_contrasena.setFont(new Font("Century Schoolbook", Font.PLAIN, 30));
 		passwordField_contrasena.setBorder(new LineBorder(new Color(171, 173, 179), 3, true));
-		passwordField_contrasena.setEchoChar('*');
 		passwordField_contrasena.setColumns(10);
 		passwordField_contrasena.setBounds(161, 269, 432, 60);
 		add(passwordField_contrasena);

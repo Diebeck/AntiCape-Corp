@@ -21,7 +21,7 @@ public class Panel_logo extends JPanel {
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setIcon(Ventana.escalarImagen("/img/logo.png", 300, 300));
-		lblLogo.setBounds(0, 0, 362, 310);
+		lblLogo.setBounds(22, 0, 340, 310);
 		add(lblLogo);
 
 	}
