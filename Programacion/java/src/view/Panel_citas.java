@@ -137,6 +137,12 @@ public class Panel_citas extends JPanel {
 		cbEncargado.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cbEncargado.setBounds(155, 375, 520, 25);
 		add(cbEncargado);
+		
+		JButton btnNewButton = new JButton("Nuevo Cliente");
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setBackground(new Color(128, 0, 64));
+		btnNewButton.setBounds(485, 25, 190, 44);
+		add(btnNewButton);
 		btn_cCita.addActionListener(list);
 	}
 
@@ -146,6 +152,4 @@ public class Panel_citas extends JPanel {
 	public JButton getBtn_homeCitas() {
 		return btn_homeCitas;
 	}
-	
-	
 }
