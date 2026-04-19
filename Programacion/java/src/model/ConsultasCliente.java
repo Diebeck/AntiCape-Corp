@@ -1,0 +1,145 @@
+/**
+ * /**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
+package model;
+
+import java.sql.*;
+import java.util.*;
+
+/**
+ * Clase que contiene los metodos que realizan acciones a la tabla clientes en
+ * la base de datos
+ */
+public class ConsultasCliente {
+	private Connection instance;
+	private ConsultasTraje consultas_traje;
+
+	public ConsultasCliente(Connection modelo) {
+		this.instance = modelo;
+		this.consultas_traje = new ConsultasTraje(modelo);
+	}
+
+	/**
+	 * Metodo publico que consulta a la base de datos los registros existentes de
+	 * clientes en el sistema
+	 * 
+	 * @return ArraList de objetos tipo cliente
+	 */
+	public ArrayList<Cliente> mostrarClientes() {
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		String query = "SELECT * FROM Cliente";
+
+		try (Statement stmt = instance.createStatement(); ResultSet resultado = stmt.executeQuery(query)) {
+
+			while (resultado.next()) {
+				Cliente cliente = new Cliente(resultado.getInt(1), resultado.getString(2), resultado.getString(3),
+						resultado.getString(4));
+				clientes.add(cliente);
+			}
+
+			return clientes;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ArrayList<>();
+		}
+	}
+
+	/**
+	 * Metodo para añadir un cliente a la base de datos
+	 * 
+	 * @param nombre  nombre del nuevo cliente
+	 * @param colores colores del nuevo cliente
+	 * @param poder   poderes del nuevo cliente
+	 * 
+	 * @return true si la creacion fue exitosa, false para el caso contrario
+	 */
+	public boolean crearCliente(String nombre, String colores, String poder) {
+		String query = "INSERT INTO Cliente(nombre, colores, superpoder) VALUES (?,?,?)";
+
+		try (PreparedStatement stmt = instance.prepareStatement(query)) {
+			stmt.setString(1, nombre);
+			stmt.setString(2, colores);
+			stmt.setString(3, poder);
+
+			int filas = stmt.executeUpdate();
+
+			if (filas > 0) {
+				System.out.println("Añadido de cliente exitoso");
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	/**
+	 * Metodo para modificar un cliente existente
+	 * 
+	 * @param id         ID del cliente a modificar
+	 * @param nombre     nuevo nombre
+	 * @param colores    nuevos colores
+	 * @param superpoder nuevo superpoder
+	 * @return true si se modificó correctamente, false si no
+	 */
+	public boolean modificarCliente(int id, String nombre, String colores, String superpoder) {
+		String query = "UPDATE Cliente SET nombre = ?, colores = ?, superpoder = ? WHERE id_cliente = ?";
+
+		try (PreparedStatement stmt = instance.prepareStatement(query)) {
+
+			stmt.setString(1, nombre);
+			stmt.setString(2, colores);
+			stmt.setString(3, superpoder);
+			stmt.setInt(4, id);
+
+			int filasAfectadas = stmt.executeUpdate();
+
+			if (filasAfectadas > 0) {
+				System.out.println("Cliente modificado exitosamente. ID: " + id);
+				return true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return false;
+	}
+
+	/**
+	 * Metodo para modificar un cliente y su traje simultáneamente
+	 * 
+	 * @param idCliente         ID del cliente a modificar
+	 * @param nombre            nuevo nombre del cliente
+	 * @param colores           nuevos colores
+	 * @param superpoder        nuevo superpoder
+	 * @param nombreTrajeActual nombre actual del traje
+	 * @param nombreTrajeNuevo  nuevo nombre del traje
+	 * @param estadoTraje       nuevo estado del traje
+	 * @return true si se modificó correctamente, false si no
+	 */
+	public boolean modificarClienteConTraje(int idCliente, String nombre, String colores, String superpoder,
+			String nombreTrajeActual, String nombreTrajeNuevo, String estadoTraje) {
+
+		boolean exitoCliente = modificarCliente(idCliente, nombre, colores, superpoder);
+
+		if (exitoCliente) {
+			boolean exitoTraje = consultas_traje.modificarTraje(idCliente, nombreTrajeActual, nombreTrajeNuevo, estadoTraje);
+			if (exitoTraje) {
+				System.out.println("Cliente y traje modificados exitosamente");
+				return true;
+			} else {
+				System.out.println("Cliente modificado pero fallo al modificar el traje");
+			}
+		} else {
+			System.out.println("Fallo al modificar el cliente");
+		}
+
+		return false;
+	}
+}

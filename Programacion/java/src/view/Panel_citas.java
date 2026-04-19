@@ -23,8 +23,21 @@ import javax.swing.JRadioButton;
 
 public class Panel_citas extends JPanel {
 	
-	JButton btn_homeCitas = new JButton("");
-	
+	private JButton btn_homeCitas = new JButton("");
+	private JButton btn_cCita;
+	private JLabel lblCliente;
+	private JComboBox cbCliente;
+	private JLabel lblTaller;
+	private JComboBox cbTaller;
+	private JLabel lblDuracion;
+	private JSpinner spDuracion;
+	private JLabel lblFecha;
+	private JSpinner spFecha;
+	private JLabel lblTraje;
+	private ButtonGroup bg;
+	private JLabel lblEncargado;
+	private JComboBox cbEncargado;
+	private JComboBox cbTrajes;
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
 	JLabel lbl_yCitas = new JLabel(modo +" una cita");
@@ -59,81 +72,68 @@ public class Panel_citas extends JPanel {
 		add(btn_homeCitas);
 		btn_homeCitas.addActionListener(list);
 		
-		JButton btn_cCita = new JButton("Confirmar");
+		btn_cCita = new JButton("Confirmar");
 		btn_cCita.setForeground(Color.WHITE);
 		btn_cCita.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
 		btn_cCita.setBackground(new Color(76, 17, 48));
 		btn_cCita.setBounds(454, 455, 221, 44);
 		add(btn_cCita);
 		
-		JLabel lblCliente = new JLabel("Cliente:");
+		lblCliente = new JLabel("Cliente:");
 		lblCliente.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblCliente.setBounds(38, 120, 87, 20);
 		add(lblCliente);
 		
-		JComboBox cbCliente = new JComboBox();
+		cbCliente = new JComboBox();
 		cbCliente.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cbCliente.setBounds(126, 120, 290, 25);
 		add(cbCliente);
 		
-		JLabel lblTaller = new JLabel("Taller:");
+		lblTaller = new JLabel("Taller:");
 		lblTaller.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblTaller.setBounds(38, 180, 87, 20);
 		add(lblTaller);
 		
-		JComboBox cbTaller = new JComboBox();
+		cbTaller = new JComboBox();
 		cbTaller.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cbTaller.setBounds(126, 180, 290, 25);
 		add(cbTaller);
 		
-		JLabel lblDuracion = new JLabel("Duración:");
+		lblDuracion = new JLabel("Duración:");
 		lblDuracion.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblDuracion.setBounds(454, 180, 87, 20);
 		add(lblDuracion);
 		
-		JSpinner spDuracion = new JSpinner();
+		spDuracion = new JSpinner();
 		spDuracion.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		spDuracion.setModel(new SpinnerNumberModel(1, 1, 5, 1));
 		spDuracion.setBounds(551, 180, 124, 25);
 		add(spDuracion);
 		
-		JLabel lblFecha = new JLabel("Fecha:");
+		lblFecha = new JLabel("Fecha:");
 		lblFecha.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblFecha.setBounds(38, 243, 87, 20);
 		add(lblFecha);
 		
-		JSpinner spFecha = new JSpinner();
+		spFecha = new JSpinner();
 		spFecha.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 		spFecha.setModel(new SpinnerDateModel(new Date(1776117600000L), null, null, Calendar.DAY_OF_YEAR));
 		spFecha.setBounds(126, 243, 549, 25);
 		add(spFecha);
 		
-		JLabel lblTraje = new JLabel("Traje:");
+		lblTraje = new JLabel("Traje:");
 		lblTraje.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblTraje.setBounds(38, 308, 87, 20);
 		add(lblTraje);
 		
-		ButtonGroup bg = new ButtonGroup();
+		bg = new ButtonGroup();
 		
-		JRadioButton rdbtnPrincipal = new JRadioButton("Principal");
-		rdbtnPrincipal.setSelected(true);
-		rdbtnPrincipal.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		rdbtnPrincipal.setBounds(126, 308, 127, 20);
-		add(rdbtnPrincipal);
-		bg.add(rdbtnPrincipal);
-		
-		JRadioButton rdbtnEspecifico = new JRadioButton("Especifico");
-		rdbtnEspecifico.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		rdbtnEspecifico.setBounds(300, 308, 127, 20);
-		add(rdbtnEspecifico);
-		bg.add(rdbtnEspecifico);
-		
-		JLabel lblEncargado = new JLabel("Encargado:");
+		lblEncargado = new JLabel("Encargado:");
 		lblEncargado.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblEncargado.setBounds(38, 375, 107, 20);
 		add(lblEncargado);
 		
-		JComboBox cbEncargado = new JComboBox();
+		cbEncargado = new JComboBox();
 		cbEncargado.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cbEncargado.setBounds(155, 375, 520, 25);
 		add(cbEncargado);
@@ -143,6 +143,12 @@ public class Panel_citas extends JPanel {
 		btnNewButton.setBackground(new Color(128, 0, 64));
 		btnNewButton.setBounds(485, 25, 190, 44);
 		add(btnNewButton);
+
+		cbTrajes = new JComboBox();
+		cbTrajes.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		cbTrajes.setBounds(126, 307, 290, 25);
+		add(cbTrajes);
+
 		btn_cCita.addActionListener(list);
 	}
 
@@ -152,4 +158,67 @@ public class Panel_citas extends JPanel {
 	public JButton getBtn_homeCitas() {
 		return btn_homeCitas;
 	}
+
+
+	public JButton getBtn_cCita() {
+		return btn_cCita;
+	}
+
+	public JLabel getLblCliente() {
+		return lblCliente;
+	}
+
+	public JComboBox getCbCliente() {
+		return cbCliente;
+	}
+
+	public JLabel getLblTaller() {
+		return lblTaller;
+	}
+
+	public JComboBox getCbTaller() {
+		return cbTaller;
+	}
+
+	public JLabel getLblDuracion() {
+		return lblDuracion;
+	}
+
+	public JSpinner getSpDuracion() {
+		return spDuracion;
+	}
+
+	public JLabel getLblFecha() {
+		return lblFecha;
+	}
+
+	public JSpinner getSpFecha() {
+		return spFecha;
+	}
+
+	public JLabel getLblTraje() {
+		return lblTraje;
+	}
+
+	public ButtonGroup getBg() {
+		return bg;
+	}
+
+	public JLabel getLblEncargado() {
+		return lblEncargado;
+	}
+
+	public JComboBox getCbEncargado() {
+		return cbEncargado;
+	}
+
+	public JLabel getLbl_yCitas() {
+		return lbl_yCitas;
+	}
+
+	public JComboBox getCbTrajes() {
+		return cbTrajes;
+	}
+	
+
 }

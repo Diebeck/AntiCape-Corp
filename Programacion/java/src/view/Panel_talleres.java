@@ -3,29 +3,25 @@ package view;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import control.Listener;
 
-import javax.swing.ImageIcon;
 
-import javax.swing.JRadioButton;
-import javax.swing.JComboBox;
-import javax.swing.border.LineBorder;
-import javax.swing.JTextField;
 
 
 public class Panel_talleres extends JPanel {
 	
-	JButton btn_homeTaller = new JButton("");
-
+	private JButton btn_homeTaller = new JButton("");
+	private JButton btn_cTaller;
+	private JLabel lbl_yTaller;
+	private JTextField txtNombre;
+	private JRadioButton rdbtnDiseno;
+	private JRadioButton rdbtnCostura;
+	private JRadioButton rdbtnPruebas;
+	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
-	JLabel lbl_yTaller = new JLabel(modo +" un taller");
-	private JTextField txtNombre;
 	
 	// Pone el modo y actualiza los componentes
 	public void setModo(String modo) {
@@ -42,6 +38,7 @@ public class Panel_talleres extends JPanel {
 		setLayout(null);
 		setSize(723, 545);
 		
+		lbl_yTaller = new JLabel(modo +" un taller");
 		lbl_yTaller.setForeground(new Color(116, 27, 71));
 		lbl_yTaller.setFont(new Font("Century Schoolbook", Font.PLAIN, 30));
 		lbl_yTaller.setBackground(new Color(76, 17, 48));
@@ -57,7 +54,7 @@ public class Panel_talleres extends JPanel {
 		add(btn_homeTaller);
 		btn_homeTaller.addActionListener(list);
 		
-		JButton btn_cTaller = new JButton("Confirmar");
+		btn_cTaller = new JButton("Confirmar");
 		btn_cTaller.setForeground(Color.WHITE);
 		btn_cTaller.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
 		btn_cTaller.setBackground(new Color(76, 17, 48));
@@ -71,20 +68,20 @@ public class Panel_talleres extends JPanel {
 		
 		ButtonGroup bg = new ButtonGroup();
 		
-		JRadioButton rdbtnDiseno = new JRadioButton("Diseño");
+		rdbtnDiseno = new JRadioButton("Diseño");
 		rdbtnDiseno.setSelected(true);
 		rdbtnDiseno.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		rdbtnDiseno.setBounds(223, 140, 102, 20);
 		add(rdbtnDiseno);
 		bg.add(rdbtnDiseno);
 		
-		JRadioButton rdbtnCostura = new JRadioButton("Costura");
+		rdbtnCostura = new JRadioButton("Costura");
 		rdbtnCostura.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		rdbtnCostura.setBounds(373, 140, 102, 20);
 		add(rdbtnCostura);
 		bg.add(rdbtnCostura);
 		
-		JRadioButton rdbtnPruebas = new JRadioButton("Pruebas");
+		rdbtnPruebas = new JRadioButton("Pruebas");
 		rdbtnPruebas.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		rdbtnPruebas.setBounds(531, 140, 102, 20);
 		add(rdbtnPruebas);
@@ -113,5 +110,29 @@ public class Panel_talleres extends JPanel {
 	 */
 	public JButton getBtn_homeTaller() {
 		return btn_homeTaller;
+	}
+	
+	public JButton getBtn_cTaller() {
+		return btn_cTaller;
+	}
+	
+	public JLabel getLbl_yTaller() {
+		return lbl_yTaller;
+	}
+	
+	public JTextField getTxtNombre() {
+		return txtNombre;
+	}
+	
+	public JRadioButton getRdbtnDiseno() {
+		return rdbtnDiseno;
+	}
+	
+	public JRadioButton getRdbtnCostura() {
+		return rdbtnCostura;
+	}
+	
+	public JRadioButton getRdbtnPruebas() {
+		return rdbtnPruebas;
 	}
 }

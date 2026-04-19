@@ -15,10 +15,10 @@ public class Panel_cuenta extends JPanel {
 	
 	JButton btn_home = new JButton("");
 	JButton btn_logout = new JButton("");
+	private JLabel lbl_nombreEmpleado;
+	private JLabel lbl_categoria;
+	private JLabel lblImagen;
 	
-	public JButton getBotonHome() {
-		return btn_home;
-	}
 	
 	public Panel_cuenta(Listener list) {
 		
@@ -26,13 +26,13 @@ public class Panel_cuenta extends JPanel {
 		setBounds(0, 0, 362, 127);
 		setLayout(null);
 		
-		JLabel lbl_nombreEmpleado = new JLabel("Nombre Empleado");
+		lbl_nombreEmpleado = new JLabel("Nombre Empleado");
 		lbl_nombreEmpleado.setFont(new Font("Century Schoolbook", Font.BOLD, 20));
 		lbl_nombreEmpleado.setForeground(new Color(255, 255, 255));
 		lbl_nombreEmpleado.setBounds(109, 29, 218, 30);
 		add(lbl_nombreEmpleado);
 		
-		JLabel lbl_categoria = new JLabel("Categoria");
+		lbl_categoria = new JLabel("Categoria");
 		lbl_categoria.setForeground(Color.WHITE);
 		lbl_categoria.setFont(new Font("Century Schoolbook", Font.PLAIN, 20));
 		lbl_categoria.setBounds(109, 69, 101, 30);
@@ -57,7 +57,7 @@ public class Panel_cuenta extends JPanel {
 		btn_home.setFocusPainted(false);
 		add(btn_home);
 		
-		JLabel lblImagen = new JLabel("");
+		lblImagen = new JLabel("");
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		lblImagen.setIcon(Ventana.escalarImagen("/img/cuenta.png", 80, 80));
@@ -88,5 +88,26 @@ public class Panel_cuenta extends JPanel {
 	public void mostrarHome() {
 		add(btn_home);
 	}
+	
+	public JButton getBotonHome() {
+		return btn_home;
+	}
+
+	public JButton getBtn_home() {
+		return btn_home;
+	}
+
+	public JLabel getLbl_nombreEmpleado() {
+		return lbl_nombreEmpleado;
+	}
+
+	public JLabel getLbl_categoria() {
+		return lbl_categoria;
+	}
+
+	public JLabel getLblImagen() {
+		return lblImagen;
+	}
+	
 	
 }
