@@ -130,4 +130,31 @@ public class ConsultasTaller {
 
 		return false;
 	}
+	
+	/**
+	 * Metodo para eliminar un taller existente
+	 * 
+	 * @param id ID del taller a eliminar
+	 * @return true si se eliminó correctamente, false si no
+	 */
+	public boolean eliminarTaller(int id) {
+	    String query = "DELETE FROM Taller WHERE id_taller = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, id);
+	        
+	        int filasAfectadas = stmt.executeUpdate();
+	        
+	        if (filasAfectadas > 0) {
+	            System.out.println("Taller eliminado exitosamente. ID: " + id);
+	            return true;
+	        }
+	        
+	    } catch (SQLException e) {
+	        System.err.println("Error al eliminar taller: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    
+	    return false;
+	}
 }

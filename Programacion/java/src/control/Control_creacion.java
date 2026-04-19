@@ -94,7 +94,7 @@ public class Control_creacion {
 		// Llenado combo de talleres
 		if (talleres != null) {
 			for (Taller n : talleres) {
-				panel_cita.getCbTaller().addItem(n.getTipo_sala());
+				panel_cita.getCbTaller().addItem(n.getNombre_sala());
 			}
 		}
 

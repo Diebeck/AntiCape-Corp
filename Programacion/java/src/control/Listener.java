@@ -29,9 +29,10 @@ public class Listener implements ActionListener {
 	Panel_nav_oficial panel_nav_oficial = new Panel_nav_oficial(this);
 	Panel_prim_aprendiz panel_prim_aprendiz = new Panel_prim_aprendiz(this);
 	
-	private Control_tablas ControladorTablas = new Control_tablas(panel_x, panel_home);
-	private Control_creacion Controlador_creacion = new Control_creacion(panel_clientes, panel_empleados, panel_citas, panel_talleres);
-	private Control_ediciones Controlador_ediciones = new Control_ediciones(panel_x, panel_citas, panel_clientes, panel_empleados, panel_talleres);
+	private Control_tablas controladorTablas = new Control_tablas(panel_x, panel_home);
+	private Control_creacion controladorCreacion = new Control_creacion(panel_clientes, panel_empleados, panel_citas, panel_talleres);
+	private Control_ediciones controladorEdiciones = new Control_ediciones(panel_x, panel_citas, panel_clientes, panel_empleados, panel_talleres);
+	private Control_eliminacion controladorEliminaciones = new Control_eliminacion(panel_x);
 	
 	public void setVentana(Ventana vent) {
 		this.vent = vent;
@@ -44,8 +45,8 @@ public class Listener implements ActionListener {
 		vent.cambiarCajaNav(panel_nav_maestro);
 		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
 		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
-		ControladorTablas.citasRecientes();
-		ControladorTablas.cargarOcupacionTalleres();
+		controladorTablas.citasRecientes();
+		controladorTablas.cargarOcupacionTalleres();
 	}
 	
 	private void iniciarOficial() {
@@ -104,25 +105,25 @@ public class Listener implements ActionListener {
 			
 		} else if (cmd.equals("Citas")) {
 		    vent.cambiarCajaPrimario(panel_x);
-		    ControladorTablas.cargarCitas();
+		    controladorTablas.cargarCitas();
 			
 		} else if (cmd.equals("Clientes")) {
 			vent.cambiarCajaPrimario(panel_x);
-			ControladorTablas.cargarClientes();
+			controladorTablas.cargarClientes();
 		
 		} else if (cmd.equals("Empleados")) {
 			 vent.cambiarCajaPrimario(panel_x);
-			 ControladorTablas.cargarEmpleados();
+			 controladorTablas.cargarEmpleados();
 			
 		} else if (cmd.equals("Talleres")) {
 			 vent.cambiarCajaPrimario(panel_x);
-			 ControladorTablas.cargarTalleres();
+			 controladorTablas.cargarTalleres();
 			
 		} else if (cmd.equals("Crear")) {
 			// Solo creación
 			if (panel_x.getEstado().equals("citas")) {
 				vent.cambiarCajaPrimario(panel_citas);
-				Controlador_creacion.formularioCitas();
+				controladorCreacion.formularioCitas();
 				panel_citas.setModo("Crear");
 			} else if (panel_x.getEstado().equals("clientes")) {
 				vent.cambiarCajaPrimario(panel_clientes);
@@ -135,118 +136,149 @@ public class Listener implements ActionListener {
 				panel_empleados.setModo("Crear");
 			}
 			
+			//bloque else if de cargado previo del formulario de eliminaciones 
 		} else if (cmd.equals("Modificar")) {
 			// Solo edición
 			if (panel_x.getEstado().equals("citas")) {
-				Object[] fila = Controlador_ediciones.getFilaSeleccionada();
+				Object[] fila = controladorEdiciones.getFilaSeleccionada();
 				if (fila != null) {
 					vent.cambiarCajaPrimario(panel_citas);
-					Controlador_creacion.formularioCitas(); // Para llenar combos
-					Controlador_ediciones.cargarCitaParaEditar(fila);
+					controladorCreacion.formularioCitas(); // Para llenar combos
+					controladorEdiciones.cargarCitaParaEditar(fila);
 					panel_citas.setModo("Modificar");
 				} else {
-					System.out.println("ERROR: Seleccione una fila para modificar");
+					//prints para actualizacion de dialogs
+					System.out.println("Seleccione una fila para modificar");
 				}
 			} else if (panel_x.getEstado().equals("clientes")) {
-				Object[] fila = Controlador_ediciones.getFilaSeleccionada();
+				Object[] fila = controladorEdiciones.getFilaSeleccionada();
 				if (fila != null) {
 					vent.cambiarCajaPrimario(panel_clientes);
-					Controlador_ediciones.cargarClienteParaEditar(fila);
+					controladorEdiciones.cargarClienteParaEditar(fila);
 					panel_clientes.setModo("Modificar");
 				} else {
-					System.out.println("ERROR: Seleccione una fila para modificar");
+					System.out.println("Seleccione una fila para modificar");
 				}
 			} else if (panel_x.getEstado().equals("talleres")) {
-				Object[] fila = Controlador_ediciones.getFilaSeleccionada();
+				Object[] fila = controladorEdiciones.getFilaSeleccionada();
 				if (fila != null) {
 					vent.cambiarCajaPrimario(panel_talleres);
-					Controlador_ediciones.cargarTallerParaEditar(fila);
+					controladorEdiciones.cargarTallerParaEditar(fila);
 					panel_talleres.setModo("Modificar");
 				} else {
-					System.out.println("ERROR: Seleccione una fila para modificar");
+					System.out.println("Seleccione una fila para modificar");
 				}
 			} else if (panel_x.getEstado().equals("empleados")) {
-				Object[] fila = Controlador_ediciones.getFilaSeleccionada();
+				Object[] fila = controladorEdiciones.getFilaSeleccionada();
 				if (fila != null) {
 					vent.cambiarCajaPrimario(panel_empleados);
-					Controlador_ediciones.cargarEmpleadoParaEditar(fila);
+					controladorEdiciones.cargarEmpleadoParaEditar(fila);
 					panel_empleados.setModo("Modificar");
 				} else {
-					System.out.println("ERROR: Seleccione una fila para modificar");
+					System.out.println("Seleccione una fila para modificar");
 				}
 			}
-
+			
+			//bloque else if para las eliminaciones
+		}else if (cmd.equals("Eliminar")) {
+			if (panel_x.getEstado().equals("citas")) {
+				boolean exito = controladorEliminaciones.eliminarCita();
+				if (exito) {
+					controladorTablas.cargarCitas();
+					controladorTablas.citasRecientes();
+					controladorTablas.cargarOcupacionTalleres();
+				}
+			} else if (panel_x.getEstado().equals("clientes")) {
+				boolean exito = controladorEliminaciones.eliminarCliente();
+				if (exito) {
+					controladorTablas.cargarClientes();
+				}
+			} else if (panel_x.getEstado().equals("empleados")) {
+				boolean exito = controladorEliminaciones.eliminarEmpleado();
+				if (exito) {
+					controladorTablas.cargarEmpleados();
+				}
+			} else if (panel_x.getEstado().equals("talleres")) {
+				boolean exito = controladorEliminaciones.eliminarTaller();
+				if (exito) {
+					controladorTablas.cargarTalleres();
+				}
+			}
+			
+			//bloque else if retroceso a home 
 		} else if (e.getSource() == panel_cuenta.getBotonHome()) {
 			vent.cambiarCajaPrimario(panel_home);
 		
 		} else if (e.getSource() == panel_talleres.getBtn_homeTaller()) {
 			vent.cambiarCajaPrimario(panel_x);
 			if (panel_x.getEstado().equals("talleres")) {
-				ControladorTablas.cargarTalleres();
+				controladorTablas.cargarTalleres();
 			}
 			
 		} else if (e.getSource() == panel_clientes.getBtn_homeClientes()) {
 			vent.cambiarCajaPrimario(panel_x);
 			if (panel_x.getEstado().equals("clientes")) {
-				ControladorTablas.cargarClientes();
+				controladorTablas.cargarClientes();
 			}
 			
 		} else if (e.getSource() == panel_empleados.getBtn_homeEmpleado()) {
 			vent.cambiarCajaPrimario(panel_x);
 			if (panel_x.getEstado().equals("empleados")) {
-				ControladorTablas.cargarEmpleados();
+				controladorTablas.cargarEmpleados();
 			}
 			
 		} else if (e.getSource() == panel_citas.getBtn_homeCitas()) {
 			vent.cambiarCajaPrimario(panel_x);
 			if (panel_x.getEstado().equals("citas")) {
-				ControladorTablas.cargarCitas();
+				controladorTablas.cargarCitas();
 			}
 			
+			
+			//Bloque else if creacion 
 		} else if (e.getSource() == panel_citas.getBtn_cCita()) {
 			// Boton confirmar en citas
 			if (panel_citas.getModo().equals("Crear")) {
-				Controlador_creacion.crearCita();
+				controladorCreacion.crearCita();
 			} else {
-				Controlador_ediciones.editarCita();
+				controladorEdiciones.editarCita();
 			}
 			// Recargar tablas
-			ControladorTablas.cargarCitas();
-			ControladorTablas.citasRecientes();
-			ControladorTablas.cargarOcupacionTalleres();
+			controladorTablas.cargarCitas();
+			controladorTablas.citasRecientes();
+			controladorTablas.cargarOcupacionTalleres();
 			vent.cambiarCajaPrimario(panel_x);
 			
 		} else if (e.getSource() == panel_clientes.getBtn_cCliente()) {
 			// Boton confirmar en clientes
 			if (panel_clientes.getModo().equals("Crear")) {
-				Controlador_creacion.crearCliente();
+				controladorCreacion.crearCliente();
 			} else {
-				Controlador_ediciones.editarCliente();
+				controladorEdiciones.editarCliente();
 			}
 			// Recargar tablas
-			ControladorTablas.cargarClientes();
+			controladorTablas.cargarClientes();
 			vent.cambiarCajaPrimario(panel_x);
 			
 		} else if (e.getSource() == panel_talleres.getBtn_cTaller()) {
 			// Boton confirmar en talleres
 			if (panel_talleres.getModo().equals("Crear")) {
-				Controlador_creacion.crearTaller();
+				controladorCreacion.crearTaller();
 			} else {
-				Controlador_ediciones.editarTaller();
+				controladorEdiciones.editarTaller();
 			}
 			// Recargar tablas
-			ControladorTablas.cargarTalleres();
+			controladorTablas.cargarTalleres();
 			vent.cambiarCajaPrimario(panel_x);
 			
 		} else if (e.getSource() == panel_empleados.getBtn_cEmpleado()) {
 			// Boton confirmar en empleados
 			if (panel_empleados.getModo().equals("Crear")) {
-				Controlador_creacion.crearEmpleado();
+				controladorCreacion.crearEmpleado();
 			} else {
-				Controlador_ediciones.editarEmpleado();
+				controladorEdiciones.editarEmpleado();
 			}
 			// Recargar tablas
-			ControladorTablas.cargarEmpleados();
+			controladorTablas.cargarEmpleados();
 			vent.cambiarCajaPrimario(panel_x);
 		}
 	}
