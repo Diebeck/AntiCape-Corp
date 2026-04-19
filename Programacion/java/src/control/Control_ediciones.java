@@ -6,6 +6,7 @@
  */
 package control;
 
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -28,7 +29,6 @@ import view.Panel_x;
  */
 public class Control_ediciones {
 
-	@SuppressWarnings("unused")
 	private Acceso_BD modelo;
 	private Panel_x panel_x;
 	private Panel_citas panel_citas;
@@ -48,20 +48,21 @@ public class Control_ediciones {
 	private int idTallerEditando = -1;
 	private String nombreTrajeActual = null;
 
-	public Control_ediciones(Acceso_BD modelo, Panel_x panel_x, Panel_citas panel_citas,
+	public Control_ediciones(Panel_x panel_x, Panel_citas panel_citas,
 			Panel_clientes panel_clientes, Panel_empleados panel_empleados, Panel_talleres panel_talleres) {
 
-		this.modelo = modelo;
+		this.modelo = Acceso_BD.instancia();
 		this.panel_x = panel_x;
 		this.panel_citas = panel_citas;
 		this.panel_clientes = panel_clientes;
 		this.panel_empleados = panel_empleados;
 		this.panel_talleres = panel_talleres;
-		this.consultas_cliente = new ConsultasCliente(modelo.getConexion());
-		this.consultas_cita = new ConsultasCita(modelo.getConexion());
-		this.consultas_taller = new ConsultasTaller(modelo.getConexion());
-		this.consultas_empleado = new ConsultasEmpleado(modelo.getConexion());
-		this.consultas_traje = new ConsultasTraje(modelo.getConexion());
+		Connection conexion = modelo.getConexion();
+		this.consultas_cliente = new ConsultasCliente(conexion);
+		this.consultas_cita = new ConsultasCita(conexion);
+		this.consultas_taller = new ConsultasTaller(conexion);
+		this.consultas_empleado = new ConsultasEmpleado(conexion);
+		this.consultas_traje = new ConsultasTraje(conexion);
 	}
 
 	/**

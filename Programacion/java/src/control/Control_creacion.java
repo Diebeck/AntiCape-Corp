@@ -8,6 +8,7 @@ package control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +24,6 @@ import view.Panel_talleres;
  */
 public class Control_creacion {
 
-	@SuppressWarnings("unused")
 	private Acceso_BD modelo;
 	private Panel_clientes panel_cliente;
 	private Panel_empleados panel_empleados;
@@ -36,19 +36,20 @@ public class Control_creacion {
 	private ConsultasTraje consultas_traje;
 	
 
-	public Control_creacion(Acceso_BD modelo, Panel_clientes clientes, Panel_empleados empleados, Panel_citas citas,
+	public Control_creacion(Panel_clientes clientes, Panel_empleados empleados, Panel_citas citas,
 			Panel_talleres talleres) {
 
-		this.modelo = modelo;
+		this.modelo = Acceso_BD.instancia();
 		this.panel_cliente = clientes;
 		this.panel_cita = citas;
 		this.panel_empleados = empleados;
 		this.panel_taller = talleres;
-		this.consultas_cliente = new ConsultasCliente(modelo.getConexion());
-		this.consultas_cita = new ConsultasCita(modelo.getConexion());
-		this.consultas_taller = new ConsultasTaller(modelo.getConexion());
-		this.consultas_empleado = new ConsultasEmpleado(modelo.getConexion());
-		this.consultas_traje = new ConsultasTraje(modelo.getConexion());
+		Connection conexion = modelo.getConexion();
+		this.consultas_cliente = new ConsultasCliente(conexion);
+		this.consultas_cita = new ConsultasCita(conexion);
+		this.consultas_taller = new ConsultasTaller(conexion);
+		this.consultas_empleado = new ConsultasEmpleado(conexion);
+		this.consultas_traje = new ConsultasTraje(conexion);
 	}
 
 	/**

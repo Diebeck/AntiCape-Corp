@@ -7,6 +7,7 @@
 package control;
 
 import java.awt.*;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
@@ -20,7 +21,6 @@ import view.Panel_x;
  */
 public class Control_tablas {
 
-    @SuppressWarnings("unused")
 	private Acceso_BD modelo;
     private Panel_x panel_x;
     private Panel_home panel_home;
@@ -35,15 +35,19 @@ public class Control_tablas {
      * @param modelo acceso a la base de datos necesario para invocacion de metodos
      * @param panel_x panel principal donde se encuentran las tablas
      */
-    public Control_tablas(Acceso_BD modelo, Panel_x panel_x, Panel_home panel_home) {
-        this.modelo = modelo;
+    public Control_tablas(Panel_x panel_x, Panel_home panel_home) {
+    	//invocacion de la instancia
+        this.modelo = Acceso_BD.instancia();
         this.panel_x = panel_x;
         this.panel_home = panel_home;
         this.ids = new ObtencionID(modelo.getConexion());
-        this.consultas_cliente = new ConsultasCliente(modelo.getConexion());
-        this.consultas_cita = new ConsultasCita(modelo.getConexion());
-        this.consultas_taller = new ConsultasTaller(modelo.getConexion());
-        this.consultas_empleado = new ConsultasEmpleado(modelo.getConexion());
+        
+        //usar la intancia del Acceso_BD sin crear una nueva
+        Connection conexion = modelo.getConexion();
+        this.consultas_cliente = new ConsultasCliente(conexion);
+        this.consultas_cita = new ConsultasCita(conexion);
+        this.consultas_taller = new ConsultasTaller(conexion);
+        this.consultas_empleado = new ConsultasEmpleado(conexion);
     }
     
     /**

@@ -10,7 +10,7 @@ import view.*;
 public class Listener implements ActionListener {
 	
 
-	private Acceso_BD modelo = new Acceso_BD();
+	private Acceso_BD modelo = Acceso_BD.instancia();
 	private Empleado sesion;
 	
 	private Ventana vent;
@@ -29,9 +29,9 @@ public class Listener implements ActionListener {
 	Panel_nav_oficial panel_nav_oficial = new Panel_nav_oficial(this);
 	Panel_prim_aprendiz panel_prim_aprendiz = new Panel_prim_aprendiz(this);
 	
-	private Control_tablas ControladorTablas = new Control_tablas(modelo, panel_x, panel_home);
-	private Control_creacion Controlador_creacion = new Control_creacion(modelo, panel_clientes, panel_empleados, panel_citas, panel_talleres);
-	private Control_ediciones Controlador_ediciones = new Control_ediciones(modelo, panel_x, panel_citas, panel_clientes, panel_empleados, panel_talleres);
+	private Control_tablas ControladorTablas = new Control_tablas(panel_x, panel_home);
+	private Control_creacion Controlador_creacion = new Control_creacion(panel_clientes, panel_empleados, panel_citas, panel_talleres);
+	private Control_ediciones Controlador_ediciones = new Control_ediciones(panel_x, panel_citas, panel_clientes, panel_empleados, panel_talleres);
 	
 	public void setVentana(Ventana vent) {
 		this.vent = vent;
@@ -66,22 +66,41 @@ public class Listener implements ActionListener {
 		System.out.println("===\nBoton presionado: "+ cmd);
 		
 		if (cmd.equals("Login")) {
-			sesion = modelo.login(panel_login.getTextField_usuario().getText(), panel_login.getPasswordField_contrasena());
-			String tipoCuenta = sesion.getCategoria();
-			vent.cambiarCajaCuenta(panel_cuenta);
-			panel_cuenta.mostrarHome();
-			if (tipoCuenta.equals("Maestro")) {
-				iniciarMaestro();
-			} else if (tipoCuenta.equals("Oficial")) {
-				iniciarOficial();
-			} else if (tipoCuenta.equals("Aprendiz")){
-				iniciarAprendiz();
-			}
+			//almaceno las credenciales
+			String usuario = panel_login.getTextField_usuario().getText();
+			String contraseña = panel_login.getPasswordField_contrasena();
 			
+			//inicio de la sesion
+			sesion = modelo.login(usuario, contraseña);
+			
+			if (sesion != null) {
+				panel_login.getLblErrorInicio().setText("");
+				String tipoCuenta = sesion.getCategoria();
+				vent.cambiarCajaCuenta(panel_cuenta);
+				panel_cuenta.mostrarHome();
+				if (tipoCuenta.equals("Maestro")) {
+					iniciarMaestro();
+				} else if (tipoCuenta.equals("Oficial")) {
+					iniciarOficial();
+				} else if (tipoCuenta.equals("Aprendiz")){
+					iniciarAprendiz();
+				}
+				// barrido de las credenciales para el logout 
+				panel_login.getPass().setText("");
+				panel_login.getTextField_usuario().setText("");
+			} else {
+				//mensaje de error y limpiado de los textos
+				panel_login.getLblErrorInicio().setText("Usuario o contraseña invalidos, Acceso denegado");
+				panel_login.getTextField_usuario().setText("");
+				panel_login.getPass().setText("");
+				panel_login.getTextField_usuario().requestFocus();
+			}
 		} else if (e.getSource()== panel_cuenta.getBtn_logout()) {
 			vent.cambiarCajaPrimario(panel_login);
 			vent.cambiarCajaNav(panel_logo);
 			vent.cambiarCajaCuenta(null);
+			
+			modelo.closeConnect();
 			
 		} else if (cmd.equals("Citas")) {
 		    vent.cambiarCajaPrimario(panel_x);

@@ -14,33 +14,48 @@ import java.sql.*;
 public class Acceso_BD {
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String url = "jdbc:mysql://localhost/AntiCape_db";
-	private Connection instance = null;
+	private Connection connection = null;
 	private String user_db = "root";
 	private String password_db = "Rokokoso0812";
+	
+	/*
+	 * instancia de la coneccion pivada para compartir
+	 * con los otros modelos
+	 */
+	private static Acceso_BD instancia = null;
 
 	/**
-	 * Metodo que prende la conexion con la base de datos
-	 * 
-	 * @see #getConexion()
+	 * Constructor
+	 * que prende la conexion con la base de datos
 	 */
-	public Acceso_BD() {
+	private Acceso_BD() {
 		getConexion();
+	}
+	
+	/**
+	 * Metodo que obtiene la instancia para conmpartir 
+	 * @return
+	 */
+	public static Acceso_BD instancia() {
+		if (instancia == null) {
+			instancia = new Acceso_BD();
+		}
+		return instancia;
 	}
 
 	/**
-	 * Metodo que inicializa la conexion con la base de datos en base a los
-	 * atributos de la clase Acceso_DB
-	 * 
-	 * @return objeto de tipo Connection
+	 * Metodo que inicializa la conexion con la base de datos
 	 */
 	public Connection getConexion() {
 		try {
-			Class.forName(driver);
-			instance = DriverManager.getConnection(url, user_db, password_db);
+			if(connection == null) {
+				Class.forName(driver);
+				connection = DriverManager.getConnection(url, user_db, password_db);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return instance;
+		return connection;
 	}
 
 	/**
@@ -48,69 +63,13 @@ public class Acceso_BD {
 	 */
 	public void closeConnect() {
 		try {
-			instance.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Metodo que consulta la existencia de un usuario en la base de datos
-	 * 
-	 * @param usuario usuario a buscar en la base de datos
-	 * @return true en caso de que se encuentre un registro y false si no se
-	 *         encuentra
-	 */
-	public boolean consultaUser(String usuario) {
-		try {
-			System.out.println("Llamado metodo consulta");
-			String query = "SELECT * FROM empleado";
-			Statement stmt = instance.createStatement();
-			ResultSet resultado = stmt.executeQuery(query);
-
-			while (resultado.next()) {
-				System.out.println("Busqueda: " + resultado.getString(4));
-
-				if (resultado.getString(4).equals(usuario)) {
-					return true;
-				}
+			if (connection != null && !connection.isClosed() ) {
+				connection.close();
+				connection = null;
 			}
-			resultado.close();
-			stmt.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
-	}
-
-	/**
-	 * Metodo que realiza una consulta a la base de datos para comprobar la
-	 * contraseña de un usuario
-	 * 
-	 * @param contraseña contraseña a buscar en la base de datos
-	 * @return true en caso de que la contraseña se encuentre, false si no
-	 */
-	public boolean consultaContra(String contraseña, String usuario) {
-		try {
-			System.out.println("Llamado metodo consulta");
-			String query = "SELECT * FROM empleado WHERE apodo = '" + usuario + "'";
-			Statement stmt = instance.createStatement();
-			ResultSet resultado = stmt.executeQuery(query);
-
-			while (resultado.next()) {
-				System.out.println("Busqueda: " + resultado.getString(6));
-
-				if (resultado.getString(6).equals(contraseña)) {
-					return true;
-				}
-			}
-			resultado.close();
-			stmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}
-		return false;
 	}
 
 	/**
@@ -119,48 +78,36 @@ public class Acceso_BD {
 	 * 
 	 * @param usuario    apodo del empleado en la base de datos
 	 * @param contraseña contraseña del empleado en la base de datos
-	 * 
-	 * @return objeto de tipo empleado
-	 * @see #consultaContra(String)
-	 * @see Acceso_BD#consultaUser(String)
+	 * @return objeto de tipo empleado, null si no existe
 	 */
 	public Empleado login(String usuario, String contraseña) {
-		// print de debug
 		System.out.println("metodo login");
-
-		// variables de almacenamiento temporal
-		int id = 0;
-		String nombre = "";
-		String apellidos = "";
-		String categoria = "";
-
-		if (consultaUser(usuario) && consultaContra(contraseña, usuario)) {
-			try {
-				String query = "SELECT * FROM Empleado WHERE apodo = '" + usuario + "' AND contraseña = '" + contraseña
-						+ "'";
-				Statement stmt = instance.createStatement();
-				ResultSet resultado = stmt.executeQuery(query);
-
+		
+		// consulta de usuario y contraseña unica
+		String query = "SELECT id_empleado, nombre, apellidos, categoria FROM Empleado WHERE apodo = ? AND contraseña = ?";
+		
+		/*
+		 * NOTA: en todos los prepared statements, si se crea el statement en unos ()
+		 * la clausula try se encarga de abrir y cerrar el cursor mejorando la lectura y sintaxis del codigo
+		 */
+		try (PreparedStatement stmt = connection.prepareStatement(query)) {
+			stmt.setString(1, usuario);
+			stmt.setString(2, contraseña);
+			
+			try (ResultSet resultado = stmt.executeQuery()) {
 				if (resultado.next()) {
-					id = resultado.getInt("id_empleado");
-					nombre = resultado.getString("nombre");
-					apellidos = resultado.getString("apellidos");
-					categoria = resultado.getString("categoria");
-
-					Empleado sesionActiva = new Empleado(id, nombre, apellidos, usuario, categoria, contraseña);
-
-					resultado.close();
-					stmt.close();
-					return sesionActiva;
+					int id = resultado.getInt("id_empleado");
+					String nombre = resultado.getString("nombre");
+					String apellidos = resultado.getString("apellidos");
+					String categoria = resultado.getString("categoria");
+					
+					return new Empleado(id, nombre, apellidos, usuario, categoria, contraseña);
 				}
-
-				resultado.close();
-				stmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		
 		return null;
 	}
-
 }
