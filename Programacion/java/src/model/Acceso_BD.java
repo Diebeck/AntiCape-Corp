@@ -49,7 +49,7 @@ public class Acceso_BD {
 		return instancia;
 	}
 
-	/**
+	/**	
 	 * Metodo que inicializa la conexion con la base de datos
 	 */
 	public Connection getConexion() {
