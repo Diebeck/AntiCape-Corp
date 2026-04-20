@@ -21,7 +21,7 @@ import java.util.Calendar;
 @SuppressWarnings("serial")
 public class Panel_citas extends JPanel {
 	
-	private JButton btn_homeCitas = new JButton("");
+	private JButton btn_homeCitas;
 	private JButton btn_cCita;
 	private JLabel lblCliente;
 	@SuppressWarnings("rawtypes")
@@ -41,6 +41,7 @@ public class Panel_citas extends JPanel {
 	@SuppressWarnings("rawtypes")
 	private JComboBox cbTrajes;
 	private JLabel lbl_yCitas;
+	private JButton btn_nCliente;
 	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
@@ -73,6 +74,7 @@ public class Panel_citas extends JPanel {
 		lbl_yCitas.setBounds(38, 25, 437, 52);
 		add(lbl_yCitas);
 		
+		btn_homeCitas = new JButton("");
 		btn_homeCitas.setIcon(new ImageIcon(Panel_citas.class.getResource("/img/home.png")));
 		btn_homeCitas.setForeground(Color.WHITE);
 		btn_homeCitas.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
@@ -87,6 +89,7 @@ public class Panel_citas extends JPanel {
 		btn_cCita.setBackground(new Color(76, 17, 48));
 		btn_cCita.setBounds(454, 455, 221, 44);
 		add(btn_cCita);
+		btn_cCita.addActionListener(list);
 		
 		lblCliente = new JLabel("Cliente:");
 		lblCliente.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
@@ -151,7 +154,15 @@ public class Panel_citas extends JPanel {
 		cbTrajes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		cbTrajes.setBounds(126, 307, 290, 25);
 		add(cbTrajes);
-		btn_cCita.addActionListener(list);
+		
+		btn_nCliente = new JButton("Nuevo cliente");
+		btn_nCliente.setForeground(Color.WHITE);
+		btn_nCliente.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
+		btn_nCliente.setBackground(new Color(76, 17, 48));
+		btn_nCliente.setBounds(454, 120, 221, 25);
+		add(btn_nCliente);
+		btn_nCliente.addActionListener(list);
+		
 	}
 
 	/**
@@ -224,5 +235,4 @@ public class Panel_citas extends JPanel {
 	public JComboBox getCbTrajes() {
 		return cbTrajes;
 	}
-	
 }
