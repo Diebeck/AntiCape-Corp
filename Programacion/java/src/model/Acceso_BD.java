@@ -15,10 +15,13 @@ public class Acceso_BD {
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String url = "jdbc:mysql://localhost/AntiCape_db";
 	private Connection connection = null;
-	private String user_db = "root";
+	private String user_db = "Rokokoso0812";
+
 
 
 	private String password_db = "Rokokoso0812";
+
+
 	
 	/*
 	 * instancia de la coneccion pivada para compartir

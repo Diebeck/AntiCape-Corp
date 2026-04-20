@@ -142,4 +142,37 @@ public class ConsultasCliente {
 
 		return false;
 	}
+	
+
+	/**
+	 * Metodo para eliminar un cliente y su traje asociado
+	 * 
+	 * @param id ID del cliente a eliminar
+	 * @return true si se eliminó correctamente, false si no
+	 */
+	public boolean eliminarClienteConTraje(int id) {
+		
+		//eliminacion del cliente para cuidar la integridad referencial
+		@SuppressWarnings("unused")
+		boolean borradoTraje = consultas_traje.eliminarTrajePorCliente(id);
+	    
+	    String query = "DELETE FROM Cliente WHERE id_cliente = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, id);
+	        
+	        int filasAfectadas = stmt.executeUpdate();
+	        
+	        if (filasAfectadas > 0) {
+	            System.out.println("Cliente eliminado exitosamente. ID: " + id);
+	            return true;
+	        }
+	        
+	    } catch (SQLException e) {
+	        System.err.println("Error al eliminar cliente: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    
+	    return false;
+	}
 }

@@ -31,7 +31,7 @@ public class Main {
 		 *
 		 *paralelo a esto tuve que hacer una refactorizacion de
 		 *todo el modelo y las instancias de la clase Acceso_BD
-		 *para que no se generen mas conecciones
+		 *para que no se generen mas conexiones
 		 *
 		 *
 		 *Este fracmento de codigo basicamente es
@@ -41,7 +41,7 @@ public class Main {
 		 *
 		 *new Thread: Es el hilo en si, el codigo que se ejecutara
 		 *
-		 *Y pues el codigo adentro cierra la coneccion y da el mensaje en pantalla
+		 *Y pues el codigo adentro cierra la conexion y da el mensaje en pantalla
 		 */
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			System.out.println("Cerrando base de datos");

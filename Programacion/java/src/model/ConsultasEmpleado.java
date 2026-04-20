@@ -118,4 +118,31 @@ public class ConsultasEmpleado {
 
 		return false;
 	}
+	
+	/**
+	 * Metodo para eliminar un empleado existente
+	 * 
+	 * @param id ID del empleado a eliminar
+	 * @return true si se eliminó correctamente, false si no
+	 */
+	public boolean eliminarEmpleado(int id) {
+	    String query = "DELETE FROM Empleado WHERE id_empleado = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, id);
+	        
+	        int filasAfectadas = stmt.executeUpdate();
+	        
+	        if (filasAfectadas > 0) {
+	            System.out.println("Empleado eliminado exitosamente. ID: " + id);
+	            return true;
+	        }
+	        
+	    } catch (SQLException e) {
+	        System.err.println("Error al eliminar empleado: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+	    
+	    return false;
+	}
 }

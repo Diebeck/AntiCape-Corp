@@ -140,4 +140,33 @@ public class ConsultasTraje {
 	    
 	    return false;
 	}
+	
+	/**
+	 * Metodo para eliminar un traje por ID de cliente
+	 * 
+	 * @param idCliente ID del cliente cuyo traje se eliminará
+	 * @return true si se eliminó correctamente, false si no
+	 */
+	public boolean eliminarTrajePorCliente(int idCliente) {
+	    String query = "DELETE FROM Traje WHERE id_cliente = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, idCliente);
+	        
+	        int filasAfectadas = stmt.executeUpdate();
+	        
+	        if (filasAfectadas > 0) {
+	            System.out.println("Traje eliminado correctamente para cliente ID: " + idCliente);
+	            return true;
+	        } else {
+	            System.out.println("No se encontró traje para el cliente ID: " + idCliente);
+	            return true;
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return false;
+	}
 }

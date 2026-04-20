@@ -199,4 +199,29 @@ public class ConsultasCita {
 	    return false;
 	}
 	
+	/**
+	 * Metodo para eliminar una cita existente
+	 * 
+	 * @param id ID de la cita a eliminar
+	 * @return true si se eliminó correctamente, false si no
+	 */
+	public boolean eliminarCita(int id) {
+	    String query = "DELETE FROM Citas WHERE id_cita = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, id);
+	        
+	        int filasAfectadas = stmt.executeUpdate();
+	        
+	        if (filasAfectadas > 0) {
+	            System.out.println("Cita eliminada exitosamente. ID: " + id);
+	            return true;
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return false;
+	}
 }

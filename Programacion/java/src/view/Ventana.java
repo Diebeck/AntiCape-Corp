@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import control.Listener;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.Toolkit;
 
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
@@ -48,6 +49,9 @@ public class Ventana extends JFrame {
 	
 	private void iniciar() {
 		setSize(1153, 604);
+		setLocationRelativeTo(null); // Situa la ventana en el medio de la pantalla
+		setTitle("Anticape Software"); // Pone el titulo de la ventana
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/img/logo.png"))); // Le pone el icono
 		
 		getContentPane().setBackground(new Color(192, 192, 192));
 		getContentPane().setLayout(null);
