@@ -1,35 +1,42 @@
 package view;
 
+import control.Listener;
+
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.*;
 
-import control.Listener;
-
-
-
-
+@SuppressWarnings("serial")
 public class Panel_talleres extends JPanel {
 	
 	private JButton btn_homeTaller = new JButton("");
 	private JButton btn_cTaller;
 	private JLabel lbl_yTaller;
+	private JLabel lblTipo;
+	private JLabel lblInfo;
+	private JLabel lblNombre;
 	private JTextField txtNombre;
 	private JRadioButton rdbtnDiseno;
 	private JRadioButton rdbtnCostura;
 	private JRadioButton rdbtnPruebas;
+	private ButtonGroup bg;
 	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
 	
-	// Pone el modo y actualiza los componentes
+	/** Cambia el modo del panel y actualiza su label
+	 * @param modo
+	 */
 	public void setModo(String modo) {
 		this.modo = modo;
 		lbl_yTaller.setText(modo +" un taller");
 		System.out.println("Cambiado el modo del panel talleres a "+ modo);
 	}
 	
+	/** Devuelve el modo del panel
+	 * @return modo
+	 */
 	public String getModo() {
 		return modo;
 	}
@@ -44,7 +51,6 @@ public class Panel_talleres extends JPanel {
 		lbl_yTaller.setBackground(new Color(76, 17, 48));
 		lbl_yTaller.setBounds(38, 25, 437, 52);
 		add(lbl_yTaller);
-		
 		
 		btn_homeTaller.setIcon(new ImageIcon(Panel_talleres.class.getResource("/img/home.png")));
 		btn_homeTaller.setForeground(Color.WHITE);
@@ -61,12 +67,12 @@ public class Panel_talleres extends JPanel {
 		btn_cTaller.setBounds(454, 455, 221, 44);
 		add(btn_cTaller);
 		
-		JLabel lblTipo = new JLabel("Tipo de Taller:");
+		lblTipo = new JLabel("Tipo de Taller:");
 		lblTipo.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblTipo.setBounds(41, 140, 124, 20);
 		add(lblTipo);
 		
-		ButtonGroup bg = new ButtonGroup();
+		bg = new ButtonGroup();
 		
 		rdbtnDiseno = new JRadioButton("Diseño");
 		rdbtnDiseno.setSelected(true);
@@ -87,13 +93,13 @@ public class Panel_talleres extends JPanel {
 		add(rdbtnPruebas);
 		bg.add(rdbtnPruebas);
 		
-		JLabel lblInfo = new JLabel("Asigne la ubicación y tipo del taller");
+		lblInfo = new JLabel("Asigne la ubicación y tipo del taller");
 		lblInfo.setForeground(new Color(128, 128, 128));
 		lblInfo.setFont(new Font("Century Schoolbook", Font.ITALIC, 12));
 		lblInfo.setBounds(39, 79, 519, 20);
 		add(lblInfo);
 		
-		JLabel lblNombre = new JLabel("Nombre de la Sala:");
+		lblNombre = new JLabel("Nombre de la Sala:");
 		lblNombre.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblNombre.setBounds(38, 219, 180, 20);
 		add(lblNombre);

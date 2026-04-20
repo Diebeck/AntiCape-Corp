@@ -1,5 +1,7 @@
 package view;
 
+import control.Listener;
+
 import java.awt.Color;
 import java.awt.Font;
 
@@ -7,16 +9,12 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import control.Listener;
-
 import javax.swing.ImageIcon;
-
 import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
-
+@SuppressWarnings("serial")
 public class Panel_empleados extends JPanel {
 	
 	private JButton btn_homeEmpleado = new JButton("");
@@ -30,17 +28,28 @@ public class Panel_empleados extends JPanel {
 	private JRadioButton rdbtnOficial;
 	private JRadioButton rdbtnMaestro;
 	private JLabel lblUsuario;
+	private JLabel lblIngreseLosDatos;
+	private JLabel lblCategoria;
+	private JLabel lblNombre;
+	private JLabel lblContrasena;
+	private JLabel lblApellidos;
+	private ButtonGroup bg;
 	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
 	
-	// Pone el modo y actualiza los componentes
+	/** Cambia el modo del panel y actualiza su label
+	 * @param modo
+	 */
 	public void setModo(String modo) {
 		this.modo = modo;
 		lbl_yEmpleado.setText(modo +" un empleado");
 		System.out.println("Cambiado el modo del panel empleados a "+ modo);
 	}
 	
+	/** Devuelve el modo del panel
+	 * @return modo
+	 */
 	public String getModo() {
 		return modo;
 	}
@@ -55,7 +64,6 @@ public class Panel_empleados extends JPanel {
 		lbl_yEmpleado.setBackground(new Color(76, 17, 48));
 		lbl_yEmpleado.setBounds(38, 25, 437, 52);
 		add(lbl_yEmpleado);
-		
 		
 		btn_homeEmpleado.setIcon(new ImageIcon(Panel_empleados.class.getResource("/img/home.png")));
 		btn_homeEmpleado.setForeground(Color.WHITE);
@@ -72,24 +80,24 @@ public class Panel_empleados extends JPanel {
 		btn_cEmpleado.setBounds(454, 455, 221, 44);
 		add(btn_cEmpleado);
 		
-		JLabel lblIngreseLosDatos = new JLabel("Ingrese los datos del empleado");
+		lblIngreseLosDatos = new JLabel("Ingrese los datos del empleado");
 		lblIngreseLosDatos.setForeground(Color.GRAY);
 		lblIngreseLosDatos.setFont(new Font("Century Schoolbook", Font.ITALIC, 12));
 		lblIngreseLosDatos.setBounds(39, 80, 519, 20);
 		add(lblIngreseLosDatos);
 		
-		JLabel lblCategoria = new JLabel("Categoria:");
+		lblCategoria = new JLabel("Categoria:");
 		lblCategoria.setVerticalAlignment(SwingConstants.TOP);
 		lblCategoria.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblCategoria.setBounds(38, 110, 124, 36);
 		add(lblCategoria);
 		
-		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre = new JLabel("Nombre:");
 		lblNombre.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblNombre.setBounds(35, 169, 93, 20);
 		add(lblNombre);
 		
-		ButtonGroup bg = new ButtonGroup();
+		bg = new ButtonGroup();
 		
 		rdbtnAprendiz = new JRadioButton("Aprendiz");
 		rdbtnAprendiz.setSelected(true);
@@ -116,7 +124,7 @@ public class Panel_empleados extends JPanel {
 		tfNombre.setBounds(157, 168, 507, 25);
 		add(tfNombre);
 		
-		JLabel lblContrasena = new JLabel("Contraseña:");
+		lblContrasena = new JLabel("Contraseña:");
 		lblContrasena.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblContrasena.setBounds(35, 343, 127, 20);
 		add(lblContrasena);
@@ -127,7 +135,7 @@ public class Panel_empleados extends JPanel {
 		tfContrasena.setBounds(157, 342, 507, 25);
 		add(tfContrasena);
 		
-		JLabel lblApellidos = new JLabel("Apellidos:");
+		lblApellidos = new JLabel("Apellidos:");
 		lblApellidos.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblApellidos.setBounds(38, 220, 93, 20);
 		add(lblApellidos);

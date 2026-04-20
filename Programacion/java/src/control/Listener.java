@@ -53,12 +53,16 @@ public class Listener implements ActionListener {
 	private void iniciarOficial() {
 		vent.cambiarCajaPrimario(panel_x);
 		vent.cambiarCajaNav(panel_nav_oficial);
+		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
+		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
 	}
 	
 	private void iniciarAprendiz() {
 		vent.cambiarCajaPrimario(panel_prim_aprendiz);
 		vent.cambiarCajaNav(panel_nav_aprendiz);
 		panel_cuenta.esconderHome();
+		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
+		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
 	}
 	
 	@Override
@@ -71,18 +75,11 @@ public class Listener implements ActionListener {
 		// Eventos para botones que necesitan getter (botones especificos)
 		
 		if (e.getSource()== panel_cuenta.getBtn_logout()) {
+			sesion = null;
 			vent.cambiarCajaPrimario(panel_login);
 			vent.cambiarCajaNav(panel_logo);
 			vent.cambiarCajaCuenta(null);
-		
-		
-		} else if (e.getSource()== panel_cuenta.getBtn_logout()) {
-			vent.cambiarCajaPrimario(panel_login);
-			vent.cambiarCajaNav(panel_logo);
-			vent.cambiarCajaCuenta(null);
-			
-			modelo.closeConnect();
-			
+	
 			//bloque else if retroceso a home 
 		} else if (e.getSource() == panel_cuenta.getBotonHome()) {
 			vent.cambiarCajaPrimario(panel_home);
@@ -301,6 +298,13 @@ public class Listener implements ActionListener {
 					controladorTablas.cargarTalleres();
 				}
 			}
+			break;
+			
+		case "Nuevo cliente":
+			vent.cambiarCajaPrimario(panel_clientes);
+			panel_clientes.setModo("Crear");
+			break;
+			
 		}
 	}
 	

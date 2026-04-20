@@ -1,37 +1,41 @@
 package view;
 
-import java.awt.Color;
+import control.Listener;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 
-import control.Listener;
-
+@SuppressWarnings("serial")
 public class Panel_x extends JPanel {
+	
 	private JScrollPane scrollPane;
 	private JPanel panel_botones;
 	private JButton btn_crear;
 	private JButton btn_modificar;
 	private JButton btn_eliminar;
 	private JTable table;
-	private DefaultTableModel forma;
+	private JLabel lbl_gestionX;
 	
 	// El estado determina en que apartado estamos
 	// ej: si estamos en citas, se vera "Gestión de citas" y la tabla tendrá los datos de las citas
 	String estado = "citas";
-	JLabel lbl_gestionX = new JLabel("Gestión de "+ estado);
 	
-	// Pone el estado y actualiza los componentes
+	/** Cambia el estado del panel y actualiza su label
+	 * @param estado 
+	 */
 	public void setEstado(String estado) {
 		this.estado = estado;
 		lbl_gestionX.setText("Gestión de "+ estado);
 		System.out.println("Cambiado el estado a "+ estado);
 	}
-	// Devuelve el estado
+	
+	/** Devuelve el estado del panel
+	 * @return estado
+	 */
 	public String getEstado() {
 		return estado;
 	}
@@ -40,6 +44,7 @@ public class Panel_x extends JPanel {
 		setLayout(null);
 		setSize(723, 545);
 		
+		lbl_gestionX = new JLabel("Gestión de "+ estado);
 		lbl_gestionX.setBackground(new Color(76, 17, 48));
 		lbl_gestionX.setForeground(new Color(116, 27, 71));
 		lbl_gestionX.setFont(new Font("Century Schoolbook", Font.PLAIN, 28));
@@ -84,24 +89,29 @@ public class Panel_x extends JPanel {
 	public JScrollPane getScrollPane() {
 		return scrollPane;
 	}
+	
 	public JPanel getPanel_botones() {
 		return panel_botones;
 	}
+	
 	public JButton getBtn_crear() {
 		return btn_crear;
 	}
+	
 	public JButton getBtn_modificar() {
 		return btn_modificar;
 	}
+	
 	public JButton getBtn_eliminar() {
 		return btn_eliminar;
 	}
+	
 	public JLabel getLbl_gestionX() {
 		return lbl_gestionX;
 	}
+	
 	public JTable getTable() {
 		return table;
 	}
-	
-	
+		
 }
