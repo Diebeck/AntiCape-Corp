@@ -68,7 +68,7 @@ public class ObtencionID {
 	 * @return int con el valor del id del taller (-1 en caso de que no exista el taller)
 	 */
 	protected int obtenerIdTaller(String nombreTaller) {
-		String query = "SELECT id_taller FROM Taller WHERE tipo_sala = ?";
+		String query = "SELECT id_taller FROM Taller WHERE nombre_sala = ?";
 		try (PreparedStatement pstmt = instance.prepareStatement(query)) {
 			pstmt.setString(1, nombreTaller);
 			ResultSet rs = pstmt.executeQuery();
