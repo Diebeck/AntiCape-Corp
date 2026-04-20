@@ -1,5 +1,7 @@
 package view;
 
+import control.Listener;
+
 import java.awt.Color;
 import java.awt.Font;
 
@@ -7,14 +9,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import control.Listener;
-
 import javax.swing.ImageIcon;
-
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
-
 
 @SuppressWarnings("serial")
 public class Panel_clientes extends JPanel {
@@ -33,9 +30,29 @@ public class Panel_clientes extends JPanel {
 	private JRadioButton rdbtnDiseno;
 	private JRadioButton rdbtnCostura;
 	private JRadioButton rdbtnTaller;
+	private JLabel lbl_traje;
+	private JLabel lblNombreT;
+	private JLabel lblEstado;
+	private ButtonGroup bg;
 	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
+	
+	/** Cambia el modo del panel y actualiza su label
+	 * @param modo
+	 */
+	public void setModo(String modo) {
+		this.modo = modo;
+		lbl_yClientes.setText(modo +" un cliente");
+		System.out.println("Cambiado el modo del panel clientes a "+ modo);
+	}
+	
+	/** Devuelve el modo del panel
+	 * @return modo
+	 */
+	public String getModo() {
+		return modo;
+	}
 	
 	public Panel_clientes(Listener list) {
 		setLayout(null);
@@ -47,7 +64,6 @@ public class Panel_clientes extends JPanel {
 		lbl_yClientes.setBackground(new Color(76, 17, 48));
 		lbl_yClientes.setBounds(38, 25, 437, 52);
 		add(lbl_yClientes);
-		
 		
 		btn_homeClientes.setIcon(new ImageIcon(Panel_clientes.class.getResource("/img/home.png")));
 		btn_homeClientes.setForeground(Color.WHITE);
@@ -104,7 +120,7 @@ public class Panel_clientes extends JPanel {
 		tfSuperpoder.setBounds(168, 239, 507, 25);
 		add(tfSuperpoder);
 		
-		JLabel lbl_traje = new JLabel("Datos del Traje");
+		lbl_traje = new JLabel("Datos del Traje");
 		lbl_traje.setForeground(Color.BLACK);
 		lbl_traje.setFont(new Font("Century Schoolbook", Font.ITALIC, 24));
 		lbl_traje.setBackground(new Color(76, 17, 48));
@@ -117,17 +133,17 @@ public class Panel_clientes extends JPanel {
 		tfNombreT.setBounds(168, 337, 507, 25);
 		add(tfNombreT);
 		
-		JLabel lblNombreT = new JLabel("Nombre:");
+		lblNombreT = new JLabel("Nombre:");
 		lblNombreT.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblNombreT.setBounds(38, 338, 87, 20);
 		add(lblNombreT);
 		
-		JLabel lblEstado = new JLabel("Estado:");
+		lblEstado = new JLabel("Estado:");
 		lblEstado.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblEstado.setBounds(38, 392, 87, 20);
 		add(lblEstado);
 		
-		ButtonGroup bg = new ButtonGroup();
+		bg = new ButtonGroup();
 		
 		rdbtnDiseno = new JRadioButton("Diseño");
 		rdbtnDiseno.setSelected(true);
@@ -193,14 +209,4 @@ public class Panel_clientes extends JPanel {
 		return rdbtnTaller;
 	}
 	
-	// Pone el modo y actualiza los componentes
-	public void setModo(String modo) {
-		this.modo = modo;
-		lbl_yClientes.setText(modo +" un cliente");
-		System.out.println("Cambiado el modo del panel clientes a "+ modo);
-	}
-	
-	public String getModo() {
-		return modo;
-	}
 }

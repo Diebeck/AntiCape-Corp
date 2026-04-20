@@ -75,7 +75,6 @@ public class Listener implements ActionListener {
 			vent.cambiarCajaNav(panel_logo);
 			vent.cambiarCajaCuenta(null);
 		
-		
 		} else if (e.getSource()== panel_cuenta.getBtn_logout()) {
 			vent.cambiarCajaPrimario(panel_login);
 			vent.cambiarCajaNav(panel_logo);
@@ -301,6 +300,11 @@ public class Listener implements ActionListener {
 					controladorTablas.cargarTalleres();
 				}
 			}
+			
+		case "Nuevo cliente":
+			vent.cambiarCajaPrimario(panel_clientes);
+			panel_clientes.setModo("Crear");
+			
 		}
 	}
 	

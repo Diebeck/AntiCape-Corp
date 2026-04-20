@@ -1,5 +1,7 @@
 package view;
 
+import control.Listener;
+
 import java.awt.Color;
 import java.awt.Font;
 
@@ -7,18 +9,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import control.Listener;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class Panel_cuenta extends JPanel {
 	
-	JButton btn_home = new JButton("");
-	JButton btn_logout = new JButton("");
+	private JButton btn_home = new JButton("");
+	private JButton btn_logout = new JButton("");
 	private JLabel lbl_nombreEmpleado;
 	private JLabel lbl_categoria;
 	private JLabel lblImagen;
-	
 	
 	public Panel_cuenta(Listener list) {
 		
@@ -56,16 +56,13 @@ public class Panel_cuenta extends JPanel {
 		btn_home.setBounds(278, 87, 32, 30);
 		btn_home.setFocusPainted(false);
 		add(btn_home);
+		btn_home.addActionListener(list);
 		
 		lblImagen = new JLabel("");
 		lblImagen.setHorizontalAlignment(SwingConstants.CENTER);
-		
 		lblImagen.setIcon(Ventana.escalarImagen("/img/cuenta.png", 80, 80));
 		lblImagen.setBounds(10, 0, 89, 127);
 		add(lblImagen);
-		
-		
-		btn_home.addActionListener(list);
 	}
 
 	/**
