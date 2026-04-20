@@ -104,9 +104,9 @@ public class Control_eliminacion {
 		
 		//Mensaje que se le pasa al dialog y se reemplaza en la parte de mensaje.replace
 		String mensaje = "¿Estás seguro de que deseas eliminar la cita?\n\n"
-				+ "ID: " + id + "\n"
-				+ "Fecha: " + fecha + "\n"
-				+ "Cliente: " + cliente + "\n\n";
+				+ "ID:\t" + id + "\n"
+				+ "Fecha:\t" + fecha + "\n"
+				+ "Cliente:\t" + cliente + "\n\n";
 		
 		if (!mostrarConfirmacion("Confirmar eliminación", mensaje)) {
 			System.out.println("Eliminación cancelada por el usuario");
@@ -140,9 +140,9 @@ public class Control_eliminacion {
 		String colores = (String) fila[2];
 		
 		String mensaje = "¿Estás seguro de que deseas eliminar este cliente?\n\n"
-				+ "ID: " + id + "\n"
-				+ "Nombre: " + nombre + "\n"
-				+ "Colores: " + colores + "\n\n"
+				+ "ID:\t" + id + "\n"
+				+ "Nombre:\t" + nombre + "\n"
+				+ "Colores:\t" + colores + "\n\n"
 				+ "ADVERTENCIA: También se eliminará su traje asociado.\n";
 		
 		if (!mostrarConfirmacion("Confirmar eliminación", mensaje)) {
@@ -177,9 +177,9 @@ public class Control_eliminacion {
 		String categoria = (String) fila[4];
 		
 		String mensaje = "¿Estás seguro de que deseas eliminar este empleado?\n\n"
-				+ "ID: " + id + "\n"
-				+ "Nombre: " + nombre + " " + apellidos + "\n"
-				+ "Categoría: " + categoria + "\n\n";
+				+ "ID:\t" + id + "\n"
+				+ "Nombre:\t" + nombre + " " + apellidos + "\n"
+				+ "Categoría:\t" + categoria + "\n\n";
 		
 		if (!mostrarConfirmacion("Confirmar eliminación", mensaje)) {
 			System.out.println("Eliminación cancelada por el usuario");
@@ -192,7 +192,7 @@ public class Control_eliminacion {
 		if (exito) {
 			JOptionPane.showMessageDialog(null, "Empleado eliminado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(null, "Error al eliminar el empleado", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error al eliminar el empleado:\nEstá relacionado a una cita", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 
 		return exito;
@@ -212,9 +212,9 @@ public class Control_eliminacion {
 		String nombre = (String) fila[2];
 		
 		String mensaje = "¿Estás seguro de que deseas eliminar este taller?\n\n"
-				+ "ID: " + id + "\n"
-				+ "Tipo: " + tipo + "\n"
-				+ "Nombre: " + nombre + "\n\n";
+				+ "ID:\t" + id + "\n"
+				+ "Tipo:\t" + tipo + "\n"
+				+ "Nombre:\t" + nombre + "\n\n";
 		
 		if (!mostrarConfirmacion("Confirmar eliminación", mensaje)) {
 			System.out.println("Eliminación cancelada por el usuario");
