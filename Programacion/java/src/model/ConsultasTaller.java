@@ -156,5 +156,5 @@ public class ConsultasTaller {
 	    }
 	    
 	    return false;
-	}
+	}	
 }
