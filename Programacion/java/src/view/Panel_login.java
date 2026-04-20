@@ -1,5 +1,7 @@
 package view;
 
+import control.Listener;
+
 import java.awt.Color;
 import java.awt.Font;
 
@@ -15,11 +17,15 @@ import javax.swing.border.LineBorder;
 import javax.swing.*;
 
 
+
 import control.Listener;
+
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+@SuppressWarnings("serial")
 public class Panel_login extends JPanel {
+	
 	private JLabel lbl_login1; 
 	private JTextField textField_usuario;
 	private JPasswordField passwordField_contrasena;
@@ -37,7 +43,6 @@ public class Panel_login extends JPanel {
 		lbl_login1.setFont(new Font("Century Schoolbook", Font.ITALIC, 60));
 		lbl_login1.setBounds(61, 24, 579, 88);
 		add(lbl_login1);
-		
 		
 		textField_usuario = new JTextField();
 		textField_usuario.setFont(new Font("Century Schoolbook", Font.PLAIN, 30));
