@@ -1,17 +1,19 @@
 package view;
 
+import control.Listener;
+
 import java.awt.Color;
 import java.awt.Font;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import control.Listener;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+@SuppressWarnings("serial")
 public class Panel_home extends JPanel {
+	
 	private JTable tablaClientes;
 	private JTable tablaTalleres;
 	private JLabel lbl_home1;
