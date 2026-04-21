@@ -55,6 +55,9 @@ public class Listener implements ActionListener {
 		vent.cambiarCajaNav(panel_nav_oficial);
 		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
 		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
+		controladorTablas.cargarCitas();
+		controladorTablas.citasRecientes();
+		controladorTablas.cargarOcupacionTalleres();
 	}
 	
 	private void iniciarAprendiz() {
@@ -63,6 +66,7 @@ public class Listener implements ActionListener {
 		panel_cuenta.esconderHome();
 		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
 		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
+		controladorTablas.citasRecientes();
 	}
 	
 	@Override
