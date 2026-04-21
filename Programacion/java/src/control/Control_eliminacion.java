@@ -24,7 +24,7 @@ import view.Panel_x;
 public class Control_eliminacion {
 
 	private Acceso_BD modelo;
-	private Panel_x panel_x;
+	private Panel_x panel_x;	
 	private ConsultasCliente consultas_cliente;
 	private ConsultasCita consultas_cita;
 	private ConsultasTaller consultas_taller;

@@ -41,6 +41,7 @@ public class Panel_citas extends JPanel {
 	@SuppressWarnings("rawtypes")
 	private JComboBox cbTrajes;
 	private JLabel lbl_yCitas;
+	private JButton btnNuevoCliente;
 	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
@@ -147,11 +148,13 @@ public class Panel_citas extends JPanel {
 		cbEncargado.setBounds(155, 375, 520, 25);
 		add(cbEncargado);
 		
-		JButton btnNewButton = new JButton("Nuevo Cliente");
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(128, 0, 64));
-		btnNewButton.setBounds(485, 25, 190, 44);
-		add(btnNewButton);
+		btnNuevoCliente = new JButton("Nuevo Cliente");
+		btnNuevoCliente.setFont(new Font("Century Schoolbook", Font.ITALIC, 10));
+		btnNuevoCliente.setForeground(new Color(255, 255, 255));
+		btnNuevoCliente.setBackground(new Color(102, 0, 51));
+		btnNuevoCliente.setBounds(485, 37, 190, 44);
+		add(btnNuevoCliente);
+		btnNuevoCliente.addActionListener(list);
 
 		cbTrajes = new JComboBox();
 		cbTrajes.setFont(new Font("Tahoma", Font.PLAIN, 15));
