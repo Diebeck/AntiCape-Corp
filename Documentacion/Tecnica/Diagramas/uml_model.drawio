@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="2463" dy="1520" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2336" pageHeight="1654" math="0" shadow="0">
+    <mxGraphModel dx="1703" dy="997" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2336" pageHeight="1654" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -39,6 +39,17 @@
         </mxCell>
         <mxCell id="l7J9YhamppCSnKyvOYow-10" parent="l7J9YhamppCSnKyvOYow-1" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+getConexion(): Connection" vertex="1">
           <mxGeometry height="32" width="290" y="268" as="geometry" />
+        </mxCell>
+        <mxCell id="EcVgQsxS4Lx4Msb2CGPS-0" edge="1" parent="l7J9YhamppCSnKyvOYow-1" source="l7J9YhamppCSnKyvOYow-1" style="endArrow=none;html=1;rounded=0;exitX=0.657;exitY=-0.001;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;startArrow=open;startFill=0;startSize=12;" target="l7J9YhamppCSnKyvOYow-2" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="191" y="-60" />
+              <mxPoint x="360" y="-60" />
+              <mxPoint x="360" y="39" />
+            </Array>
+            <mxPoint x="220" y="-20" as="sourcePoint" />
+            <mxPoint x="270" y="-70" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="l7J9YhamppCSnKyvOYow-15" parent="WIyWlLk6GJQsqaUBKTNV-1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Cita" vertex="1">
           <mxGeometry height="234" width="170" x="80" y="80" as="geometry" />
