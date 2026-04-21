@@ -11,7 +11,7 @@ Este es el proyecto para la mejor empresa diseñadora de trajes para superheroes
     - [Creacion-inicial](Data-Base/esquemas/ddl/Table-Creation.sql)
 - Programación
     - [Proyecto de Java](Programacion/java)
-    - [Diagrama UML](Documentacion/Tecnica/Diagramas/uml.pdf)
+    - [Diagramas UML](Documentacion/Tecnica/Diagramas/UML)
 - Brand
     - [Logo](Corp/Logos/logo.png)
     - [Isologo](Corp/Logos/Isologo.png)
