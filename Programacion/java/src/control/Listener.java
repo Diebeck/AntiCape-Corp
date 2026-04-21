@@ -30,7 +30,7 @@ public class Listener implements ActionListener {
 	Panel_nav_oficial panel_nav_oficial = new Panel_nav_oficial(this);
 	Panel_prim_aprendiz panel_prim_aprendiz = new Panel_prim_aprendiz(this);
 	
-	private Control_tablas controladorTablas = new Control_tablas(panel_x, panel_home);
+	private Control_tablas controladorTablas = new Control_tablas(panel_x, panel_home, panel_prim_aprendiz);
 	private Control_creacion controladorCreacion = new Control_creacion(panel_clientes, panel_empleados, panel_citas, panel_talleres);
 	private Control_ediciones controladorEdiciones = new Control_ediciones(panel_x, panel_citas, panel_clientes, panel_empleados, panel_talleres);
 	private Control_eliminacion controladorEliminaciones = new Control_eliminacion(panel_x);
@@ -55,6 +55,9 @@ public class Listener implements ActionListener {
 		vent.cambiarCajaNav(panel_nav_oficial);
 		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
 		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
+		controladorTablas.cargarCitas();
+		controladorTablas.citasRecientes();
+		controladorTablas.cargarOcupacionTalleres();
 	}
 	
 	private void iniciarAprendiz() {
@@ -63,6 +66,7 @@ public class Listener implements ActionListener {
 		panel_cuenta.esconderHome();
 		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
 		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
+		controladorTablas.citasRecientesAprendiz();
 	}
 	
 	@Override

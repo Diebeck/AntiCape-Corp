@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.table.*;
 import model.*;
 import view.Panel_home;
+import view.Panel_prim_aprendiz;
 import view.Panel_x;
 
 /**
@@ -29,18 +30,20 @@ public class Control_tablas {
     private ConsultasCita consultas_cita;
     private ConsultasTaller consultas_taller;
     private ConsultasEmpleado consultas_empleado;
+    private Panel_prim_aprendiz panel_aprendiz;
     /**
      * Contructor de la clase de control de tablas 
      * 
      * @param modelo acceso a la base de datos necesario para invocacion de metodos
      * @param panel_x panel principal donde se encuentran las tablas
      */
-    public Control_tablas(Panel_x panel_x, Panel_home panel_home) {
+    public Control_tablas(Panel_x panel_x, Panel_home panel_home, Panel_prim_aprendiz panel_aprendiz) {
     	//invocacion de la instancia
         this.modelo = Acceso_BD.instancia();
         this.panel_x = panel_x;
         this.panel_home = panel_home;
         this.ids = new ObtencionID(modelo.getConexion());
+        this.panel_aprendiz = panel_aprendiz;
         
         //usar la intancia del Acceso_BD sin crear una nueva
         Connection conexion = modelo.getConexion();
@@ -282,5 +285,39 @@ public class Control_tablas {
        
         panel_home.getTablaTalleres().setModel(tableModel);
         
+    }
+    
+    /**
+     * Metodo que rellena la tabla de citas de aprendiz
+     * con el contenido de un ArrayList de citas 
+     * 
+     * @see Acceso_BD#CitasRecientes()
+     * @see #crearModelo(String[])
+     */
+    public void citasRecientesAprendiz() {
+        ArrayList<Cita> citas = consultas_cita.CitasRecientes();
+        String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
+        DefaultTableModel tableModel = crearModelo(columnas, panel_aprendiz.getTable());
+        tableModel.setRowCount(0);
+        
+        if (citas != null) {
+            for (Cita n : citas) {
+                String nombreCliente = ids.obtenerNombreCliente(n.getId_cliente());
+                String nombreEncargado = ids.obtenerNombreEmpleado(n.getId_encargado());
+                String nombreTaller = ids.obtenerNombreTaller(n.getId_taller());
+                String nombreTraje = ids.obtenerNombreTraje(n.getId_traje());
+                
+                tableModel.addRow(new Object[]{
+                    n.getId_cita(),
+                    n.getFecha(),
+                    n.getDuracion(),
+                    nombreCliente,   
+                    nombreEncargado, 
+                    nombreTaller,     
+                    nombreTraje       
+                });
+            }
+        }
+        panel_home.getTablaClientes().setModel(tableModel);
     }
 }

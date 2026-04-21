@@ -35,4 +35,18 @@ public class Panel_prim_aprendiz extends JPanel {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 	}
+
+	public JLabel getLbl_gestionX() {
+		return lbl_gestionX;
+	}
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
+	}
+
+	public JTable getTable() {
+		return table;
+	}
+	
+	
 }

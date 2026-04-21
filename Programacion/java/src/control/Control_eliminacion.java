@@ -192,7 +192,7 @@ public class Control_eliminacion {
 		if (exito) {
 			JOptionPane.showMessageDialog(null, "Empleado eliminado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(null, "Error al eliminar el empleado", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "No se puede eliminar un empleado con una cita asignada", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 
 		return exito;
