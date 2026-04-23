@@ -13,6 +13,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 import model.*;
 import view.Panel_citas;
 import view.Panel_clientes;
@@ -313,4 +316,42 @@ public class Control_creacion {
 			w.printStackTrace();
 		}
 	}
+	
+	
+	/*
+	 * Método para ventana emergente al crear cliente 
+	 * dentro de la creación de citas
+	 */
+	public void crearClienteVentana() {
+		
+		JTextField nombre = new JTextField();
+	    JTextField colores = new JTextField();
+	    JTextField superPoder = new JTextField();
+	    
+	    Object[] diseñoFormulario = {
+	            "Nombre:", nombre,
+	            "Colores:", colores,
+	            "Superpoder:", superPoder
+	        };	   
+	    
+	    int botonPulsado = JOptionPane.showConfirmDialog(null, diseñoFormulario, "Datos del nuevo cliente", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+	    
+	    if (botonPulsado == JOptionPane.OK_OPTION) {
+	    	
+		    String nombreGuardado = nombre.getText();
+	        String coloresGuardados = colores.getText();
+	        String superGuardado = superPoder.getText();
+	        
+	        System.out.println("Nombre: " + nombreGuardado);
+	        System.out.println("Colores: " + coloresGuardados);
+	        System.out.println("Superpoderes: " + superGuardado);
+	        
+	        consultas_cliente.crearCliente(nombreGuardado, coloresGuardados, superGuardado);
+	        
+	    } else {
+	    	System.out.println("El usuario canceló la creación del cliente.");
+	    }
+	    
+	}
+	
 }

@@ -17,6 +17,7 @@ import javax.swing.SpinnerDateModel;
 
 import java.util.Date;
 import java.util.Calendar;
+import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class Panel_citas extends JPanel {
@@ -104,51 +105,51 @@ public class Panel_citas extends JPanel {
 		
 		lblTaller = new JLabel("Taller:");
 		lblTaller.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblTaller.setBounds(38, 180, 87, 20);
+		lblTaller.setBounds(38, 155, 87, 20);
 		add(lblTaller);
 		
 		cbTaller = new JComboBox();
 		cbTaller.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbTaller.setBounds(126, 180, 290, 25);
+		cbTaller.setBounds(126, 155, 290, 25);
 		add(cbTaller);
 		
 		lblDuracion = new JLabel("Duración:");
 		lblDuracion.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblDuracion.setBounds(454, 180, 87, 20);
+		lblDuracion.setBounds(454, 155, 87, 20);
 		add(lblDuracion);
 		
 		spDuracion = new JSpinner();
 		spDuracion.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 		spDuracion.setModel(new SpinnerNumberModel(1, 1, 5, 1));
-		spDuracion.setBounds(551, 180, 124, 25);
+		spDuracion.setBounds(551, 155, 124, 25);
 		add(spDuracion);
 		
 		lblFecha = new JLabel("Fecha:");
 		lblFecha.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblFecha.setBounds(38, 243, 87, 20);
+		lblFecha.setBounds(38, 189, 87, 20);
 		add(lblFecha);
 		
 		spFecha = new JSpinner();
 		spFecha.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		spFecha.setModel(new SpinnerDateModel(new Date(1776117600000L), null, null, Calendar.DAY_OF_YEAR));
-		spFecha.setBounds(126, 243, 549, 25);
+		spFecha.setModel(new SpinnerDateModel(new Date(1776117600000L), null, null, Calendar.AM_PM));
+		spFecha.setBounds(126, 189, 549, 25);
 		add(spFecha);
 		
 		lblTraje = new JLabel("Traje:");
 		lblTraje.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblTraje.setBounds(38, 308, 87, 20);
+		lblTraje.setBounds(38, 225, 87, 20);
 		add(lblTraje);
 		
 		bg = new ButtonGroup();
 		
 		lblEncargado = new JLabel("Encargado:");
 		lblEncargado.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblEncargado.setBounds(38, 375, 107, 20);
+		lblEncargado.setBounds(38, 300, 107, 20);
 		add(lblEncargado);
 		
 		cbEncargado = new JComboBox();
 		cbEncargado.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbEncargado.setBounds(155, 375, 520, 25);
+		cbEncargado.setBounds(175, 299, 500, 25);
 		add(cbEncargado);
 		
 		btnNuevoCliente = new JButton("Nuevo Cliente");
@@ -162,7 +163,7 @@ public class Panel_citas extends JPanel {
 
 		cbTrajes = new JComboBox();
 		cbTrajes.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbTrajes.setBounds(126, 307, 290, 25);
+		cbTrajes.setBounds(126, 224, 290, 25);
 		add(cbTrajes);
 		
 		btnNuevoTraje = new JButton("Nuevo Traje");
@@ -170,9 +171,30 @@ public class Panel_citas extends JPanel {
 		btnNuevoTraje.setIcon(Ventana.escalarImagen("/img/add.png", 20, 20));
 		btnNuevoTraje.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 		btnNuevoTraje.setBackground(new Color(78, 17, 48));
-		btnNuevoTraje.setBounds(454, 307, 221, 25);
+		btnNuevoTraje.setBounds(454, 224, 221, 25);
+		btnNuevoTraje.addActionListener(list);
 		add(btnNuevoTraje);
-		btnNuevoTraje.addActionListener(list);		
+		
+		JLabel lblAyudante1 = new JLabel("Ayudante #1:");
+		lblAyudante1.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblAyudante1.setBounds(38, 344, 134, 20);
+		add(lblAyudante1);
+		
+		JLabel lblAyudante2 = new JLabel("Ayudante #2:");
+		lblAyudante2.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblAyudante2.setBounds(38, 387, 134, 20);
+		add(lblAyudante2);
+		
+		JComboBox cbAyudante1 = new JComboBox();
+		cbAyudante1.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+		cbAyudante1.setBounds(175, 342, 500, 25);
+		add(cbAyudante1);
+		
+		JComboBox cbAyudante2 = new JComboBox();
+		cbAyudante2.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+		cbAyudante2.setBounds(175, 384, 500, 25);
+		add(cbAyudante2);
+				
 	}
 
 	/**
