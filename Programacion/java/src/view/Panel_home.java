@@ -39,7 +39,7 @@ public class Panel_home extends JPanel {
 		tablaClientes = new JTable();
 		scrollPane.setViewportView(tablaClientes);
 		tablaClientes.setForeground(new Color(0, 0, 0)); 
-	    tablaClientes.setFont(new Font("Century Schoolbook", Font.ITALIC, 10)); 
+	    tablaClientes.setFont(new Font("Century Schoolbook", Font.PLAIN, 14)); 
 		
 		lbl_talleres = new JLabel("Ocupación Talleres");
 		lbl_talleres.setForeground(new Color(116, 27, 71));
@@ -54,7 +54,7 @@ public class Panel_home extends JPanel {
 		tablaTalleres = new JTable();
 		scrollPane_1.setViewportView(tablaTalleres);
 		tablaTalleres.setForeground(new Color(0, 0, 0)); 
-	    tablaTalleres.setFont(new Font("Century Schoolbook", Font.ITALIC, 10)); 
+	    tablaTalleres.setFont(new Font("Century Schoolbook", Font.PLAIN, 14)); 
 		
 		lblLogo = new JLabel("");
 		lblLogo.setIcon(Ventana.escalarImagen("/img/logo.png", 50, 50));

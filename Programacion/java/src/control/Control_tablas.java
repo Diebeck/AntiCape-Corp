@@ -10,6 +10,7 @@ import java.awt.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.*;
 import model.*;
@@ -84,12 +85,49 @@ public class Control_tablas {
         // Estilo para la cabecera de la tabla
         JTableHeader cabecera = tabla.getTableHeader();
         //fuente 
-        cabecera.setFont(new Font("Century Schoolbook", Font.ITALIC, 15));
+        cabecera.setFont(new Font("Century Schoolbook", Font.ITALIC, 18));
         //color
         cabecera.setForeground(new Color(128, 0, 64));
         
+        //renderizado de las tablas al centro
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+        // Aplicar el renderizador centrado a todas las columnas
+        for (int i = 0; i < tabla.getColumnCount(); i++) {
+            tabla.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
         return modelo;
     }
+    
+    /**
+     * Metodo que renderiza las celdas en funcion de su ancho
+     * 
+     * @param tabla tabla que sera renderizada 
+     */
+    private void ajustarAncho(JTable tabla) {
+        for (int columna = 0; columna < tabla.getColumnCount(); columna++) {
+            TableColumn column = tabla.getColumnModel().getColumn(columna);
+            int ancho = 0;
+            
+            // Ancho de la cabecera
+            FontMetrics headerFM = tabla.getTableHeader().getFontMetrics(tabla.getTableHeader().getFont());
+            ancho = headerFM.stringWidth(column.getHeaderValue().toString()) + 20;
+            
+            // Ancho de los datos
+            for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+                Object valor = tabla.getValueAt(fila, columna);
+                if (valor != null) {
+                    FontMetrics dataFM = tabla.getFontMetrics(tabla.getFont());
+                    int anchoData = dataFM.stringWidth(valor.toString()) + 20;
+                    ancho = Math.max(ancho, anchoData);
+                }
+            }
+            
+            column.setPreferredWidth(ancho);
+        }
+    }
+    
     
     /**
      * Metodo publico que genera un rellenado de la tabla
@@ -110,7 +148,7 @@ public class Control_tablas {
     	//Almacenado del array con los datos de la base de datos
         ArrayList<Cita> citas = consultas_cita.mostradoCitas();
         //Array de strings con los titulos de la tabla 
-        String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
+        String[] columnas = {"Encargado", "Taller", "Cliente", "Traje", "Fecha", "Duración" };
         //Creacion del modelo de la tabla 
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
         tableModel.setRowCount(0);
@@ -126,13 +164,12 @@ public class Control_tablas {
                 
                 //Añadido al modelo de la tabla los datos de la cita
                 tableModel.addRow(new Object[]{
-                    n.getId_cita(),
+                	nombreEncargado,
+                	nombreTaller,
+                	nombreCliente, 
+                	nombreTraje, 
                     n.getFecha(),
-                    n.getDuracion(),
-                    nombreCliente,    
-                    nombreEncargado,  
-                    nombreTaller,     
-                    nombreTraje       
+                    n.getDuracion()
                 });
             }
         }
@@ -150,14 +187,13 @@ public class Control_tablas {
      */
     public void cargarClientes() {
         ArrayList<Cliente> clientes = consultas_cliente.mostrarClientes();
-        String[] columnas = {"ID", "Nombre", "Colores", "Superpoder"};
+        String[] columnas = {"Nombre", "Colores", "Superpoder"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
         tableModel.setRowCount(0);
 
         if (clientes != null) {
             for (Cliente n : clientes) {
                 tableModel.addRow(new Object[]{
-                    n.getId_cliente(),
                     n.getNombre(),
                     n.getColores(),
                     n.getSuperpoder()
@@ -165,6 +201,8 @@ public class Control_tablas {
             }
         }
         panel_x.getTable().setModel(tableModel);
+        //ajustar ancho de las celdas
+        ajustarAncho(panel_x.getTable());
         panel_x.setEstado("clientes");
     }
 
@@ -177,14 +215,13 @@ public class Control_tablas {
      */
     public void cargarEmpleados() {
         ArrayList<Empleado> empleados = consultas_empleado.mostrarEmpleados();
-        String[] columnas = {"ID", "Nombre", "Apellidos", "Apodo", "Categoria"};
+        String[] columnas = {"Nombre", "Apellidos", "Apodo", "Categoria"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
         tableModel.setRowCount(0);
 
         if (empleados != null) {
             for (Empleado n : empleados) {
                 tableModel.addRow(new Object[]{
-                    n.getId_empleado(),
                     n.getNombre(),
                     n.getApellidos(),
                     n.getApodo(),
@@ -205,16 +242,15 @@ public class Control_tablas {
      */
     public void cargarTalleres() {
         ArrayList<Taller> talleres = consultas_taller.mostrarTalleres();
-        String[] columnas = {"ID", "Tipo de sala", "Nombre"};
+        String[] columnas = {"Nombre", "Tipo de sala"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
         tableModel.setRowCount(0);
 
         if (talleres != null) {
             for (Taller n : talleres) {
                 tableModel.addRow(new Object[]{
-                    n.getId_taller(),
+                    n.getNombre_sala(),
                     n.getTipo_sala(),
-                    n.getNombre_sala()
                 });
             }
         }
@@ -231,7 +267,7 @@ public class Control_tablas {
      */
     public void citasRecientes() {
         ArrayList<Cita> citas = consultas_cita.CitasRecientes();
-        String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
+        String[] columnas = { "Encargado", "Taller", "Cliente", "Traje", "Fecha", "Duración" };
         DefaultTableModel tableModel = crearModelo(columnas, panel_home.getTablaClientes());
         tableModel.setRowCount(0);
         
@@ -243,13 +279,12 @@ public class Control_tablas {
                 String nombreTraje = ids.obtenerNombreTraje(n.getId_traje());
                 
                 tableModel.addRow(new Object[]{
-                    n.getId_cita(),
+                	nombreEncargado,
+                	nombreTaller,
+                	nombreCliente,         
+                    nombreTraje,    
                     n.getFecha(),
-                    n.getDuracion(),
-                    nombreCliente,   
-                    nombreEncargado, 
-                    nombreTaller,     
-                    nombreTraje       
+                    n.getDuracion()
                 });
             }
         }
@@ -294,30 +329,27 @@ public class Control_tablas {
      * @see Acceso_BD#CitasRecientes()
      * @see #crearModelo(String[])
      */
-    public void citasRecientesAprendiz() {
-        ArrayList<Cita> citas = consultas_cita.CitasRecientes();
-        String[] columnas = {"ID", "Fecha", "Duración", "Cliente", "Encargado", "Taller", "Traje"};
-        DefaultTableModel tableModel = crearModelo(columnas, panel_aprendiz.getTable());
-        tableModel.setRowCount(0);
-        
-        if (citas != null) {
-            for (Cita n : citas) {
-                String nombreCliente = ids.obtenerNombreCliente(n.getId_cliente());
-                String nombreEncargado = ids.obtenerNombreEmpleado(n.getId_encargado());
-                String nombreTaller = ids.obtenerNombreTaller(n.getId_taller());
-                String nombreTraje = ids.obtenerNombreTraje(n.getId_traje());
-                
-                tableModel.addRow(new Object[]{
-                    n.getId_cita(),
-                    n.getFecha(),
-                    n.getDuracion(),
-                    nombreCliente,   
-                    nombreEncargado, 
-                    nombreTaller,     
-                    nombreTraje       
-                });
-            }
-        }
-        panel_home.getTablaClientes().setModel(tableModel);
-    }
+	public void citasRecientesAprendiz() {
+		ArrayList<Cita> citas = consultas_cita.CitasRecientes();
+		String[] columnas = { "Encargado", "Taller", "Cliente", "Traje", "Fecha", "Duración" };
+		DefaultTableModel tableModel = crearModelo(columnas, panel_aprendiz.getTable());
+		tableModel.setRowCount(0);
+
+		if (citas != null) {
+			for (Cita n : citas) {
+				String nombreCliente = ids.obtenerNombreCliente(n.getId_cliente());
+				String nombreEncargado = ids.obtenerNombreEmpleado(n.getId_encargado());
+				String nombreTaller = ids.obtenerNombreTaller(n.getId_taller());
+				String nombreTraje = ids.obtenerNombreTraje(n.getId_traje());
+
+				tableModel.addRow(new Object[] { 
+						nombreEncargado, 
+						nombreTaller, 
+						nombreCliente, 
+						nombreTraje,
+						n.getFecha(), n.getDuracion() });
+			}
+		}
+		panel_home.getTablaClientes().setModel(tableModel);
+	}
 }

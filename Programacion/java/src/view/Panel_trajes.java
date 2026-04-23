@@ -22,17 +22,17 @@ public class Panel_trajes extends JPanel {
 	private JLabel lblCliente;
 	@SuppressWarnings("rawtypes")
 	private JComboBox comboBox;
-	
+	private JLabel lblEnunciado;
 	@SuppressWarnings("rawtypes")
 	public Panel_trajes(Listener list) {
 		setLayout(null);
 		setSize(723, 545);
 		
-		lbl_traje = new JLabel("Crear un nuevo Traje");
+		lbl_traje = new JLabel("Creación de traje");
 		lbl_traje.setForeground(new Color(116, 27, 71));
-		lbl_traje.setFont(new Font("Century Schoolbook", Font.PLAIN, 30));
+		lbl_traje.setFont(new Font("Century Schoolbook", Font.PLAIN, 40));
 		lbl_traje.setBackground(new Color(76, 17, 48));
-		lbl_traje.setBounds(38, 67, 437, 52);
+		lbl_traje.setBounds(38, 68, 437, 52);
 		add(lbl_traje);
 		btn_cancelar.setForeground(Color.WHITE);
 		btn_cancelar.setFont(new Font("Century Schoolbook", Font.BOLD, 15));
@@ -55,18 +55,24 @@ public class Panel_trajes extends JPanel {
 		
 		tfNombre = new JTextField();
 		tfNombre.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		tfNombre.setBounds(168, 181, 507, 25);
+		tfNombre.setBounds(135, 181, 507, 25);
 		add(tfNombre);
 		tfNombre.setColumns(10);
 		
 		lblCliente = new JLabel("Cliente:");
 		lblCliente.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblCliente.setBounds(38, 230, 87, 20);
+		lblCliente.setBounds(38, 278, 87, 20);
 		add(lblCliente);
 		
 		comboBox = new JComboBox();
-		comboBox.setBounds(168, 231, 507, 25);
+		comboBox.setBounds(138, 279, 507, 25);
 		add(comboBox);
+		
+		lblEnunciado = new JLabel("Asigne un nuevo traje a un cliente existente");
+		lblEnunciado.setForeground(new Color(128, 128, 128));
+		lblEnunciado.setFont(new Font("Century Schoolbook", Font.ITALIC, 16));
+		lblEnunciado.setBounds(48, 130, 427, 20);
+		add(lblEnunciado);
 		
 		btn_confirmar.addActionListener(list);
 	}
