@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -322,6 +323,7 @@ public class Control_creacion {
 	 * Método para ventana emergente al crear cliente 
 	 * dentro de la creación de citas
 	 */
+	@SuppressWarnings("unchecked")
 	public void crearClienteVentana() {
 		
 		JTextField nombre = new JTextField();
@@ -334,7 +336,7 @@ public class Control_creacion {
 	            "Superpoder:", superPoder
 	        };	   
 	    
-	    int botonPulsado = JOptionPane.showConfirmDialog(null, diseñoFormulario, "Datos del nuevo cliente", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+	    int botonPulsado = JOptionPane.showConfirmDialog(null, diseñoFormulario, "Datos del nuevo cliente", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 	    
 	    if (botonPulsado == JOptionPane.OK_OPTION) {
 	    	
@@ -348,8 +350,63 @@ public class Control_creacion {
 	        
 	        consultas_cliente.crearCliente(nombreGuardado, coloresGuardados, superGuardado);
 	        
+	        // Recarga los clientes para que aparezca el nuevo cliente, y lo selecciona
+	        ArrayList<Cliente> clientes = consultas_cliente.mostrarClientes();
+	        panel_cita.getCbCliente().removeAllItems();
+	        if (clientes != null) {
+				for (Cliente n : clientes) {
+					panel_cita.getCbCliente().addItem(n.getNombre());
+				}
+				panel_cita.getCbCliente().setSelectedItem(nombreGuardado);
+			}
+	        
 	    } else {
 	    	System.out.println("El usuario canceló la creación del cliente.");
+	    }
+	    
+	}
+	
+	/*
+	 * Método para ventana emergente al crear un nuevo traje
+	 * dentro de la creación de citas
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void crearTrajeVentana() {
+		
+		JComboBox cliente = new JComboBox();
+	    JTextField nombre = new JTextField();
+	    
+	    // Llenado combo de clientes
+	    ArrayList<Cliente> clientes = consultas_cliente.mostrarClientes();
+ 		if (clientes != null) {
+ 			for (Cliente n : clientes) {
+ 				cliente.addItem(n.getNombre());
+ 			}
+ 		}
+	    
+	    Object[] diseñoFormulario = {
+	            "Cliente:", cliente,
+	            "Nombre:", nombre
+	        };	   
+	    
+	    int botonPulsado = JOptionPane.showConfirmDialog(null, diseñoFormulario, "Datos del nuevo traje", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+	    
+	    if (botonPulsado == JOptionPane.OK_OPTION) {
+	    	
+	    	String clienteGuardado = (String) cliente.getSelectedItem();
+		    String nombreGuardado = nombre.getText();
+	        
+		    System.out.println("Cliente: " + clienteGuardado);
+	        System.out.println("Nombre: " + nombreGuardado);
+	        
+	        consultas_traje.crearTraje(clienteGuardado, nombreGuardado, "diseño");
+	        
+	        // Recarga los trajes del cliente para que aparezca el traje, y lo selecciona
+	        cargarTrajesPorCliente();
+	        panel_cita.getCbTrajes().setSelectedItem(nombreGuardado);
+	        
+	    } else {
+	    	System.out.println("El usuario canceló la creación del traje.");
 	    }
 	    
 	}

@@ -17,7 +17,6 @@ import javax.swing.SpinnerDateModel;
 
 import java.util.Date;
 import java.util.Calendar;
-import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class Panel_citas extends JPanel {
@@ -44,6 +43,12 @@ public class Panel_citas extends JPanel {
 	private JLabel lbl_yCitas;
 	private JButton btnNuevoCliente;
 	private JButton btnNuevoTraje;
+	private JLabel lblAyudante1;
+	private JLabel lblAyudante2;
+	@SuppressWarnings("rawtypes")
+	private JComboBox cbAyudante1;
+	@SuppressWarnings("rawtypes")
+	private JComboBox cbAyudante2;
 	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
@@ -175,22 +180,22 @@ public class Panel_citas extends JPanel {
 		btnNuevoTraje.addActionListener(list);
 		add(btnNuevoTraje);
 		
-		JLabel lblAyudante1 = new JLabel("Ayudante #1:");
+		lblAyudante1 = new JLabel("Ayudante #1:");
 		lblAyudante1.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblAyudante1.setBounds(38, 344, 134, 20);
 		add(lblAyudante1);
 		
-		JLabel lblAyudante2 = new JLabel("Ayudante #2:");
+		lblAyudante2 = new JLabel("Ayudante #2:");
 		lblAyudante2.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblAyudante2.setBounds(38, 387, 134, 20);
 		add(lblAyudante2);
 		
-		JComboBox cbAyudante1 = new JComboBox();
+		cbAyudante1 = new JComboBox();
 		cbAyudante1.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 		cbAyudante1.setBounds(175, 342, 500, 25);
 		add(cbAyudante1);
 		
-		JComboBox cbAyudante2 = new JComboBox();
+		cbAyudante2 = new JComboBox();
 		cbAyudante2.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 		cbAyudante2.setBounds(175, 384, 500, 25);
 		add(cbAyudante2);

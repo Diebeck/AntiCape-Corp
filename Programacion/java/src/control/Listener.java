@@ -328,7 +328,7 @@ public class Listener implements ActionListener {
 			break;
 			
 		case "Nuevo Traje":
-			vent.cambiarCajaPrimario(panel_trajes);
+			controladorCreacion.crearTrajeVentana();
 			break;
 			
 		}
