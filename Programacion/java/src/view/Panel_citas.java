@@ -4,6 +4,8 @@ import control.Listener;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -14,8 +16,14 @@ import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 
+/**
+ * Librerias externas de GitHub utilizadas para el calendario y la hora
+ */
 import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.TimePicker;
+import com.github.lgooddatepicker.components.TimePickerSettings;
+import com.github.lgooddatepicker.optionalusertools.TimeVetoPolicy;
 
 @SuppressWarnings("serial")
 public class Panel_citas extends JPanel {
@@ -49,6 +57,7 @@ public class Panel_citas extends JPanel {
 	private JComboBox cbAyudante2;
 	private DatePicker dpFecha;
 	private TimePicker tpHora;
+	
 	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
@@ -99,119 +108,151 @@ public class Panel_citas extends JPanel {
 		add(btn_cCita);
 		btn_cCita.addActionListener(list);
 		
+		
 		lblCliente = new JLabel("Cliente:");
 		lblCliente.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblCliente.setBounds(38, 120, 87, 20);
+		lblCliente.setBounds(38, 275, 90, 30);
 		add(lblCliente);
 		
 		cbCliente = new JComboBox();
-		cbCliente.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbCliente.setBounds(126, 120, 290, 25);
+		cbCliente.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));
+		cbCliente.setBounds(120, 276, 238, 30);
 		add(cbCliente);
 		
-		lblTaller = new JLabel("Taller:");
-		lblTaller.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblTaller.setBounds(38, 215, 87, 20);
-		add(lblTaller);
-		
-		cbTaller = new JComboBox();
-		cbTaller.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbTaller.setBounds(126, 215, 290, 25);
-		add(cbTaller);
-		
-		lblDuracion = new JLabel("Duración:");
-		lblDuracion.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblDuracion.setBounds(454, 215, 87, 20);
-		add(lblDuracion);
-		
-		spDuracion = new JSpinner();
-		spDuracion.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		spDuracion.setModel(new SpinnerNumberModel(1, 1, 5, 1));
-		spDuracion.setBounds(551, 215, 124, 25);
-		add(spDuracion);
-		
-		lblFecha = new JLabel("Fecha:");
-		lblFecha.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblFecha.setBounds(454, 300, 87, 20);
-		add(lblFecha);
-		
-		lblTraje = new JLabel("Traje:");
-		lblTraje.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblTraje.setBounds(38, 168, 87, 20);
-		add(lblTraje);
-		
-		bg = new ButtonGroup();
-		
-		lblEncargado = new JLabel("Encargado:");
-		lblEncargado.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblEncargado.setBounds(38, 300, 107, 20);
-		add(lblEncargado);
-		
-		cbEncargado = new JComboBox();
-		cbEncargado.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbEncargado.setBounds(175, 299, 241, 25);
-		add(cbEncargado);
-		
 		btnNuevoCliente = new JButton("Nuevo Cliente");
-		btnNuevoCliente.setIcon(Ventana.escalarImagen("/img/add.png", 20, 20));
-		btnNuevoCliente.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		btnNuevoCliente.setForeground(new Color(255, 255, 255));
+		btnNuevoCliente.setIcon(Ventana.escalarImagen("/img/add.png", 18, 18));
+		btnNuevoCliente.setFont(new Font("Century Schoolbook", Font.PLAIN, 13));
+		btnNuevoCliente.setForeground(Color.WHITE);
 		btnNuevoCliente.setBackground(new Color(78, 17, 48));
-		btnNuevoCliente.setBounds(454, 120, 221, 25);
+		btnNuevoCliente.setBounds(385, 276, 189, 30);
 		add(btnNuevoCliente);
 		btnNuevoCliente.addActionListener(list);
+		
 
+		lblTraje = new JLabel("Traje:");
+		lblTraje.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblTraje.setBounds(38, 318, 90, 30);
+		add(lblTraje);
+		
 		cbTrajes = new JComboBox();
-		cbTrajes.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbTrajes.setBounds(126, 167, 290, 25);
+		cbTrajes.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));
+		cbTrajes.setBounds(120, 319, 238, 30);
 		add(cbTrajes);
 		
 		btnNuevoTraje = new JButton("Nuevo Traje");
+		btnNuevoTraje.setIcon(Ventana.escalarImagen("/img/add.png", 18, 18));
 		btnNuevoTraje.setForeground(Color.WHITE);
-		btnNuevoTraje.setIcon(Ventana.escalarImagen("/img/add.png", 20, 20));
-		btnNuevoTraje.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
+		btnNuevoTraje.setFont(new Font("Century Schoolbook", Font.PLAIN, 13));
 		btnNuevoTraje.setBackground(new Color(78, 17, 48));
-		btnNuevoTraje.setBounds(454, 167, 221, 25);
+		btnNuevoTraje.setBounds(385, 320, 189, 30);
 		btnNuevoTraje.addActionListener(list);
 		add(btnNuevoTraje);
 		
-		lblAyudante1 = new JLabel("Ayudante #1:");
+		lblTaller = new JLabel("Taller:");
+		lblTaller.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblTaller.setBounds(38, 370, 90, 30);
+		add(lblTaller);
+		
+		cbTaller = new JComboBox();
+		cbTaller.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));
+		cbTaller.setBounds(120, 371, 238, 30);
+		add(cbTaller);
+		
+		lblEncargado = new JLabel("Encargado:");
+		lblEncargado.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblEncargado.setBounds(38, 99, 100, 30);
+		add(lblEncargado);
+		
+		cbEncargado = new JComboBox();
+		cbEncargado.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));
+		cbEncargado.setBounds(168, 100, 190, 30);
+		add(cbEncargado);
+		
+		lblAyudante1 = new JLabel("Asistente #1:");
 		lblAyudante1.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblAyudante1.setBounds(38, 344, 134, 20);
+		lblAyudante1.setBounds(38, 140, 120, 30);
 		add(lblAyudante1);
 		
-		lblAyudante2 = new JLabel("Ayudante #2:");
-		lblAyudante2.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblAyudante2.setBounds(38, 387, 134, 20);
-		add(lblAyudante2);
-		
 		cbAyudante1 = new JComboBox();
-		cbAyudante1.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbAyudante1.setBounds(175, 342, 241, 25);
+		cbAyudante1.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));
+		cbAyudante1.setBounds(168, 140, 190, 30);
 		add(cbAyudante1);
 		
+		lblAyudante2 = new JLabel("Asistente #2:");
+		lblAyudante2.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblAyudante2.setBounds(38, 185, 120, 30);
+		add(lblAyudante2);
+		
 		cbAyudante2 = new JComboBox();
-		cbAyudante2.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbAyudante2.setBounds(175, 384, 241, 25);
+		cbAyudante2.setFont(new Font("Century Schoolbook", Font.PLAIN, 14));
+		cbAyudante2.setBounds(168, 186, 190, 30);
 		add(cbAyudante2);
 		
-		dpFecha = new DatePicker();
-		dpFecha.getComponentDateTextField().setFont(new Font("Tahoma", Font.BOLD, 15));
-		dpFecha.setLocation(522, 300);
-		dpFecha.setSize(153, 24);
-	    add(dpFecha);
-	    
-	    tpHora = new TimePicker();
-	    tpHora.getComponentTimeTextField().setFont(new Font("Tahoma", Font.BOLD, 15));
-	    tpHora.setLocation(522, 344);
-	    tpHora.setSize(153, 23);
-	    add(tpHora);
-	    
-	    lblHora = new JLabel("Hora:");
-	    lblHora.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-	    lblHora.setBounds(454, 344, 87, 20);
-	    add(lblHora);
-				
+		
+		// Fecha
+		lblFecha = new JLabel("Fecha:");
+		lblFecha.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblFecha.setBounds(385, 99, 80, 30);
+		add(lblFecha);
+		
+		// import de la configuracion del datepicker
+		DatePickerSettings dateSettings = new DatePickerSettings();
+		
+		
+		dpFecha = new DatePicker(dateSettings);
+		dpFecha.getComponentToggleCalendarButton().setVisible(true);
+		dpFecha.getComponentToggleCalendarButton().setBackground(new Color(78, 17, 48));
+		dpFecha.getComponentToggleCalendarButton().setForeground(Color.white);
+		dpFecha.getComponentDateTextField().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		dpFecha.setBounds(475, 100, 205, 32);
+		add(dpFecha);
+		
+		// formato del rango de fechas (del sysdate en adelante)
+		dateSettings.setDateRangeLimits(LocalDate.now(), null);
+		//fecha en el formato sql
+		dateSettings.setFormatForDatesCommonEra("yyyy-MM-dd");
+		
+		// Hora
+		lblHora = new JLabel("Hora:");
+		lblHora.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblHora.setBounds(385, 140, 80, 30);
+		add(lblHora);
+		
+		// formato de hora minima y maxima 
+		TimePickerSettings ajustes = new TimePickerSettings();
+		
+		tpHora = new TimePicker(ajustes);
+		tpHora.getComponentTimeTextField().setFont(new Font("Tahoma", Font.PLAIN, 14));
+		tpHora.getComponentToggleTimeMenuButton().setBackground(new Color(78, 17, 48));
+		tpHora.getComponentToggleTimeMenuButton().setForeground(Color.white);
+		tpHora.setBounds(475, 141, 120, 32);
+		add(tpHora);
+		
+	
+		// Implementacion de TimeVetoPolicy para limitar horas mínimas y máximas
+		ajustes.setVetoPolicy(new TimeVetoPolicy() {
+		    @Override
+		    public boolean isTimeAllowed(LocalTime time) {
+		        // Hora mínima: 09:00, Hora máxima: 20:00
+		        LocalTime minTime = LocalTime.of(9, 0);
+		        LocalTime maxTime = LocalTime.of(20, 0);
+		        
+		        // No permitir horas fuera del rango
+		        return !time.isBefore(minTime) && !time.isAfter(maxTime);
+		    }
+		});
+		
+		// Duración
+		lblDuracion = new JLabel("Duración:");
+		lblDuracion.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		lblDuracion.setBounds(385, 185, 100, 30);
+		add(lblDuracion);
+		
+		spDuracion = new JSpinner();
+		spDuracion.setFont(new Font("Century Schoolbook", Font.PLAIN, 16));
+		spDuracion.setModel(new SpinnerNumberModel(1, 1, 5, 1));
+		spDuracion.setBounds(476, 185, 98, 32);
+		add(spDuracion);
 	}
 
 	/**
@@ -220,7 +261,6 @@ public class Panel_citas extends JPanel {
 	public JButton getBtn_homeCitas() {
 		return btn_homeCitas;
 	}
-
 
 	public JButton getBtn_cCita() {
 		return btn_cCita;
@@ -290,4 +330,13 @@ public class Panel_citas extends JPanel {
 		return tpHora;
 	}
 	
+	@SuppressWarnings("rawtypes")
+	public JComboBox getCbAyudante1() {
+		return cbAyudante1;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public JComboBox getCbAyudante2() {
+		return cbAyudante2;
+	}
 }

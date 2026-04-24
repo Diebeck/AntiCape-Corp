@@ -146,24 +146,24 @@ public class ConsultasEmpleado {
 	    return false;
 	}
 	
-	public ArrayList<Cita> infoCita(int id){
-		ArrayList<Cita> datos = new ArrayList<>();
-
-		
-		String query = "SELECT id_encargado, fecha, hora, duracion FROM Citas WHERE id_encargado = ?";
-		
-		try (Statement stmt = instance.prepareStatement(query); ResultSet resultado = stmt.executeQuery(query); ) {
-			
-			while (resultado.next()) {
-				Cita info = new Cita(resultado.getInt(4), resultado.getInt(1), resultado.getInt(2));
-				datos.add(info);
-			}
-			return datos;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return new ArrayList<>();
-	}
-	
-	
-	}
+//	public ArrayList<Cita> infoCita(int id){
+//		ArrayList<Cita> datos = new ArrayList<>();
+//
+//		
+//		String query = "SELECT id_encargado, fecha, hora, duracion FROM Citas WHERE id_encargado = ?";
+//		
+//		try (Statement stmt = instance.prepareStatement(query); ResultSet resultado = stmt.executeQuery(query); ) {
+//			
+//			while (resultado.next()) {
+//				Cita info = new Cita(resultado.getInt(4), resultado.getInt(1), resultado.getInt(2));
+//				datos.add(info);
+//			}
+//			return datos;
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			return new ArrayList<>();
+//	}
+//	
+//	
+//	}
 }

@@ -148,7 +148,7 @@ public class Control_tablas {
     	//Almacenado del array con los datos de la base de datos
         ArrayList<Cita> citas = consultas_cita.mostradoCitas();
         //Array de strings con los titulos de la tabla 
-        String[] columnas = {"Encargado", "Taller", "Cliente", "Traje", "Fecha", "Duración" };
+        String[] columnas = {"Encargado", "Fecha", "Hora", "Taller", "Cliente", "Traje"};
         //Creacion del modelo de la tabla 
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
         tableModel.setRowCount(0);
@@ -162,14 +162,17 @@ public class Control_tablas {
                 String nombreTaller = ids.obtenerNombreTaller(n.getId_taller());
                 String nombreTraje = ids.obtenerNombreTraje(n.getId_traje());
                 
+                //formateo del formato de la hora 
+                String hora = n.getHora().substring(0,5);
+                
                 //Añadido al modelo de la tabla los datos de la cita
                 tableModel.addRow(new Object[]{
                 	nombreEncargado,
+                	n.getFecha(),
+                	hora,
                 	nombreTaller,
                 	nombreCliente, 
-                	nombreTraje, 
-                    n.getFecha(),
-                    n.getDuracion()
+                	nombreTraje
                 });
             }
         }
@@ -268,24 +271,25 @@ public class Control_tablas {
      */
     public void citasRecientes() {
         ArrayList<Cita> citas = consultas_cita.CitasRecientes();
-        String[] columnas = { "Encargado", "Taller", "Cliente", "Traje", "Fecha", "Duración" };
+        String[] columnas = {"Encargado", "Fecha", "Hora", "Taller", "Cliente", "Traje"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_home.getTablaClientes());
         tableModel.setRowCount(0);
         
         if (citas != null) {
-            for (Cita n : citas) {
+            for (Cita n : citas) { 
                 String nombreCliente = ids.obtenerNombreCliente(n.getId_cliente());
                 String nombreEncargado = ids.obtenerNombreEmpleado(n.getId_encargado());
                 String nombreTaller = ids.obtenerNombreTaller(n.getId_taller());
                 String nombreTraje = ids.obtenerNombreTraje(n.getId_traje());
+                String hora = n.getHora().substring(0,5);
                 
                 tableModel.addRow(new Object[]{
                 	nombreEncargado,
+                	n.getFecha(),
+                	hora,
                 	nombreTaller,
-                	nombreCliente,         
-                    nombreTraje,    
-                    n.getFecha(),
-                    n.getDuracion()
+                	nombreCliente, 
+                	nombreTraje
                 });
             }
         }

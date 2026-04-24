@@ -36,7 +36,7 @@ public class ConsultasCita {
 
 			while (resultado.next()) {
 				Cita cita = new Cita(resultado.getInt(1), resultado.getString(2), resultado.getString(3),
-						resultado.getInt(4), resultado.getInt(5), resultado.getInt(6), resultado.getInt(7));
+						resultado.getString(4), resultado.getInt(5), resultado.getInt(6), resultado.getInt(7), resultado.getInt(8));
 				citas.add(cita);
 			}
 
@@ -62,7 +62,7 @@ public class ConsultasCita {
 
 			while (resultado.next()) {
 				Cita cita = new Cita(resultado.getInt(1), resultado.getString(2), resultado.getString(3),
-						resultado.getInt(4), resultado.getInt(5), resultado.getInt(6), resultado.getInt(7));
+						resultado.getString(4), resultado.getInt(5), resultado.getInt(6), resultado.getInt(7), resultado.getInt(8));
 				citasRecientes.add(cita);
 			}
 

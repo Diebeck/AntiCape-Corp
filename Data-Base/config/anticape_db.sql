@@ -43,7 +43,7 @@ CREATE TABLE Empleado (
 CREATE TABLE Citas (
   id_cita integer PRIMARY KEY auto_increment,
   fecha date,
-  hora integer,
+  hora time,
   duracion varchar(255),
   id_cliente integer,
   id_encargado integer,
@@ -117,19 +117,19 @@ INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contrase√
 
 
 INSERT INTO Citas (id_cita, fecha, hora, duracion, id_cliente, id_encargado, id_taller, id_traje) 
-VALUES (1, '2024-05-10', 13,'5 H', 001, 001, 001, 001);
+VALUES (1, '2024-05-10', '13:00:00','5 H', 001, 001, 001, 001);
 
 INSERT INTO Citas (id_cita, fecha, hora, duracion, id_cliente, id_encargado, id_taller, id_traje) 
-VALUES (2, '2024-05-11', 15, '4 H', 002, 002, 003, 002);
+VALUES (2, '2026-05-11', '15:00:00', '4 H', 002, 002, 003, 002);
 
 INSERT INTO Citas (id_cita, fecha, hora, duracion, id_cliente, id_encargado, id_taller, id_traje) 
-VALUES (3, '2024-05-12', 12,  '3 H', 003, 001, 006, 003);
+VALUES (3, '2026-05-12', '12:00:00',  '3 H', 003, 001, 006, 003);
 
 INSERT INTO Citas (id_cita, fecha, hora, duracion, id_cliente, id_encargado, id_taller, id_traje) 
-VALUES (4, '2024-05-13', 18, '3 H', 004, 003, 002, 004);
+VALUES (4, '2026-05-13', '12:00:00', '3 H', 004, 003, 002, 004);
 
 INSERT INTO Citas (id_cita, fecha, hora, duracion, id_cliente, id_encargado, id_taller, id_traje) 
-VALUES (5, '2024-05-14', 17, '1 H', 008, 002, 001, 008);
+VALUES (5, '2026-05-14', '17:00:00', '1 H', 008, 002, 001, 008);
 
 
 INSERT INTO Asistencia (id_empleado, id_cita) VALUES
@@ -152,5 +152,6 @@ INSERT INTO Asistencia (id_empleado, id_cita) VALUES
 -- Cita 5 (ElasticGirl, encargado Valerio id=002)
 (006, 5),  -- Thiago (aprendiz)
 (011, 5);  -- Sof√≠a (aprendiz)
-	
+
+
 

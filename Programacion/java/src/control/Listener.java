@@ -232,12 +232,16 @@ public class Listener implements ActionListener {
 				controladorCreacion.formularioCitas();
 				panel_citas.setModo("Crear");
 			} else if (panel_x.getEstado().equals("clientes")) {
+				//barrido del formulario de clientes para eliminar residuos de modeificacion
+				Utilidades.limpiarFormularioCliente(panel_clientes);
 				vent.cambiarCajaPrimario(panel_clientes);
 				panel_clientes.setModo("Crear");
 			} else if (panel_x.getEstado().equals("talleres")) {
+				Utilidades.limpiarFormularioTaller(panel_talleres);
 				vent.cambiarCajaPrimario(panel_talleres);
 				panel_talleres.setModo("Crear");
 			} else if (panel_x.getEstado().equals("empleados")) {
+				Utilidades.limpiarFormularioEmpleado(panel_empleados);
 				vent.cambiarCajaPrimario(panel_empleados);
 				panel_empleados.setModo("Crear");
 			}

@@ -309,21 +309,12 @@ public class Control_ediciones {
 	 * @param datosCita Array de objetos genericos que contiene los datos de la fila seleccionada
 	 */
 	public void cargarCitaParaEditar(Object[] datosCita) {
-	    // datosCita tiene: [ID, Fecha, Duración, Cliente, Encargado, Taller, Traje]
+	    // datosCita tiene: [ Encargado, fecha, hora, Taller, Cliente, Traje]
 	    
-	    idCitaEditando = (int) datosCita[0];
-	    
-	    // Asignacion del cliente
-	    String nombreCliente = (String) datosCita[3];
-	    for (int i = 0; i < panel_citas.getCbCliente().getItemCount(); i++) {
-	        if (panel_citas.getCbCliente().getItemAt(i).equals(nombreCliente)) {
-	            panel_citas.getCbCliente().setSelectedIndex(i);
-	            break;
-	        }
-	    }
+	    idCitaEditando = ids.obtenerIdCita((String) datosCita[0], (String) datosCita[1], (String) datosCita[2]);
 	    
 	    // Asignacion del encargado
-	    String nombreEncargado = (String) datosCita[4];
+	    String nombreEncargado = (String) datosCita[0];
 	    for (int i = 0; i < panel_citas.getCbEncargado().getItemCount(); i++) {
 	        if (panel_citas.getCbEncargado().getItemAt(i).equals(nombreEncargado)) {
 	            panel_citas.getCbEncargado().setSelectedIndex(i);
@@ -331,19 +322,9 @@ public class Control_ediciones {
 	        }
 	    }
 	    
-	    // Asignacion del encargado
-	    String nombreTaller = (String) datosCita[5];
-	    for (int i = 0; i < panel_citas.getCbTaller().getItemCount(); i++) {
-	        if (panel_citas.getCbTaller().getItemAt(i).equals(nombreTaller)) {
-	            panel_citas.getCbTaller().setSelectedIndex(i);
-	            break;
-	        }
-	    }
-	    
 	    //Asignacion de la fecha con su conversion de formato 
 	    String fecha = (String) datosCita[1];
 	    try {
-	    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	        //String fechaDate = (String) dtf.format(fecha);
 	        panel_citas.getDpFecha().setText(fecha);
 	    } catch (Exception e) {
@@ -351,13 +332,31 @@ public class Control_ediciones {
 	    }
 	    
 	    // Asignacion de la duracioon
-	    String duracionStr = (String) datosCita[2];
+	    String hora = (String) datosCita[2];
 	    //hago el split del String ejem: "1 H" y paso a int el char del indice 0
-	    int duracion = Integer.parseInt(duracionStr.split(" ")[0]);
-	    panel_citas.getSpDuracion().setValue(duracion);
+	    panel_citas.getTpHora().setText(hora);
+	    
+	    
+	    // Asignacion del encargado
+	    String nombreTaller = (String) datosCita[3];
+	    for (int i = 0; i < panel_citas.getCbTaller().getItemCount(); i++) {
+	        if (panel_citas.getCbTaller().getItemAt(i).equals(nombreTaller)) {
+	            panel_citas.getCbTaller().setSelectedIndex(i);
+	            break;
+	        }
+	    }
+	    
+	    // Asignacion del cliente
+	    String nombreCliente = (String) datosCita[4];
+	    for (int i = 0; i < panel_citas.getCbCliente().getItemCount(); i++) {
+	        if (panel_citas.getCbCliente().getItemAt(i).equals(nombreCliente)) {
+	            panel_citas.getCbCliente().setSelectedIndex(i);
+	            break;
+	        }
+	    }
 	    
 	    // Asignacion del nombre del traje
-	    String nombreTraje = (String) datosCita[6];
+	    String nombreTraje = (String) datosCita[5];
 	    for (int i = 0; i < panel_citas.getCbTrajes().getItemCount(); i++) {
 	        if (panel_citas.getCbTrajes().getItemAt(i).equals(nombreTraje)) {
 	            panel_citas.getCbTrajes().setSelectedIndex(i);
@@ -384,7 +383,7 @@ public class Control_ediciones {
 		// Obtener el nombre del traje actual desde la base de datos
 		nombreTrajeActual = consultas_traje.obtenerNombreTrajePorCliente(idClienteEditando);
 		
-		String alineacion = "";
+		String alineacion = (String) datosCliente[0];
 		//obtener la opcion de alineacion y asignarla
 		if("Heroe".equals(alineacion)) {
 			panel_clientes.getRdbtnHeroe().setSelected(true);

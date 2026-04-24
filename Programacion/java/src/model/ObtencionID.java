@@ -215,4 +215,31 @@ public class ObtencionID {
 		}
 		return -1;
 	}
+	
+	/**
+	 * Metodo para obtener el id de una cita en base a su encargado, fecha y hora
+	 * 
+	 * @param encargado encargado de la cita 
+	 * @param fecha fecha de la cita 
+	 * @param hora hora de la cita 
+	 * @return
+	 */
+	public int obtenerIdCita (String encargado, String fecha, String hora) {
+		//Buscado del id del encargado en base a su nombre 
+		int idEncargado = obtenerIdEmpleado(encargado);
+		String query = "SELECT id_cita FROM Citas WHERE id_encargado = ? and fecha = ? and hora = ?";
+		try(PreparedStatement stmt = instance.prepareStatement(query)){
+			stmt.setInt(1, idEncargado);
+			stmt.setString(2, fecha);
+			stmt.setString(3, hora);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("id_cita");
+			}
+			rs.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }

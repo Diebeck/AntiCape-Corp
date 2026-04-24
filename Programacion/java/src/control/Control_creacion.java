@@ -80,6 +80,8 @@ public class Control_creacion {
 		panel_cita.getCbEncargado().removeAllItems();
 		panel_cita.getCbTaller().removeAllItems();
 		panel_cita.getCbTrajes().removeAllItems();
+		panel_cita.getTpHora().setText("");
+		panel_cita.getDpFecha().setText("");
 
 		// Llenado combo de clientes
 		if (clientes != null) {
@@ -108,7 +110,7 @@ public class Control_creacion {
 		// Cargar los trajes del primer cliente seleccionado
 		cargarTrajesPorCliente();
 
-		// Añadir listener para cuando cambie el cliente seleccionado (sin lambda)
+		// Añadir listener para cuando cambie el cliente seleccionado 
 		panel_cita.getCbCliente().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -339,6 +341,8 @@ public class Control_creacion {
 		JTextField nombre = new JTextField();
 	    JTextField colores = new JTextField();
 	    JTextField superPoder = new JTextField();
+	    
+	    //Grupo de botones para el estado de la alineacion
 		ButtonGroup bg = new ButtonGroup();
 		JRadioButton rdbtnHeroe = new JRadioButton("Heroe ");
 		rdbtnHeroe.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
@@ -362,22 +366,55 @@ public class Control_creacion {
 	    
 	    if (botonPulsado == JOptionPane.OK_OPTION) {
 	    	
-		    String nombreGuardado = nombre.getText();
-	        String coloresGuardados = colores.getText();
-	        String superGuardado = superPoder.getText();
-	        String alineacion = "";
-	        
-	        if (rdbtnVillano.isSelected()) {
-	        	alineacion = "Villano";
-	        } else if (rdbtnHeroe.isSelected()) {
-	        	alineacion = "Heroe";
-	        }
-	        
-	        System.out.println("Nombre: " + nombreGuardado);
-	        System.out.println("Colores: " + coloresGuardados);
-	        System.out.println("Superpoderes: " + superGuardado);
-	        
-	        consultas_cliente.crearCliente(nombreGuardado, coloresGuardados, superGuardado, alineacion);
+	    	// Almacenado de los datos
+	    	String nombreGuardado = nombre.getText().trim();
+	    	String coloresGuardados = colores.getText().trim();
+	    	String superGuardado = superPoder.getText().trim();
+	    	String alineacion = null;
+
+	    	if (rdbtnVillano.isSelected()) {
+	    	    alineacion = "Villano";
+	    	} else if (rdbtnHeroe.isSelected()) {
+	    	    alineacion = "Heroe";
+	    	}
+
+	    	// Validaciones de los datos
+	    	if (nombreGuardado.isEmpty()) {
+	    	    JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+	    	    nombre.requestFocus();
+	    	    return;
+	    	}
+
+	    	if (coloresGuardados.isEmpty()) {
+	    	    JOptionPane.showMessageDialog(null, "Los colores no pueden estar vacios", "Error", JOptionPane.ERROR_MESSAGE);
+	    	    colores.requestFocus();
+	    	    return;
+	    	}
+
+	    	if (superGuardado.isEmpty()) {
+	    	    JOptionPane.showMessageDialog(null, "El superpoder no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+	    	    superPoder.requestFocus();
+	    	    return;
+	    	}
+
+	    	if (alineacion == null) {
+	    	    JOptionPane.showMessageDialog(null, "Debe seleccionar una alineacion (Héroe o Villano)", "Error", JOptionPane.ERROR_MESSAGE);
+	    	    return;
+	    	}
+
+	    	// Crear cliente sin confirmación adicional
+	    	boolean exito = consultas_cliente.crearCliente(nombreGuardado, coloresGuardados, superGuardado, alineacion);
+	    	if (exito) {
+	    	    JOptionPane.showMessageDialog(null, "Cliente '" + nombreGuardado + "' creado exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
+	    	    // Limpiar formulario
+	    	    nombre.setText("");
+	    	    colores.setText("");
+	    	    superPoder.setText("");
+	    	    bg.clearSelection();
+	    	} else {
+	    	    JOptionPane.showMessageDialog(null, "Error al crear el cliente. Verifique que no exista un cliente con el mismo nombre", "Error", JOptionPane.ERROR_MESSAGE);
+	    	}
+	      
 	        
 	        // Recarga los clientes para que aparezca el nuevo cliente, y lo selecciona
 	        ArrayList<Cliente> clientes = consultas_cliente.mostrarClientes();
@@ -427,8 +464,19 @@ public class Control_creacion {
 	        
 		    System.out.println("Cliente: " + clienteGuardado);
 	        System.out.println("Nombre: " + nombreGuardado);
+	        boolean creacion = false;
 	        
-	        consultas_traje.crearTraje(clienteGuardado, nombreGuardado, "diseño");
+	        if (!nombreGuardado.isEmpty()) {
+	        	creacion = consultas_traje.crearTraje(clienteGuardado, nombreGuardado, "diseño");
+	        } else {
+	        	JOptionPane.showMessageDialog(null, "El nombre no puede estar vacio", "Error", JOptionPane.ERROR_MESSAGE);
+	        }
+	        
+	        
+	        if (creacion) {
+	        	//mensaje de confirmacion
+	        	JOptionPane.showMessageDialog(null, "Traje" + nombreGuardado + " añadido exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
+	        } 
 	        
 	        // Recarga los trajes del cliente para que aparezca el traje, y lo selecciona
 	        cargarTrajesPorCliente();

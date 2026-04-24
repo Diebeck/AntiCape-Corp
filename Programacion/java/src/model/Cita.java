@@ -12,12 +12,12 @@ package model;
 public class Cita {
 	private int id_cita;
 	private String fecha;
+	private String hora;
 	private String duracion;
 	private int id_cliente;
 	private int id_encargado;
 	private int id_traje;
 	private int id_taller;
-	private Empleado[] asignaciones;
 	
 	/**
 	 * Constructor de instancia de la clase Cita 
@@ -30,9 +30,10 @@ public class Cita {
 	 * @param id_tj identificador del traje a trabajar en la cita
 	 * @param id_t identaficar del taller de trabajo
 	 */
-	public Cita(int id, String fecha, String duracion, int id_c, int id_e, int id_t, int id_tj) {
+	public Cita(int id, String fecha, String hora, String duracion, int id_c, int id_e, int id_t, int id_tj) {
 		this.id_cita = id;
 		this.fecha = fecha;
+		this.hora = hora;
 		this.duracion = duracion;
 		this.id_cliente = id_c;
 		this.id_encargado = id_e;
@@ -71,10 +72,7 @@ public class Cita {
 		return id_taller;
 	}
 
-	public Empleado[] getAsignaciones() {
-		return asignaciones;
+	public String getHora(){
+		return hora;
 	}
-	
-	
-	
 }
