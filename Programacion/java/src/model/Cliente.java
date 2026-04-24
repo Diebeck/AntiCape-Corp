@@ -15,6 +15,7 @@ public class Cliente {
 	private String nombre;
 	private String colores;
 	private String superpoder;
+	private String alineacion;
 	
 	/**
 	 * Constructor de instancia de la clase 
@@ -24,11 +25,12 @@ public class Cliente {
 	 * @param color color identificador del cliente 
 	 * @param poder poder del cliente
 	 */
-	public Cliente(int id, String nombre, String color, String poder) {
+	public Cliente(int id, String nombre, String color, String poder, String alineacion) {
 		this.id_cliente = id;
 		this.nombre = nombre;
 		this.colores = color;
 		this.superpoder = poder;
+		this.alineacion = alineacion;
 	}
 
 	// Metodos get para mostrado de datos 
@@ -48,5 +50,7 @@ public class Cliente {
 		return superpoder;
 	}
 	
-	
+	public String getAlineacion() {
+		return alineacion;
+	}
 }

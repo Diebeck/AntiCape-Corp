@@ -18,6 +18,7 @@ import model.ConsultasCliente;
 import model.ConsultasEmpleado;
 import model.ConsultasTaller;
 import model.ConsultasTraje;
+import model.ObtencionID;
 import view.Panel_citas;
 import view.Panel_clientes;
 import view.Panel_empleados;
@@ -40,6 +41,7 @@ public class Control_ediciones {
 	private ConsultasTaller consultas_taller;
 	private ConsultasEmpleado consultas_empleado;
 	private ConsultasTraje consultas_traje;
+	private ObtencionID ids;
 	
 	// Variables internas para guardar los IDs
 	private int idCitaEditando = -1;
@@ -63,6 +65,7 @@ public class Control_ediciones {
 		this.consultas_taller = new ConsultasTaller(conexion);
 		this.consultas_empleado = new ConsultasEmpleado(conexion);
 		this.consultas_traje = new ConsultasTraje(conexion);
+		this.ids = new ObtencionID(conexion);
 	}
 
 	/**
@@ -166,11 +169,18 @@ public class Control_ediciones {
 			String superpoder = panel_clientes.getTfSuperpoder().getText();
 			String nomTraje = panel_clientes.getTfNombreT().getText();
 			String estado = "";
+			String alineacion = "";
+			
+			if(panel_clientes.getRdbtnVillano().isSelected()) {
+				alineacion = "Villano";
+			} else if(panel_clientes.getRdbtnHeroe().isSelected()) {
+				alineacion = "Heroe";
+			}
 
-			if (nombre.isEmpty() || colores.isEmpty() || superpoder.isEmpty() || nomTraje.isEmpty()) {
+			if (nombre.isEmpty() || colores.isEmpty() || superpoder.isEmpty() || nomTraje.isEmpty() || alineacion.isBlank()) {
 				System.out.println("Campos vacios en el formulario de cliente");
 				return;
-			}
+			}			
 
 			//guardado del estado del traje 
 			if (panel_clientes.getRdbtnDiseno().isSelected()) {
@@ -364,17 +374,21 @@ public class Control_ediciones {
 	 * @see Acceso_BD#obtenerNombreTrajePorCliente(int)
 	 */
 	public void cargarClienteParaEditar(Object[] datosCliente) {
-		// datosCliente: [ID, Nombre, Colores, Superpoder]
+		// datosCliente: [Alineacion, Nombre, Colores, Superpoder]
 		
 		// Obtener ID
-		if (datosCliente[0] instanceof Integer) {
-			idClienteEditando = (int) datosCliente[0];
-		} else {
-			idClienteEditando = Integer.parseInt((String) datosCliente[0]);
-		}
+		idClienteEditando = ids.obtenerIdCliente((String) datosCliente[1]);
 		
 		// Obtener el nombre del traje actual desde la base de datos
 		nombreTrajeActual = consultas_traje.obtenerNombreTrajePorCliente(idClienteEditando);
+		
+		String alineacion = "";
+		//obtener la opcion de alineacion y asignarla
+		if("Heroe".equals(alineacion)) {
+			panel_clientes.getRdbtnHeroe().setSelected(true);
+		} else if("Villano".equals(alineacion)) {
+			panel_clientes.getRdbtnVillano().setSelected(true);
+		}
 
 		// Cargar datos en el formulario
 		panel_clientes.getTfNombre().setText((String) datosCliente[1]);
@@ -399,18 +413,14 @@ public class Control_ediciones {
 	public void cargarEmpleadoParaEditar(Object[] datosEmpleado) {
 		// datosEmpleado: [ID, Nombre, Apellidos, Apodo, Categoria]
 		
-		if (datosEmpleado[0] instanceof Integer) {
-			idEmpleadoEditando = (int) datosEmpleado[0];
-		} else {
-			idEmpleadoEditando = Integer.parseInt((String) datosEmpleado[0]);
-		}
+		idEmpleadoEditando = ids.obtenerIdEmpleado((String)datosEmpleado[0]);
 
-		panel_empleados.getTfNombre().setText((String) datosEmpleado[1]);
-		panel_empleados.getTfApellidos().setText((String) datosEmpleado[2]);
-		panel_empleados.getTfUsuario().setText((String) datosEmpleado[3]);
+		panel_empleados.getTfNombre().setText((String) datosEmpleado[0]);
+		panel_empleados.getTfApellidos().setText((String) datosEmpleado[1]);
+		panel_empleados.getTfUsuario().setText((String) datosEmpleado[2]);
 		
 		//set de la seleccion en el radioButton
-		String categoria = (String) datosEmpleado[4];
+		String categoria = (String) datosEmpleado[3];
 		if (categoria.equalsIgnoreCase("aprendiz")) {
 			panel_empleados.getRdbtnAprendiz().setSelected(true);
 		} else if (categoria.equalsIgnoreCase("oficial")) {
@@ -427,17 +437,14 @@ public class Control_ediciones {
 	 * 
 	 */
 	public void cargarTallerParaEditar(Object[] datosTaller) {
-		// datosTaller: [ID, Nombre, Tipo sala]
+		// datosTaller: [Nombre, Tipo sala]
 		
-		if (datosTaller[0] instanceof Integer) {
-			idTallerEditando = (int) datosTaller[0];
-		} else {
-			idTallerEditando = Integer.parseInt((String) datosTaller[0]);
-		}
+		//ontencion del id del taller con los datos de la tabla
+		idTallerEditando = ids.obtenerIdTaller((String) datosTaller[0],(String) datosTaller[1]);
 
-		panel_talleres.getTxtNombre().setText((String) datosTaller[1]);
+		panel_talleres.getTxtNombre().setText((String) datosTaller[0]);
 
-		String tipo = (String) datosTaller[2];
+		String tipo = (String) datosTaller[1];
 		if (tipo.equalsIgnoreCase("diseño")) {
 			panel_talleres.getRdbtnDiseno().setSelected(true);
 		} else if (tipo.equalsIgnoreCase("costura")) {

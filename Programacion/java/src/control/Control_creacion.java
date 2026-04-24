@@ -6,6 +6,7 @@
  */
 package control;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -13,7 +14,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import model.*;
@@ -206,8 +209,15 @@ public class Control_creacion {
 			String superpoder = panel_cliente.getTfSuperpoder().getText();
 			String nomTraje = panel_cliente.getTfNombreT().getText();
 			String estado = "";
+			String alineacion = "";
+			
+			if (panel_cliente.getRdbtnHeroe().isSelected()) {
+				alineacion = "Heroe";
+			} else if (panel_cliente.getRdbtnVillano().isSelected()) {
+				alineacion = "Villano";
+			}
 
-			if (nombre.isEmpty() || colores.isEmpty() || superpoder.isEmpty() || nomTraje.isEmpty()) {
+			if (nombre.isEmpty() || colores.isEmpty() || superpoder.isEmpty() || nomTraje.isEmpty() || alineacion.isBlank()) {
 				System.out.println("ERROR: Campos vacios en el formulario de cliente");
 				return;
 			}
@@ -220,7 +230,7 @@ public class Control_creacion {
 				estado = "taller";
 			}
 
-			boolean exitoCliente = consultas_cliente.crearCliente(nombre, colores, superpoder);
+			boolean exitoCliente = consultas_cliente.crearCliente(nombre, colores, superpoder, alineacion);
 
 			if (exitoCliente) {
 				boolean exitoTraje = consultas_traje.crearTraje(nombre, nomTraje, estado);
@@ -327,11 +337,23 @@ public class Control_creacion {
 		JTextField nombre = new JTextField();
 	    JTextField colores = new JTextField();
 	    JTextField superPoder = new JTextField();
+		ButtonGroup bg = new ButtonGroup();
+		JRadioButton rdbtnHeroe = new JRadioButton("Heroe ");
+		rdbtnHeroe.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		rdbtnHeroe.setBounds(469, 149, 102, 20);
+		bg.add(rdbtnHeroe);
+		
+		JRadioButton rdbtnVillano = new JRadioButton("Villano");
+		rdbtnVillano.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		rdbtnVillano.setBounds(573, 149, 102, 20);
+		bg.add(rdbtnVillano);
+	    
 	    
 	    Object[] diseñoFormulario = {
 	            "Nombre:", nombre,
 	            "Colores:", colores,
-	            "Superpoder:", superPoder
+	            "Superpoder:", superPoder,
+	            rdbtnHeroe, rdbtnVillano
 	        };	   
 	    
 	    int botonPulsado = JOptionPane.showConfirmDialog(null, diseñoFormulario, "Datos del nuevo cliente", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
@@ -341,12 +363,19 @@ public class Control_creacion {
 		    String nombreGuardado = nombre.getText();
 	        String coloresGuardados = colores.getText();
 	        String superGuardado = superPoder.getText();
+	        String alineacion = "";
+	        
+	        if (rdbtnVillano.isSelected()) {
+	        	alineacion = "Villano";
+	        } else if (rdbtnHeroe.isSelected()) {
+	        	alineacion = "Heroe";
+	        }
 	        
 	        System.out.println("Nombre: " + nombreGuardado);
 	        System.out.println("Colores: " + coloresGuardados);
 	        System.out.println("Superpoderes: " + superGuardado);
 	        
-	        consultas_cliente.crearCliente(nombreGuardado, coloresGuardados, superGuardado);
+	        consultas_cliente.crearCliente(nombreGuardado, coloresGuardados, superGuardado, alineacion);
 	        
 	    } else {
 	    	System.out.println("El usuario canceló la creación del cliente.");

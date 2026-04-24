@@ -187,13 +187,14 @@ public class Control_tablas {
      */
     public void cargarClientes() {
         ArrayList<Cliente> clientes = consultas_cliente.mostrarClientes();
-        String[] columnas = {"Nombre", "Colores", "Superpoder"};
+        String[] columnas = { "Alineacion", "Nombre", "Colores", "Superpoder"};
         DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
         tableModel.setRowCount(0);
 
         if (clientes != null) {
             for (Cliente n : clientes) {
                 tableModel.addRow(new Object[]{
+                	n.getAlineacion(),
                     n.getNombre(),
                     n.getColores(),
                     n.getSuperpoder()

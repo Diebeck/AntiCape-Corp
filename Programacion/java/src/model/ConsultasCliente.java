@@ -37,7 +37,7 @@ public class ConsultasCliente {
 
 			while (resultado.next()) {
 				Cliente cliente = new Cliente(resultado.getInt(1), resultado.getString(2), resultado.getString(3),
-						resultado.getString(4));
+						resultado.getString(4), resultado.getString(5));
 				clientes.add(cliente);
 			}
 
@@ -57,13 +57,14 @@ public class ConsultasCliente {
 	 * 
 	 * @return true si la creacion fue exitosa, false para el caso contrario
 	 */
-	public boolean crearCliente(String nombre, String colores, String poder) {
-		String query = "INSERT INTO Cliente(nombre, colores, superpoder) VALUES (?,?,?)";
+	public boolean crearCliente(String nombre, String colores, String poder, String alineacion) {
+		String query = "INSERT INTO Cliente(nombre, colores, superpoder, alineacion) VALUES (?,?,?,?)";
 
 		try (PreparedStatement stmt = instance.prepareStatement(query)) {
 			stmt.setString(1, nombre);
 			stmt.setString(2, colores);
 			stmt.setString(3, poder);
+			stmt.setString(4, alineacion);
 
 			int filas = stmt.executeUpdate();
 

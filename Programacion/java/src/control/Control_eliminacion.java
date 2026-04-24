@@ -16,6 +16,7 @@ import model.ConsultasCita;
 import model.ConsultasCliente;
 import model.ConsultasEmpleado;
 import model.ConsultasTaller;
+import model.ObtencionID;
 import view.Panel_x;
 
 /**
@@ -29,6 +30,7 @@ public class Control_eliminacion {
 	private ConsultasCita consultas_cita;
 	private ConsultasTaller consultas_taller;
 	private ConsultasEmpleado consultas_empleado;
+	private ObtencionID ids;
 
 	public Control_eliminacion(Panel_x panel_x) {
 		this.modelo = Acceso_BD.instancia();
@@ -38,6 +40,7 @@ public class Control_eliminacion {
 		this.consultas_cita = new ConsultasCita(conexion);
 		this.consultas_taller = new ConsultasTaller(conexion);
 		this.consultas_empleado = new ConsultasEmpleado(conexion);
+		this.ids = new ObtencionID(conexion);
 	}
 	
 	/**
@@ -135,9 +138,9 @@ public class Control_eliminacion {
 			return false;
 		}
 
-		int id = (int) fila[0];
-		String nombre = (String) fila[1];
-		String colores = (String) fila[2];
+		int id = ids.obtenerIdCliente((String) fila[0]);
+		String nombre = (String) fila[0];
+		String colores = (String) fila[1];
 		
 		String mensaje = "¿Estás seguro de que deseas eliminar este cliente?\n\n"
 				+ "ID: " + id + "\n"
@@ -171,10 +174,10 @@ public class Control_eliminacion {
 			return false;
 		}
 
-		int id = (int) fila[0];
-		String nombre = (String) fila[1];
-		String apellidos = (String) fila[2];
-		String categoria = (String) fila[4];
+		int id = ids.obtenerIdEmpleado((String) fila[0]);
+		String nombre = (String) fila[0];
+		String apellidos = (String) fila[1];
+		String categoria = (String) fila[3];
 		
 		String mensaje = "¿Estás seguro de que deseas eliminar este empleado?\n\n"
 				+ "ID: " + id + "\n"
@@ -207,9 +210,9 @@ public class Control_eliminacion {
 			return false;
 		}
 
-		int id = (int) fila[0];
+		int id = ids.obtenerIdTaller((String )fila[0], (String )fila[1] );
+		String nombre = (String) fila[0];
 		String tipo = (String) fila[1];
-		String nombre = (String) fila[2];
 		
 		String mensaje = "¿Estás seguro de que deseas eliminar este taller?\n\n"
 				+ "ID: " + id + "\n"

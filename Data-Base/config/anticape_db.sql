@@ -71,16 +71,16 @@ ALTER TABLE Asistencia ADD FOREIGN KEY (id_empleado) REFERENCES Empleado (id_emp
 ALTER TABLE Asistencia ADD FOREIGN KEY (id_cita) REFERENCES Citas (id_cita);
 
 
-INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(001, 'Spiderman', 'Rojo', 'Trepar paredes, sentido arácnido y lanzar telarañas', 'héroe');
-INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(002, 'Batman', 'Negro', 'Inteligencia extrema, tecnología avanzada y habilidades de combate', 'héroe');
-INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(003, 'Superman', 'Azul', 'Súper fuerza, vuelo, visión láser e invulnerabilidad', 'héroe');
-INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(004, 'IronMan', 'Dorado', 'Armadura tecnológica con armas y capacidad de volar', 'héroe');
-INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(005, 'Hulk', 'Verde', 'Fuerza ilimitada y resistencia extrema', 'héroe');
-INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(006, 'Flah', 'Rojo', 'Súper velocidad', 'héroe');
-INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(007, 'Thor', 'Plateado', 'Control del rayo y fuerza divina', 'héroe');
-INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(008, 'ElasticGirl', 'Rojo', 'Estirar su cuerpo y cambiar de forma', 'héroe');
-INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(009, 'Violet', 'Morado', 'Volverse invisible y crear campos de fuerza', 'héroe');
-INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(010, 'Capitana Marvel', 'Rojo', 'Volar, absorber energía y súper fuerza', 'héroe');
+INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(001, 'Spiderman', 'Rojo', 'Trepar paredes, sentido arácnido y lanzar telarañas', 'Heroe');
+INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(002, 'Batman', 'Negro', 'Inteligencia extrema, tecnología avanzada y habilidades de combate', 'Heroe');
+INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(003, 'Superman', 'Azul', 'Súper fuerza, vuelo, visión láser e invulnerabilidad', 'Heroe');
+INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(004, 'IronMan', 'Dorado', 'Armadura tecnológica con armas y capacidad de volar', 'Heroe');
+INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(005, 'Hulk', 'Verde', 'Fuerza ilimitada y resistencia extrema', 'Heroe');
+INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(006, 'Flah', 'Rojo', 'Súper velocidad', 'Heroe');
+INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(007, 'Thor', 'Plateado', 'Control del rayo y fuerza divina', 'Heroe');
+INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(008, 'ElasticGirl', 'Rojo', 'Estirar su cuerpo y cambiar de forma', 'Heroe');
+INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(009, 'Violet', 'Morado', 'Volverse invisible y crear campos de fuerza', 'Heroe');
+INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES(010, 'Capitana Marvel', 'Rojo', 'Volar, absorber energía y súper fuerza', 'Heroe');
 
 INSERT INTO Traje(id_cliente, nombre, estado) VALUES(001, 'principal', 'taller');
 INSERT INTO Traje(id_cliente, nombre, estado) VALUES(001, 'específico', 'diseño');
@@ -109,6 +109,11 @@ INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contrase�
 INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (004, 'Luca', 'Ferrán Vidal', 'L.F.Vidal', 'Aprendiz', 'admin2001');
 INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (005, 'Noa', 'Beltrán Cruz', 'N.B.Cruz', 'Aprendiz', 'admin2003');
 INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (006, 'Thiago', 'Rivas Soler', 'T.R.Soler', 'Aprendiz', 'admin2002');
+INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (007, 'Elena', 'Castillo Mora', 'E.C.Mora', 'Oficial', 'admin1985');
+INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (008, 'Javier', 'Luna Paredes', 'J.L.Paredes', 'Aprendiz', 'admin2004');
+INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (009, 'Carmen', 'Reyes Flores', 'C.R.Flores', 'Maestro', 'admin1976');
+INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (010, 'Miguel', 'Serrano Gil', 'M.S.Gil', 'Oficial', 'admin1988');
+INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contraseña) VALUES (011, 'Sofía', 'Cabrera Gómez', 'S.C.Gómez', 'Aprendiz', 'admin2005');
 
 
 INSERT INTO Citas (id_cita, fecha, hora, duracion, id_cliente, id_encargado, id_taller, id_traje) 
@@ -126,5 +131,26 @@ VALUES (4, '2024-05-13', 18, '3 H', 004, 003, 002, 004);
 INSERT INTO Citas (id_cita, fecha, hora, duracion, id_cliente, id_encargado, id_taller, id_traje) 
 VALUES (5, '2024-05-14', 17, '1 H', 008, 002, 001, 008);
 
+
+INSERT INTO Asistencia (id_empleado, id_cita) VALUES
+-- Cita 1 (Spiderman, encargado Edna id=001)
+(002, 1),  -- Valerio ayuda
+(004, 1),  -- Luca (aprendiz)
+
+-- Cita 2 (Batman, encargado Valerio id=002)
+(003, 2),  -- Alessandro ayuda
+(005, 2),  -- Noa (aprendiz)
+
+-- Cita 3 (Superman, encargado Edna id=001)
+(007, 3),  -- Elena
+(009, 3),  -- Carmen
+
+-- Cita 4 (IronMan, encargado Alessandro id=003)
+(008, 4),  -- Javier (aprendiz)
+(010, 4),  -- Miguel
+
+-- Cita 5 (ElasticGirl, encargado Valerio id=002)
+(006, 5),  -- Thiago (aprendiz)
+(011, 5);  -- Sofía (aprendiz)
 	
 

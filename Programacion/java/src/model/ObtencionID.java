@@ -25,7 +25,7 @@ public class ObtencionID {
 	 * @param nombre nombre del cliente
 	 * @return int con el valor del id_del cliente (-1 en caso de que no exista el cliente)
 	 */
-	protected int obtenerIdCliente(String nombre) {
+	public int obtenerIdCliente(String nombre) {
 		String query = "SELECT id_cliente FROM Cliente WHERE nombre = ?";
 		try (PreparedStatement pstmt = instance.prepareStatement(query)) {
 			pstmt.setString(1, nombre);
@@ -46,7 +46,7 @@ public class ObtencionID {
 	 * @param nombre nombre del empleado
 	 * @return int con el valor del id del empleado (-1 en caso de que no exista el empleado)
 	 */
-	protected int obtenerIdEmpleado(String nombreEmpleado) {
+	public int obtenerIdEmpleado(String nombreEmpleado) {
 		String query = "SELECT id_empleado FROM Empleado WHERE nombre = ?";
 		try (PreparedStatement pstmt = instance.prepareStatement(query)) {
 			pstmt.setString(1, nombreEmpleado);
@@ -191,5 +191,28 @@ public class ObtencionID {
 	        e.printStackTrace();
 	    }
 	    return "Desconocido";
+	}
+	
+	/**
+	 * Metodo para obtener el id de un traje por su nombre y sala
+	 * 
+	 * @param nombre nombre del taller
+	 * @param sala tipo de sala
+	 * @return
+	 */
+	public int obtenerIdTaller(String nombre, String sala) {
+		String query = "SELECT id_taller FROM Taller WHERE nombre_sala = ? and tipo_sala = ?";
+		try (PreparedStatement stmt = instance.prepareStatement(query)){
+			stmt.setString(1, nombre);
+			stmt.setString(2, sala);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("id_taller");
+			}
+			rs.close();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+		return -1;
 	}
 }

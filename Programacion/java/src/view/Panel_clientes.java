@@ -34,6 +34,9 @@ public class Panel_clientes extends JPanel {
 	private JLabel lblNombreT;
 	private JLabel lblEstado;
 	private ButtonGroup bg;
+	private ButtonGroup alineacion;
+	private JRadioButton rdbtnHeroe;
+	private JRadioButton rdbtnVillano;
 	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
@@ -94,7 +97,7 @@ public class Panel_clientes extends JPanel {
 		
 		tfNombre = new JTextField();
 		tfNombre.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		tfNombre.setBounds(168, 148, 507, 25);
+		tfNombre.setBounds(168, 148, 253, 25);
 		add(tfNombre);
 		tfNombre.setColumns(10);
 		
@@ -144,6 +147,7 @@ public class Panel_clientes extends JPanel {
 		add(lblEstado);
 		
 		bg = new ButtonGroup();
+		alineacion = new ButtonGroup();
 		
 		rdbtnDiseno = new JRadioButton("Diseño");
 		rdbtnDiseno.setSelected(true);
@@ -163,7 +167,22 @@ public class Panel_clientes extends JPanel {
 		rdbtnTaller.setBounds(528, 392, 102, 20);
 		add(rdbtnTaller);
 		bg.add(rdbtnTaller);
+		
+		rdbtnHeroe = new JRadioButton("Heroe ");
+		rdbtnHeroe.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		rdbtnHeroe.setBounds(469, 149, 102, 20);
+		add(rdbtnHeroe);
+		alineacion.add(rdbtnHeroe);
+		
+		rdbtnVillano = new JRadioButton("Villano");
+		rdbtnVillano.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+		rdbtnVillano.setBounds(573, 149, 102, 20);
+		add(rdbtnVillano);
+		alineacion.add(rdbtnVillano);
+		
 		btn_cCliente.addActionListener(list);
+		
+		
 	}
 
 	/**
@@ -208,5 +227,14 @@ public class Panel_clientes extends JPanel {
 	public JRadioButton getRdbtnTaller() {
 		return rdbtnTaller;
 	}
+
+	public JRadioButton getRdbtnHeroe() {
+		return rdbtnHeroe;
+	}
+
+	public JRadioButton getRdbtnVillano() {
+		return rdbtnVillano;
+	}
+	
 	
 }
