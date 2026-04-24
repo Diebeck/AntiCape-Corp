@@ -29,7 +29,6 @@ public class Listener implements ActionListener {
 	Panel_nav_aprendiz panel_nav_aprendiz = new Panel_nav_aprendiz(this);
 	Panel_nav_oficial panel_nav_oficial = new Panel_nav_oficial(this);
 	Panel_prim_aprendiz panel_prim_aprendiz = new Panel_prim_aprendiz(this);
-	Panel_trajes panel_trajes = new Panel_trajes(this);
 	
 	private Control_tablas controladorTablas = new Control_tablas(panel_x, panel_home, panel_prim_aprendiz);
 	private Control_creacion controladorCreacion = new Control_creacion(panel_clientes, panel_empleados, panel_citas, panel_talleres);
@@ -170,12 +169,6 @@ public class Listener implements ActionListener {
 			controladorTablas.cargarEmpleados();
 			vent.cambiarCajaPrimario(panel_x);
 			
-		} else if (e.getSource() == panel_trajes.getBtn_cancelar()) {
-			vent.cambiarCajaPrimario(panel_citas);
-			
-		} else if (e.getSource() == panel_trajes.getBtn_confirmar()) {
-			vent.cambiarCajaPrimario(panel_citas);
-			// codigo aqui
 		}
 		
 		// Eventos para los botones que se obtienen con un String
