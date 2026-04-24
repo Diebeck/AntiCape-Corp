@@ -9,9 +9,9 @@ package control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -157,9 +157,9 @@ public class Control_creacion {
 			String encargado = (String) panel_cita.getCbEncargado().getSelectedItem();
 
 			// Conversion de la fecha del spinner al formato de la base de datos
-			Date date = (Date) panel_cita.getSpFecha().getValue();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String fecha = sdf.format(date);
+			LocalDate date = panel_cita.getDpFecha().getDate();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			String fecha = dtf.format(date);
 
 			// Obtener duracion de la cita
 			int duracion = (int) panel_cita.getSpDuracion().getValue();
