@@ -13,11 +13,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SpinnerDateModel;
 
-import java.util.Date;
-import java.util.Calendar;
-import javax.swing.JScrollPane;
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.TimePicker;
 
 @SuppressWarnings("serial")
 public class Panel_citas extends JPanel {
@@ -33,7 +31,6 @@ public class Panel_citas extends JPanel {
 	private JLabel lblDuracion;
 	private JSpinner spDuracion;
 	private JLabel lblFecha;
-	private JSpinner spFecha;
 	private JLabel lblTraje;
 	private ButtonGroup bg;
 	private JLabel lblEncargado;
@@ -44,9 +41,18 @@ public class Panel_citas extends JPanel {
 	private JLabel lbl_yCitas;
 	private JButton btnNuevoCliente;
 	private JButton btnNuevoTraje;
+	private JLabel lblAyudante1;
+	private JLabel lblAyudante2;
+	@SuppressWarnings("rawtypes")
+	private JComboBox cbAyudante1;
+	@SuppressWarnings("rawtypes")
+	private JComboBox cbAyudante2;
+	private DatePicker dpFecha;
+	private TimePicker tpHora;
 	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
+	private JLabel lblHora;
 	
 	/** Cambia el modo del panel y actualiza su label
 	 * @param modo
@@ -105,39 +111,33 @@ public class Panel_citas extends JPanel {
 		
 		lblTaller = new JLabel("Taller:");
 		lblTaller.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblTaller.setBounds(38, 155, 87, 20);
+		lblTaller.setBounds(38, 215, 87, 20);
 		add(lblTaller);
 		
 		cbTaller = new JComboBox();
 		cbTaller.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbTaller.setBounds(126, 155, 290, 25);
+		cbTaller.setBounds(126, 215, 290, 25);
 		add(cbTaller);
 		
 		lblDuracion = new JLabel("Duración:");
 		lblDuracion.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblDuracion.setBounds(454, 155, 87, 20);
+		lblDuracion.setBounds(454, 215, 87, 20);
 		add(lblDuracion);
 		
 		spDuracion = new JSpinner();
 		spDuracion.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 		spDuracion.setModel(new SpinnerNumberModel(1, 1, 5, 1));
-		spDuracion.setBounds(551, 155, 124, 25);
+		spDuracion.setBounds(551, 215, 124, 25);
 		add(spDuracion);
 		
 		lblFecha = new JLabel("Fecha:");
 		lblFecha.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblFecha.setBounds(38, 189, 87, 20);
+		lblFecha.setBounds(454, 300, 87, 20);
 		add(lblFecha);
-		
-		spFecha = new JSpinner();
-		spFecha.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		spFecha.setModel(new SpinnerDateModel(new Date(1776117600000L), null, null, Calendar.AM_PM));
-		spFecha.setBounds(126, 189, 549, 25);
-		add(spFecha);
 		
 		lblTraje = new JLabel("Traje:");
 		lblTraje.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblTraje.setBounds(38, 225, 87, 20);
+		lblTraje.setBounds(38, 168, 87, 20);
 		add(lblTraje);
 		
 		bg = new ButtonGroup();
@@ -149,7 +149,7 @@ public class Panel_citas extends JPanel {
 		
 		cbEncargado = new JComboBox();
 		cbEncargado.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbEncargado.setBounds(175, 299, 500, 25);
+		cbEncargado.setBounds(175, 299, 241, 25);
 		add(cbEncargado);
 		
 		btnNuevoCliente = new JButton("Nuevo Cliente");
@@ -163,7 +163,7 @@ public class Panel_citas extends JPanel {
 
 		cbTrajes = new JComboBox();
 		cbTrajes.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbTrajes.setBounds(126, 224, 290, 25);
+		cbTrajes.setBounds(126, 167, 290, 25);
 		add(cbTrajes);
 		
 		btnNuevoTraje = new JButton("Nuevo Traje");
@@ -171,29 +171,46 @@ public class Panel_citas extends JPanel {
 		btnNuevoTraje.setIcon(Ventana.escalarImagen("/img/add.png", 20, 20));
 		btnNuevoTraje.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 		btnNuevoTraje.setBackground(new Color(78, 17, 48));
-		btnNuevoTraje.setBounds(454, 224, 221, 25);
+		btnNuevoTraje.setBounds(454, 167, 221, 25);
 		btnNuevoTraje.addActionListener(list);
 		add(btnNuevoTraje);
 		
-		JLabel lblAyudante1 = new JLabel("Ayudante #1:");
+		lblAyudante1 = new JLabel("Ayudante #1:");
 		lblAyudante1.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblAyudante1.setBounds(38, 344, 134, 20);
 		add(lblAyudante1);
 		
-		JLabel lblAyudante2 = new JLabel("Ayudante #2:");
+		lblAyudante2 = new JLabel("Ayudante #2:");
 		lblAyudante2.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
 		lblAyudante2.setBounds(38, 387, 134, 20);
 		add(lblAyudante2);
 		
-		JComboBox cbAyudante1 = new JComboBox();
+		cbAyudante1 = new JComboBox();
 		cbAyudante1.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbAyudante1.setBounds(175, 342, 500, 25);
+		cbAyudante1.setBounds(175, 342, 241, 25);
 		add(cbAyudante1);
 		
-		JComboBox cbAyudante2 = new JComboBox();
+		cbAyudante2 = new JComboBox();
 		cbAyudante2.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
-		cbAyudante2.setBounds(175, 384, 500, 25);
+		cbAyudante2.setBounds(175, 384, 241, 25);
 		add(cbAyudante2);
+		
+		dpFecha = new DatePicker();
+		dpFecha.getComponentDateTextField().setFont(new Font("Tahoma", Font.BOLD, 15));
+		dpFecha.setLocation(522, 300);
+		dpFecha.setSize(153, 24);
+	    add(dpFecha);
+	    
+	    tpHora = new TimePicker();
+	    tpHora.getComponentTimeTextField().setFont(new Font("Tahoma", Font.BOLD, 15));
+	    tpHora.setLocation(522, 344);
+	    tpHora.setSize(153, 23);
+	    add(tpHora);
+	    
+	    lblHora = new JLabel("Hora:");
+	    lblHora.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
+	    lblHora.setBounds(454, 344, 87, 20);
+	    add(lblHora);
 				
 	}
 
@@ -239,10 +256,6 @@ public class Panel_citas extends JPanel {
 		return lblFecha;
 	}
 
-	public JSpinner getSpFecha() {
-		return spFecha;
-	}
-
 	public JLabel getLblTraje() {
 		return lblTraje;
 	}
@@ -268,4 +281,13 @@ public class Panel_citas extends JPanel {
 	public JComboBox getCbTrajes() {
 		return cbTrajes;
 	}
+
+	public DatePicker getDpFecha() {
+		return dpFecha;
+	}
+
+	public TimePicker getTpHora() {
+		return tpHora;
+	}
+	
 }

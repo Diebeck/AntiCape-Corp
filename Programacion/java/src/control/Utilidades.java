@@ -6,7 +6,6 @@
  */
 package control;
 
-import java.util.Date;
 import view.Panel_citas;
 import view.Panel_clientes;
 import view.Panel_empleados;
@@ -31,7 +30,7 @@ public class Utilidades {
 		panel_cita.getCbTaller().setSelectedIndex(0);
 
 		// limpiado de los spinner
-		panel_cita.getSpFecha().setValue(new Date());
+		panel_cita.getDpFecha().setText(null);
 		panel_cita.getSpDuracion().setValue(1);
 
 		// Recargar los trajes del primer cliente (esto necesita el método cargarTrajesPorCliente)

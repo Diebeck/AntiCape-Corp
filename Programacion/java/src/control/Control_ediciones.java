@@ -8,6 +8,8 @@ package control;
 
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.swing.JTable;
@@ -113,10 +115,10 @@ public class Control_ediciones {
 			String encargado = (String) panel_citas.getCbEncargado().getSelectedItem();
 			
 			//Guardado de la fecha 
-			Date date = (Date) panel_citas.getSpFecha().getValue();
+			LocalDate date = panel_citas.getDpFecha().getDate();
 			//formateo de la fecha segun el formato que esta en el spinner
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String fecha = sdf.format(date);
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			String fecha = dtf.format(date);
 
 			int duracion = (int) panel_citas.getSpDuracion().getValue();
 			
@@ -341,9 +343,9 @@ public class Control_ediciones {
 	    //Asignacion de la fecha con su conversion de formato 
 	    String fecha = (String) datosCita[1];
 	    try {
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	        Date fechaDate = sdf.parse(fecha);
-	        panel_citas.getSpFecha().setValue(fechaDate);
+	    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	        //String fechaDate = (String) dtf.format(fecha);
+	        panel_citas.getDpFecha().setText(fecha);
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
