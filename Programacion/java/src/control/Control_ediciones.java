@@ -7,10 +7,9 @@
 package control;
 
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;
 
 import javax.swing.JTable;
 
@@ -93,65 +92,83 @@ public class Control_ediciones {
 	}
 
 	/**
-	 * Metodo de edicion de una cita con los datos del formulario
-	 * 
-	 * @see Acceso_BD#modificarCita(int, String, String, String, int, String, String)
+	 * Edicion de cita manteniendo los asistentes que no han cambiado
 	 */
 	public void editarCita() {
-		try {
-			/*
+	    try {
+	    	
+	    	/*
 			 * si en el listener principal se cambia el estado del id de la cita seleccionada
 			 * esta clausula if no se activa 
 			 */
-			if (idCitaEditando == -1) {
-				System.out.println("No hay cita seleccionada para editar");
-				return;
-			}
-			
-			//guardado de los elementos del formulario
-			String cliente = (String) panel_citas.getCbCliente().getSelectedItem();
-			String taller = (String) panel_citas.getCbTaller().getSelectedItem();
-			String traje = (String) panel_citas.getCbTrajes().getSelectedItem();
-			String encargado = (String) panel_citas.getCbEncargado().getSelectedItem();
-			
-			//Guardado de la fecha 
-			LocalDate date = panel_citas.getDpFecha().getDate();
-			//formateo de la fecha segun el formato que esta en el spinner
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			String fecha = dtf.format(date);
+	        if (idCitaEditando == -1) {
+	            System.out.println("No hay cita seleccionada para editar");
+	            return;
+	        }
+	        
+	        // Obtencion datos del formulario
+	        String cliente = (String) panel_citas.getCbCliente().getSelectedItem();
+	        String taller = (String) panel_citas.getCbTaller().getSelectedItem();
+	        String traje = (String) panel_citas.getCbTrajes().getSelectedItem();
+	        String encargado = (String) panel_citas.getCbEncargado().getSelectedItem();
+	        String fecha = panel_citas.getDpFecha().getDateStringOrEmptyString();
+	        String hora = panel_citas.getTpHora().getTimeStringOrEmptyString();
+	        int duracion = (int) panel_citas.getSpDuracion().getValue();
+	        String asistenteUno = (String) panel_citas.getCbAyudante1().getSelectedItem();
+	        String asistenteDos = (String) panel_citas.getCbAyudante2().getSelectedItem();
+	        
+	        // Validacion de los datos
+	        if (cliente == null || taller == null || traje == null || encargado == null || 
+	            fecha.isEmpty() || hora.isEmpty()) {
+	            System.out.println("Campos vacíos en el formulario");
+	            return;
+	        }
+	        
+	        // Obtener asistentes actuales
+	        ArrayList<Integer> asistentesActuales = ids.idsAsignados(idCitaEditando);
+	        
+	        // Obtener nuevos asistentes
+	        ArrayList<Integer> nuevosAsistentes = new ArrayList<>();
+	        if (asistenteUno != null && !"Sin ayudante".equals(asistenteUno)) {
+	            int id = ids.obtenerIdEmpleado(asistenteUno);
+	            if (id != -1) nuevosAsistentes.add(id);
+	        }
+	        if (asistenteDos != null && !"Sin ayudante".equals(asistenteDos)) {
+	            int id = ids.obtenerIdEmpleado(asistenteDos);
+	            if (id != -1) nuevosAsistentes.add(id);
+	        }
+	        
+	        // Modificacion de la cita
+	        boolean exito = consultas_cita.modificarCita(idCitaEditando, fecha, hora, duracion, 
+	                                                      cliente, encargado, traje, taller);
 
-			int duracion = (int) panel_citas.getSpDuracion().getValue();
-			
-			// si algun dato esta vacio se lanza un error
-			if (cliente == null || taller == null || traje == null || encargado == null) {
-				System.out.println("Campos vacíos en el formulario");
-				return;
-			}
-			
-			// clausula if exclusiva de trajes debido a su manejo como string 
-			if (traje.equals("Sin trajes disponibles")) {
-				System.out.println("ERROR: El cliente no tiene trajes disponibles");
-				return;
-			}
-			
-			//edicion de la ciita 
-			boolean exito = consultas_cita.modificarCita(idCitaEditando, cliente, taller, fecha, duracion, traje, encargado);
+	        if (exito) {
+	            // Actualizacion asistentes
+	            
+	            // Eliminar asistentes que ya no están
+	            for (int idActual : asistentesActuales) {
+	                if (!nuevosAsistentes.contains(idActual)) {
+	                    consultas_empleado.eliminarAsistencia(idCitaEditando, idActual);
+	                }
+	            }
+	            
+	            // Añadir nuevos asistentes
+	            for (int idNuevo : nuevosAsistentes) {
+	                if (!asistentesActuales.contains(idNuevo)) {
+	                    consultas_empleado.asignacion(idCitaEditando, idNuevo);
+	                }
+	            }
+	            
+	            System.out.println("Cita modificada correctamente");
+	            idCitaEditando = -1;
+	            Utilidades.limpiarFormularioCitas(panel_citas);
+	        } else {
+	            System.out.println("Fallo al modificar la cita");
+	        }
 
-			if (exito) {
-				System.out.println("Cita modificada correctamente");
-				/**
-				 * reestablecimiento de la variable del ID para evitar 
-				 * llenados del formulario repetidos
-				 */
-				idCitaEditando = -1;
-				Utilidades.limpiarFormularioCitas(panel_citas);
-			} else {
-				System.out.println("Fallo al modificar la cita");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	/**
@@ -313,6 +330,9 @@ public class Control_ediciones {
 	    
 	    idCitaEditando = ids.obtenerIdCita((String) datosCita[0], (String) datosCita[1], (String) datosCita[2]);
 	    
+	    //obtencion de los ids de los empleados asignados a la cita 
+	    ArrayList<Integer> asignaciones = ids.idsAsignados(idCitaEditando);
+	    
 	    // Asignacion del encargado
 	    String nombreEncargado = (String) datosCita[0];
 	    for (int i = 0; i < panel_citas.getCbEncargado().getItemCount(); i++) {
@@ -362,6 +382,27 @@ public class Control_ediciones {
 	            panel_citas.getCbTrajes().setSelectedIndex(i);
 	            break;
 	        }
+	    }
+	    
+	 // Cargar datos de los asistentes
+	    if (asignaciones != null && !asignaciones.isEmpty()) {
+	        
+	        // Para el primer asistente 
+	        String nombreAsignado1 = ids.obtenerNombreEmpleado(asignaciones.get(0));
+	        panel_citas.getCbAyudante1().setSelectedItem(nombreAsignado1);
+	        
+	        // Para el segundo asistente
+	        if (asignaciones.size() >= 2) {
+	            String nombreAsignado2 = ids.obtenerNombreEmpleado(asignaciones.get(1));
+	            panel_citas.getCbAyudante2().setSelectedItem(nombreAsignado2);
+	        } else {
+	            // Si no hay segundo asistente, seleccionar "Sin ayudante"
+	            panel_citas.getCbAyudante2().setSelectedItem("Sin ayudante");
+	        }
+	        
+	    } else {
+	        panel_citas.getCbAyudante1().setSelectedItem("Sin ayudante");
+	        panel_citas.getCbAyudante2().setSelectedItem("Sin ayudante");
 	    }
 	    
 	    //print de debug
@@ -441,7 +482,7 @@ public class Control_ediciones {
 		// datosTaller: [Nombre, Tipo sala]
 		
 		//ontencion del id del taller con los datos de la tabla
-		idTallerEditando = ids.obtenerIdTaller((String) datosTaller[0],(String) datosTaller[1]);
+		idTallerEditando = ids.obtenerIdTaller((String) datosTaller[0]);
 
 		panel_talleres.getTxtNombre().setText((String) datosTaller[0]);
 

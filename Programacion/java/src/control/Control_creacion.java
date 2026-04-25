@@ -10,8 +10,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -41,6 +39,7 @@ public class Control_creacion {
 	private ConsultasTaller consultas_taller;
 	private ConsultasEmpleado consultas_empleado;
 	private ConsultasTraje consultas_traje;
+	private ObtencionID ids;
 	
 
 	public Control_creacion(Panel_clientes clientes, Panel_empleados empleados, Panel_citas citas,
@@ -57,6 +56,7 @@ public class Control_creacion {
 		this.consultas_taller = new ConsultasTaller(conexion);
 		this.consultas_empleado = new ConsultasEmpleado(conexion);
 		this.consultas_traje = new ConsultasTraje(conexion);
+		this.ids = new ObtencionID(conexion);
 	}
 
 	/**
@@ -74,12 +74,15 @@ public class Control_creacion {
 		ArrayList<Cliente> clientes = consultas_cliente.mostrarClientes();
 		ArrayList<Empleado> empleados = consultas_empleado.mostrarEmpleados();
 		ArrayList<Taller> talleres = consultas_taller.mostrarTalleres();
+		ArrayList<Empleado> asistentes = consultas_empleado.mostrarEmpleados();
 
 		// Limpiado de los combos para evitar duplicados
 		panel_cita.getCbCliente().removeAllItems();
 		panel_cita.getCbEncargado().removeAllItems();
 		panel_cita.getCbTaller().removeAllItems();
 		panel_cita.getCbTrajes().removeAllItems();
+		panel_cita.getCbAyudante1().removeAllItems();
+		panel_cita.getCbAyudante2().removeAllItems();
 		panel_cita.getTpHora().setText("");
 		panel_cita.getDpFecha().setText("");
 
@@ -98,6 +101,20 @@ public class Control_creacion {
 					panel_cita.getCbEncargado().addItem(n.getNombre());
 				}
 			}
+		}
+		
+		//llenado combo de los asistentes de la cita
+		if (asistentes != null) {
+			// caso de no ayudante
+			panel_cita.getCbAyudante1().addItem("Sin asistente");
+			panel_cita.getCbAyudante2().addItem("Sin asistente");
+			for(Empleado n : asistentes) {
+				if(n.getCategoria().toLowerCase().equals("aprendiz")) {
+					panel_cita.getCbAyudante1().addItem(n.getNombre());
+					panel_cita.getCbAyudante2().addItem(n.getNombre());
+				}
+			}
+			
 		}
 
 		// Llenado combo de talleres
@@ -160,17 +177,16 @@ public class Control_creacion {
 			String taller = (String) panel_cita.getCbTaller().getSelectedItem();
 			String traje = (String) panel_cita.getCbTrajes().getSelectedItem();
 			String encargado = (String) panel_cita.getCbEncargado().getSelectedItem();
-
-			// Conversion de la fecha del spinner al formato de la base de datos
-			LocalDate date = panel_cita.getDpFecha().getDate();
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			String fecha = dtf.format(date);
-
+			String fecha = (String) panel_cita.getDpFecha().getDateStringOrEmptyString();
+			String hora = (String) panel_cita.getTpHora().getTimeStringOrEmptyString();
+			String asistenteUno = (String) panel_cita.getCbAyudante1().getSelectedItem();
+			String asistenteDos = (String) panel_cita.getCbAyudante2().getSelectedItem();
+			
 			// Obtener duracion de la cita
 			int duracion = (int) panel_cita.getSpDuracion().getValue();
 
 			// Validar que no haya campos vacíos
-			if (cliente == null || taller == null || traje == null || encargado == null) {
+			if (cliente == null || taller == null || traje == null || encargado == null || fecha == null || hora == null) {
 				System.out.println("ERROR: Campos vacíos en el formulario");
 				return;
 			}
@@ -181,15 +197,38 @@ public class Control_creacion {
 				return;
 			}
 
-			// Llamar al metodo crearCita del modelo
-			boolean exito = consultas_cita.crearCita(cliente, taller, fecha, duracion, traje, encargado);
+			// Llamar al metodo crearCita del modelo que devuelve el id de la cita
+			int exito = consultas_cita.crearCita(fecha, hora, duracion, cliente, encargado, taller, traje);
 
-			if (exito) {
+			if (exito > 0) {
 				Utilidades.limpiarFormularioCitas(panel_cita);
 				cargarTrajesPorCliente(); // Recargar trajes después de limpiar
 				System.out.println("EXITO: Cita creada correctamente");
 			} else {
 				System.out.println("ERROR: Fallo al crear la cita en la base de datos");
+			}
+			
+			//bloques de añadido de asistenetes a la cita
+			if (exito > 0 && !"Sin ayudante".equals(asistenteUno) && !asistenteUno.equals(asistenteDos)) {
+				int asistenteId = ids.obtenerIdEmpleado(asistenteUno);
+				
+				boolean asistencia = consultas_empleado.asignacion(exito, asistenteId);
+				if(asistencia) {
+					System.out.println("Asistente añadido correctamente");
+				} else {
+					System.out.println("Fallo en añadido de la asistencia");
+				}
+			}
+			
+			if (exito > 0 && !"Sin ayudante".equals(asistenteDos) && !asistenteDos.equals(asistenteUno)) {
+				int asistenteId = ids.obtenerIdEmpleado(asistenteDos);
+				
+				boolean asistencia = consultas_empleado.asignacion(exito, asistenteId);
+				if(asistencia) {
+					System.out.println("Asistente añadido correctamente");
+				} else {
+					System.out.println("Fallo en añadido de la asistencia");
+				}
 			}
 
 		} catch (Exception e) {

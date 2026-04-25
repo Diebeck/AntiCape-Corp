@@ -146,24 +146,55 @@ public class ConsultasEmpleado {
 	    return false;
 	}
 	
-//	public ArrayList<Cita> infoCita(int id){
-//		ArrayList<Cita> datos = new ArrayList<>();
-//
-//		
-//		String query = "SELECT id_encargado, fecha, hora, duracion FROM Citas WHERE id_encargado = ?";
-//		
-//		try (Statement stmt = instance.prepareStatement(query); ResultSet resultado = stmt.executeQuery(query); ) {
-//			
-//			while (resultado.next()) {
-//				Cita info = new Cita(resultado.getInt(4), resultado.getInt(1), resultado.getInt(2));
-//				datos.add(info);
-//			}
-//			return datos;
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			return new ArrayList<>();
-//	}
-//	
-//	
-//	}
+	/**
+	 * Metodo para asignar empleados a una cita
+	 * 
+	 * @param id_cita id de la cita
+	 * @param id_empleado id del empleado asignado
+	 * @return true si se añadio alguna asistencia, false si no 
+	 */
+	public boolean asignacion(int id_cita, int id_empleado) {
+		String query = "INSERT INTO Asistencia (id_empleado, id_cita) VALUES (?,?)";
+		
+		try(PreparedStatement stmt = instance.prepareStatement(query)){
+			stmt.setInt(1, id_empleado);
+			stmt.setInt(2, id_cita);
+			
+			int inserciones = stmt.executeUpdate();
+			
+			if (inserciones > 0) {
+				System.out.println("Asistencia añadida");
+				return true;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	/**
+	 * Metodo para eliminar una asistencia específica
+	 * 
+	 * @param id_cita ID de la cita
+	 * @param id_empleado ID del empleado
+	 * @return true si se eliminó, false si no
+	 */
+	public boolean eliminarAsistencia(int id_cita, int id_empleado) {
+	    String query = "DELETE FROM Asistencia WHERE id_cita = ? AND id_empleado = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, id_cita);
+	        stmt.setInt(2, id_empleado);
+	        
+	        int eliminados = stmt.executeUpdate();
+	        if (eliminados > 0) {
+	            System.out.println("Asistencia eliminada - Cita: " + id_cita + ", Empleado: " + id_empleado);
+	            return true;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
 }

@@ -101,9 +101,12 @@ public class Control_eliminacion {
 		}
 		
 		//almacenado de los datos del array que arroja la fila seleccionada
-		int id = (int) fila[0];
+		String encargado = (String) fila[0];
 		String fecha = (String) fila[1];
-		String cliente = (String) fila[3];
+		String hora = (String) fila[2];
+		String cliente = (String) fila[4];
+		
+		int id = ids.obtenerIdCita(encargado, fecha, hora);
 		
 		//Mensaje que se le pasa al dialog y se reemplaza en la parte de mensaje.replace
 		String mensaje = "¿Estás seguro de que deseas eliminar la cita?\n\n"
@@ -210,7 +213,7 @@ public class Control_eliminacion {
 			return false;
 		}
 
-		int id = ids.obtenerIdTaller((String )fila[0], (String )fila[1] );
+		int id = ids.obtenerIdTallerCompleto((String )fila[0], (String )fila[1] );
 		String nombre = (String) fila[0];
 		String tipo = (String) fila[1];
 		

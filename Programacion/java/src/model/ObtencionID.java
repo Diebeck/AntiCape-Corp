@@ -7,6 +7,7 @@
 package model;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Clase creada para implementar metodos de busqueda de ids en la base de datos
@@ -17,6 +18,33 @@ public class ObtencionID {
 
 	public ObtencionID(Connection instance) {
 		this.instance = instance;
+	}
+	
+	/**
+	 * Metodo para obtener el id de una cita en base a su encargado, fecha y hora
+	 * 
+	 * @param encargado encargado de la cita 
+	 * @param fecha fecha de la cita 
+	 * @param hora hora de la cita 
+	 * @return
+	 */
+	public int obtenerIdCita (String encargado, String fecha, String hora) {
+		//Buscado del id del encargado en base a su nombre 
+		int idEncargado = obtenerIdEmpleado(encargado);
+		String query = "SELECT id_cita FROM Citas WHERE id_encargado = ? and fecha = ? and hora = ?";
+		try(PreparedStatement stmt = instance.prepareStatement(query)){
+			stmt.setInt(1, idEncargado);
+			stmt.setString(2, fecha);
+			stmt.setString(3, hora);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("id_cita");
+			}
+			rs.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 
 	/**
@@ -67,7 +95,7 @@ public class ObtencionID {
 	 * @param nombre nombre del taller
 	 * @return int con el valor del id del taller (-1 en caso de que no exista el taller)
 	 */
-	protected int obtenerIdTaller(String nombreTaller) {
+	public int obtenerIdTaller(String nombreTaller) {
 		String query = "SELECT id_taller FROM Taller WHERE nombre_sala = ?";
 		try (PreparedStatement pstmt = instance.prepareStatement(query)) {
 			pstmt.setString(1, nombreTaller);
@@ -77,6 +105,29 @@ public class ObtencionID {
 			}
 			rs.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	/**
+	 * Metodo para obtener el id de un traje por su nombre y sala
+	 * 
+	 * @param nombre nombre del taller
+	 * @param sala tipo de sala
+	 * @return
+	 */
+	public int obtenerIdTallerCompleto(String nombre, String sala) {
+		String query = "SELECT id_taller FROM Taller WHERE nombre_sala = ? and tipo_sala = ?";
+		try (PreparedStatement stmt = instance.prepareStatement(query)){
+			stmt.setString(1, nombre);
+			stmt.setString(2, sala);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				return rs.getInt("id_taller");
+			}
+			rs.close();
+		} catch (SQLException e){
 			e.printStackTrace();
 		}
 		return -1;
@@ -104,6 +155,29 @@ public class ObtencionID {
 			e.printStackTrace();
 		}
 		return -1;
+	}
+	
+	/**
+	 * Metodo que devuelve los id's de los asistentes asignados a una cita
+	 * 
+	 * @param idCita id de la cita a buscar 
+	 * @return ArrayList con los id's asociados a la cita
+	 */
+	public ArrayList<Integer> idsAsignados(int idCita){
+		ArrayList<Integer> asistentes = new ArrayList<>();
+		String query = "SELECT id_empleado FROM Asistencia WHERE id_cita = ?";
+		try(PreparedStatement stmt = instance.prepareStatement(query)){
+			stmt.setInt(1, idCita);
+			ResultSet rs = stmt.executeQuery();
+			while(rs.next()) {
+				asistentes.add(rs.getInt("id_empleado"));
+			}
+			rs.close();
+			return asistentes;
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return asistentes;
 	}
 	
 	/**
@@ -191,55 +265,5 @@ public class ObtencionID {
 	        e.printStackTrace();
 	    }
 	    return "Desconocido";
-	}
-	
-	/**
-	 * Metodo para obtener el id de un traje por su nombre y sala
-	 * 
-	 * @param nombre nombre del taller
-	 * @param sala tipo de sala
-	 * @return
-	 */
-	public int obtenerIdTaller(String nombre, String sala) {
-		String query = "SELECT id_taller FROM Taller WHERE nombre_sala = ? and tipo_sala = ?";
-		try (PreparedStatement stmt = instance.prepareStatement(query)){
-			stmt.setString(1, nombre);
-			stmt.setString(2, sala);
-			ResultSet rs = stmt.executeQuery();
-			if(rs.next()) {
-				return rs.getInt("id_taller");
-			}
-			rs.close();
-		} catch (SQLException e){
-			e.printStackTrace();
-		}
-		return -1;
-	}
-	
-	/**
-	 * Metodo para obtener el id de una cita en base a su encargado, fecha y hora
-	 * 
-	 * @param encargado encargado de la cita 
-	 * @param fecha fecha de la cita 
-	 * @param hora hora de la cita 
-	 * @return
-	 */
-	public int obtenerIdCita (String encargado, String fecha, String hora) {
-		//Buscado del id del encargado en base a su nombre 
-		int idEncargado = obtenerIdEmpleado(encargado);
-		String query = "SELECT id_cita FROM Citas WHERE id_encargado = ? and fecha = ? and hora = ?";
-		try(PreparedStatement stmt = instance.prepareStatement(query)){
-			stmt.setInt(1, idEncargado);
-			stmt.setString(2, fecha);
-			stmt.setString(3, hora);
-			ResultSet rs = stmt.executeQuery();
-			if(rs.next()) {
-				return rs.getInt("id_cita");
-			}
-			rs.close();
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		return -1;
 	}
 }
