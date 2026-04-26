@@ -331,11 +331,12 @@ public class Control_tablas {
      * Metodo que rellena la tabla de citas de aprendiz
      * con el contenido de un ArrayList de citas 
      * 
+     * @param id id del aprendiz que inicia sesion
      * @see Acceso_BD#CitasRecientes()
      * @see #crearModelo(String[])
      */
-	public void citasRecientesAprendiz() {
-		ArrayList<Cita> citas = consultas_cita.CitasRecientes();
+	public void citasRecientesAprendiz(int id) {
+		ArrayList<Cita> citas = consultas_cita.citasAprendiz(id);
 		String[] columnas = { "Encargado", "Taller", "Cliente", "Traje", "Fecha", "Duración" };
 		DefaultTableModel tableModel = crearModelo(columnas, panel_aprendiz.getTable());
 		tableModel.setRowCount(0);

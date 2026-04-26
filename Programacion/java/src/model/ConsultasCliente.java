@@ -151,11 +151,7 @@ public class ConsultasCliente {
 	 * @param id ID del cliente a eliminar
 	 * @return true si se eliminó correctamente, false si no
 	 */
-	public boolean eliminarClienteConTraje(int id) {
-		
-		//eliminacion del cliente para cuidar la integridad referencial
-		@SuppressWarnings("unused")
-		boolean borradoTraje = consultas_traje.eliminarTrajePorCliente(id);
+	public boolean eliminarCliente(int id) {
 	    
 	    String query = "DELETE FROM Cliente WHERE id_cliente = ?";
 	    

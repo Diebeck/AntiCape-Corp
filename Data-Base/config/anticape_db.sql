@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS AntiCape_db;
 CREATE DATABASE AntiCape_db;
 USE AntiCape_db;
-
+ 
 CREATE TABLE Cliente (
   id_cliente integer PRIMARY KEY auto_increment,
   nombre varchar(255),
@@ -130,13 +130,8 @@ INSERT INTO Citas (id_cita, fecha, hora, duracion, id_cliente, id_encargado, id_
 
 -- Asistencias
 INSERT INTO Asistencia (id_empleado, id_cita) VALUES
--- Cita 1 (Spiderman, encargado Edna id=001)
 (002, 1), (004, 1),
--- Cita 2 (Batman, encargado Valerio id=002)
 (003, 2), (005, 2),
--- Cita 3 (Superman, encargado Edna id=001)
 (007, 3), (009, 3),
--- Cita 4 (IronMan, encargado Alessandro id=003)
 (008, 4), (010, 4),
--- Cita 5 (ElasticGirl, encargado Valerio id=002)
 (006, 5), (011, 5);

@@ -235,4 +235,35 @@ public class ConsultasCita {
 
 		return false;
 	}
+	
+	/**
+	 * Metodo para el mostrado de citas pendientes que tiene el aprendiz
+	 * 
+	 * @param idAprendiz id del aprendiz que inicia sesion
+	 * @return Arraylist con sus citas asignadas
+	 */
+	public ArrayList<Cita> citasAprendiz(int idAprendiz){
+		ArrayList<Cita> citas = new ArrayList <>();
+		String query = "SELECT * FROM Citas WHERE id_cita IN (SELECT id_cita FROM Asistencia WHERE id_empleado = ?)";
+		
+		try(PreparedStatement stmt = instance.prepareStatement(query)){
+			stmt.setInt(1, idAprendiz);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Cita cita = new Cita(rs.getInt(1), rs.getString(2), rs.getString(3),
+						rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
+						rs.getInt(8));
+				citas.add(cita);
+			}
+			
+			return citas;
+			
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return citas;
+	}
 }

@@ -19,6 +19,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 import model.*;
+import view.Confirmaciones;
 import view.Panel_citas;
 import view.Panel_clientes;
 import view.Panel_empleados;
@@ -40,6 +41,7 @@ public class Control_creacion {
 	private ConsultasEmpleado consultas_empleado;
 	private ConsultasTraje consultas_traje;
 	private ObtencionID ids;
+	private Confirmaciones confirm;
 	
 
 	public Control_creacion(Panel_clientes clientes, Panel_empleados empleados, Panel_citas citas,
@@ -57,6 +59,7 @@ public class Control_creacion {
 		this.consultas_empleado = new ConsultasEmpleado(conexion);
 		this.consultas_traje = new ConsultasTraje(conexion);
 		this.ids = new ObtencionID(conexion);
+		this.confirm = new Confirmaciones();
 	}
 
 	/**
@@ -199,41 +202,61 @@ public class Control_creacion {
 
 			// Llamar al metodo crearCita del modelo que devuelve el id de la cita
 			int exito = consultas_cita.crearCita(fecha, hora, duracion, cliente, encargado, taller, traje);
-
 			if (exito > 0) {
+				
+				//bloques de añadido de asistenetes a la cita
+				if ("Sin ayudante".equals(asistenteUno)) {
+					int asistenteId = ids.obtenerIdEmpleado(asistenteUno);
+					
+					//validacion de existencia del asistente
+					if(asistenteId > 0) {
+						boolean asistencia = consultas_empleado.asignacion(exito, asistenteId);
+					if(asistencia) {
+						System.out.println("Asistente añadido correctamente");
+					} else {
+						System.out.println("Fallo en añadido de la asistencia");
+					}
+				}
+				}
+				
+				
+				if (!"Sin ayudante".equals(asistenteDos) && !asistenteDos.equals(asistenteUno)) {
+					int asistenteId = ids.obtenerIdEmpleado(asistenteDos);
+					
+					if (asistenteId > 0) {
+						boolean asistencia = consultas_empleado.asignacion(exito, asistenteId);
+						if(asistencia) {
+							System.out.println("Asistente añadido correctamente");
+						} else {
+							System.out.println("Fallo en añadido de la asistencia");
+						}
+					}
+				}
+				
+				//String con el mensaje que se mostrara al crear la cita
+				String mensaje = "Cita creada exitosamente" + "\n" +
+				"Encargado: " + encargado + "\n" +
+				"Fecha: " + fecha + "\n" +
+				"Hora: " + hora + "\n" +
+				"Cliente: " + cliente;
+				
+				//invocacion del formato
+				confirm.mostrarExito("Cita creada", mensaje);
+				
 				Utilidades.limpiarFormularioCitas(panel_cita);
 				cargarTrajesPorCliente(); // Recargar trajes después de limpiar
 				System.out.println("EXITO: Cita creada correctamente");
 			} else {
+				String error = "No se pudo realizar la creacion de la cita" + "\n" +
+			"Verifique que todos los campos se hayan rellenado";
+				
+				confirm.mostrarError("Error", error);
 				System.out.println("ERROR: Fallo al crear la cita en la base de datos");
-			}
-			
-			//bloques de añadido de asistenetes a la cita
-			if (exito > 0 && !"Sin ayudante".equals(asistenteUno) && !asistenteUno.equals(asistenteDos)) {
-				int asistenteId = ids.obtenerIdEmpleado(asistenteUno);
-				
-				boolean asistencia = consultas_empleado.asignacion(exito, asistenteId);
-				if(asistencia) {
-					System.out.println("Asistente añadido correctamente");
-				} else {
-					System.out.println("Fallo en añadido de la asistencia");
-				}
-			}
-			
-			if (exito > 0 && !"Sin ayudante".equals(asistenteDos) && !asistenteDos.equals(asistenteUno)) {
-				int asistenteId = ids.obtenerIdEmpleado(asistenteDos);
-				
-				boolean asistencia = consultas_empleado.asignacion(exito, asistenteId);
-				if(asistencia) {
-					System.out.println("Asistente añadido correctamente");
-				} else {
-					System.out.println("Fallo en añadido de la asistencia");
-				}
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			System.out.println("ERROR: Excepción al crear cita - " + e.getMessage());
+			e.printStackTrace();
 		}
 	}
 

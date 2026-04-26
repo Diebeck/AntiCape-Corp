@@ -17,6 +17,7 @@ import model.ConsultasCliente;
 import model.ConsultasEmpleado;
 import model.ConsultasTaller;
 import model.ObtencionID;
+import view.Confirmaciones;
 import view.Panel_x;
 
 /**
@@ -31,6 +32,7 @@ public class Control_eliminacion {
 	private ConsultasTaller consultas_taller;
 	private ConsultasEmpleado consultas_empleado;
 	private ObtencionID ids;
+	private Confirmaciones confirm;
 
 	public Control_eliminacion(Panel_x panel_x) {
 		this.modelo = Acceso_BD.instancia();
@@ -41,35 +43,7 @@ public class Control_eliminacion {
 		this.consultas_taller = new ConsultasTaller(conexion);
 		this.consultas_empleado = new ConsultasEmpleado(conexion);
 		this.ids = new ObtencionID(conexion);
-	}
-	
-	/**
-	 * Muestra un diálogo de confirmación con estilo
-	 * 
-	 * descubri que podemos usar html en la configuracion del dialog :)
-	 */
-	private boolean mostrarConfirmacion(String titulo, String mensaje) {
-	    // Formato HTML con colores y fuente de la empresa
-	    String mensajeHTML = "<html>"
-	        + "<div style='font-family: Century Schoolbook; font-size: 14px; text-align: left;"
-	        + "; display: flex; justify-content: center'>"
-	        + "<p style='color: #8B0000; font-weight: bold; font-size: 14px;'>¡ATENCIÓN!</p>"
-	        + "<p>" + mensaje.replace("\n", "<br>") + "</p>"
-	        + "<hr style='border: 1px solid #8B0000;'>"
-	        + "<p style='color: #666; font-size: 12px;'>Esta acción no se puede deshacer.</p>"
-	        + "</div></html>";
-	    
-	    //creacion directa del dialog
-	    int respuesta = JOptionPane.showConfirmDialog(
-	        null, 
-	        mensajeHTML, 
-	        titulo, 
-	        //opciones del dialog
-	        JOptionPane.YES_NO_OPTION,
-	        //icono del dialog
-	        JOptionPane.WARNING_MESSAGE
-	    );
-	    return respuesta == JOptionPane.YES_OPTION;
+		this.confirm = new Confirmaciones();
 	}
 
 	/**
@@ -114,7 +88,7 @@ public class Control_eliminacion {
 				+ "Fecha: " + fecha + "\n"
 				+ "Cliente: " + cliente + "\n\n";
 		
-		if (!mostrarConfirmacion("Confirmar eliminación", mensaje)) {
+		if (!confirm.mostrarEliminacion("Confirmar eliminación", mensaje)) {
 			System.out.println("Eliminación cancelada por el usuario");
 			return false;
 		}
@@ -141,9 +115,9 @@ public class Control_eliminacion {
 			return false;
 		}
 
-		int id = ids.obtenerIdCliente((String) fila[0]);
-		String nombre = (String) fila[0];
-		String colores = (String) fila[1];
+		int id = ids.obtenerIdCliente((String) fila[1]);
+		String nombre = (String) fila[1];
+		String colores = (String) fila[2];
 		
 		String mensaje = "¿Estás seguro de que deseas eliminar este cliente?\n\n"
 				+ "ID: " + id + "\n"
@@ -151,13 +125,13 @@ public class Control_eliminacion {
 				+ "Colores: " + colores + "\n\n"
 				+ "ADVERTENCIA: También se eliminará su traje asociado.\n";
 		
-		if (!mostrarConfirmacion("Confirmar eliminación", mensaje)) {
+		if (!confirm.mostrarEliminacion("Confirmar eliminación", mensaje)) {
 			System.out.println("Eliminación cancelada por el usuario");
 			return false;
 		}
 
 		System.out.println("Eliminando cliente: " + nombre + " (ID: " + id + ")");
-		boolean exito = consultas_cliente.eliminarClienteConTraje(id);
+		boolean exito = consultas_cliente.eliminarCliente(id);
 
 		if (exito) {
 			JOptionPane.showMessageDialog(null, "Cliente y su traje eliminados correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -187,7 +161,7 @@ public class Control_eliminacion {
 				+ "Nombre: " + nombre + " " + apellidos + "\n"
 				+ "Categoría: " + categoria + "\n\n";
 		
-		if (!mostrarConfirmacion("Confirmar eliminación", mensaje)) {
+		if (!confirm.mostrarEliminacion("Confirmar eliminación", mensaje)) {
 			System.out.println("Eliminación cancelada por el usuario");
 			return false;
 		}
@@ -222,7 +196,7 @@ public class Control_eliminacion {
 				+ "Tipo: " + tipo + "\n"
 				+ "Nombre: " + nombre + "\n\n";
 		
-		if (!mostrarConfirmacion("Confirmar eliminación", mensaje)) {
+		if (!confirm.mostrarEliminacion("Confirmar eliminación", mensaje)) {
 			System.out.println("Eliminación cancelada por el usuario");
 			return false;
 		}

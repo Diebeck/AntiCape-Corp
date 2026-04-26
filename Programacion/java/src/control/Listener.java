@@ -65,7 +65,7 @@ public class Listener implements ActionListener {
 		panel_cuenta.esconderHome();
 		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
 		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
-		controladorTablas.citasRecientesAprendiz();
+		controladorTablas.citasRecientesAprendiz(sesion.getId_empleado());
 	}
 	
 	@Override
