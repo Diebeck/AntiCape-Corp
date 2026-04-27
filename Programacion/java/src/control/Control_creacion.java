@@ -283,7 +283,8 @@ public class Control_creacion {
 			}
 
 			if (nombre.isEmpty() || colores.isEmpty() || superpoder.isEmpty() || nomTraje.isEmpty() || alineacion.isBlank()) {
-				System.out.println("ERROR: Campos vacios en el formulario de cliente");
+				String mensaje = "Error al crear el cliente \n Asegurese de que todos los campos esten rellenos";
+				confirm.mostrarError("Error", mensaje);
 				return;
 			}
 
@@ -301,14 +302,22 @@ public class Control_creacion {
 				boolean exitoTraje = consultas_traje.crearTraje(nombre, nomTraje, estado);
 
 				if (exitoTraje) {
-					System.out.println("Traje creado correctamente");
+					String mensaje = "Cliente " + nombre + "creado exitosamente \n" +
+				    "Traje asignado: " + nomTraje;
+					
+					confirm.mostrarExito("Exito", mensaje);
+					
 					Utilidades.limpiarFormularioCliente(panel_cliente);
 				} else {
+					
+					String mensaje = "Error al crear el cliente \n Asegurese de que todos los campos esten rellenos";
+					confirm.mostrarError("Error", mensaje);
 					System.out.println("Fallo al crear el traje");
 					return;
 				}
 			} else {
-				System.out.println("Fallo al crear el cliente");
+				String mensaje = "Error al crear el cliente \n Asegurese de que todos los campos esten rellenos";
+				confirm.mostrarError("Error", mensaje);
 				return;
 			}
 
@@ -327,7 +336,8 @@ public class Control_creacion {
 	        String nombre = panel_taller.getTxtNombre().getText();
 	        
 	        if (nombre.isEmpty()) {
-	            System.out.println("El nombre del taller no puede estar vacío");
+	        	String mensaje = "Error al crear un taller \n Verifique que todos los campos estan rellenos";
+	        	confirm.mostrarError("Error", mensaje);
 	            return;
 	        }
 	        
@@ -344,9 +354,14 @@ public class Control_creacion {
 	        }
 	        
 	        if (exito) {
+	        	String mensaje = "Taller " + nombre + " creado exitosamente \n" +
+	        "Tipo de sala: " + tipo;
+	        	confirm.mostrarExito("Exito", mensaje);
 	            System.out.println("Creacion de taller exitosa");
 	            Utilidades.limpiarFormularioTaller(panel_taller);
 	        } else {
+	        	String mensaje = "Error al crear un taller \n Verifique que todos los campos estan rellenos";
+	        	confirm.mostrarError("Error", mensaje);
 	            System.out.println("Fallo en la creacion de taller");
 	        }
 
@@ -381,9 +396,15 @@ public class Control_creacion {
 			}
 			
 			if (exito) {
-				System.out.println("empleado creado con exito");
+				String mensaje = "Empleado " + nombre +" creado exitosamente \n" + 
+			"Usuario: " + usuario +  "\n" +
+			"Categoria: " + categoria ;
+				
+				confirm.mostrarExito("Exito", mensaje);
 				Utilidades.limpiarFormularioEmpleado(panel_empleados);
 			} else {
+				String mensaje = "Error al crear el empleado \n Asegurese que todos los campos esten rellenos";
+				confirm.mostrarError("Error", mensaje);
 				System.out.println("fallo en la creacion del empleado");
 			}
 			
@@ -537,7 +558,7 @@ public class Control_creacion {
 	        
 	        if (creacion) {
 	        	//mensaje de confirmacion
-	        	JOptionPane.showMessageDialog(null, "Traje" + nombreGuardado + " añadido exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
+	        	JOptionPane.showMessageDialog(null, "Traje " + nombreGuardado + " añadido exitosamente", "Exito", JOptionPane.INFORMATION_MESSAGE);
 	        } 
 	        
 	        // Recarga los trajes del cliente para que aparezca el traje, y lo selecciona
