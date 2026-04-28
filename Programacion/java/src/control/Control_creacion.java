@@ -173,7 +173,7 @@ public class Control_creacion {
 	 * cuenta con diversos prints de debug para implementar despues las ventanas
 	 * emergentes
 	 */
-	public void crearCita() {
+	public boolean crearCita() {
 		try {
 			// Obtencion valores de los combobox
 			String cliente = (String) panel_cita.getCbCliente().getSelectedItem();
@@ -196,13 +196,13 @@ public class Control_creacion {
 				confirm.mostrarError("Error", error);
 				System.out.println("ERROR: Fallo al crear la cita en la base de datos");
 				System.out.println("ERROR: Campos vacíos en el formulario");
-				return;
+				return false;
 			}
 
 			// Validar que no haya seleccionado "Sin trajes disponibles"
 			if (traje.equals("Sin trajes disponibles")) {
 				System.out.println("ERROR: El cliente no tiene trajes disponibles");
-				return;
+				return false;
 			}
 			
 			// Llamar al metodo crearCita del modelo que devuelve el id de la cita
@@ -251,6 +251,7 @@ public class Control_creacion {
 				Utilidades.limpiarFormularioCitas(panel_cita);
 				cargarTrajesPorCliente(); // Recargar trajes después de limpiar
 				System.out.println("EXITO: Cita creada correctamente");
+				return true;
 			} else {
 				String error = "No se pudo realizar la creacion de la cita" + "\n" +
 			"Verifique que todos los campos se hayan rellenado";
@@ -263,6 +264,7 @@ public class Control_creacion {
 			System.out.println("ERROR: Excepción al crear cita - " + e.getMessage());
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	/**

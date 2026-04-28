@@ -123,9 +123,10 @@ public class Listener implements ActionListener {
 			
 			//Bloque else if creacion 
 		} else if (e.getSource() == panel_citas.getBtn_cCita()) {
+			boolean exito = false;
 			// Boton confirmar en citas
 			if (panel_citas.getModo().equals("Crear")) {
-				controladorCreacion.crearCita();
+				exito = controladorCreacion.crearCita();
 			} else {
 				controladorEdiciones.editarCita();
 			}
@@ -133,7 +134,10 @@ public class Listener implements ActionListener {
 			controladorTablas.cargarCitas();
 			controladorTablas.citasRecientes();
 			controladorTablas.cargarOcupacionTalleres();
-			vent.cambiarCajaPrimario(panel_x);
+			if (exito) {
+				vent.cambiarCajaPrimario(panel_x);
+			}
+			
 			
 		} else if (e.getSource() == panel_clientes.getBtn_cCliente()) {
 			// Boton confirmar en clientes
