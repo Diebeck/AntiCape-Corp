@@ -95,7 +95,7 @@ public class Control_ediciones {
 	/**
 	 * Edicion de cita manteniendo los asistentes que no han cambiado
 	 */
-	public void editarCita() {
+	public boolean editarCita() {
 	    try {
 	    	
 	    	/*
@@ -104,7 +104,7 @@ public class Control_ediciones {
 			 */
 	        if (idCitaEditando == -1) {
 	            System.out.println("No hay cita seleccionada para editar");
-	            return;
+	            return false;
 	        }
 	        
 	        // Obtencion datos del formulario
@@ -122,7 +122,7 @@ public class Control_ediciones {
 	        if (cliente == null || taller == null || traje == null || encargado == null || 
 	            fecha.isEmpty() || hora.isEmpty()) {
 	            System.out.println("Campos vacíos en el formulario");
-	            return;
+	            return false;
 	        }
 	        
 	        // Obtener asistentes actuales
@@ -176,6 +176,7 @@ public class Control_ediciones {
 	            System.out.println("Cita modificada correctamente");
 	            idCitaEditando = -1;
 	            Utilidades.limpiarFormularioCitas(panel_citas);
+	            return true;
 	        } else {
 	        	//String con el mensaje que se mostrara al crear la cita
 				String mensaje = "Error al modificar la cita \n Verifique que todos los campos estás rellenos.";
@@ -189,6 +190,7 @@ public class Control_ediciones {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+	    return false;
 	}
 
 	/**
@@ -196,11 +198,11 @@ public class Control_ediciones {
 	 * 
 	 * @see Acceso_BD#modificarCliente(int, String, String, String)
 	 */
-	public void editarCliente() {
+	public boolean editarCliente() {
 		try {
 			if (idClienteEditando == -1) {
 				System.out.println("No hay cliente seleccionado para editar");
-				return;
+				return false;
 			}
 
 			String nombre = panel_clientes.getTfNombre().getText();
@@ -218,7 +220,7 @@ public class Control_ediciones {
 
 			if (nombre.isEmpty() || colores.isEmpty() || superpoder.isEmpty() || nomTraje.isEmpty() || alineacion.isBlank()) {
 				System.out.println("Campos vacios en el formulario de cliente");
-				return;
+				return false;
 			}			
 
 			//guardado del estado del traje 
@@ -248,6 +250,7 @@ public class Control_ediciones {
 				idClienteEditando = -1;
 				nombreTrajeActual = null;
 				Utilidades.limpiarFormularioCliente(panel_clientes);
+				return true;
 			} else {
 				//String con el mensaje que se mostrara al crear la cita
 				String mensaje = "Error al modificar el cliente \n Verifique que todos los campos estás rellenos.";
@@ -261,8 +264,7 @@ public class Control_ediciones {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+		return false;
 	}
 
 	/**
@@ -271,11 +273,11 @@ public class Control_ediciones {
 	 * 
 	 * @see Acceso_BD#modificarEmpleado(int, String, String, String, String, String)
 	 */
-	public void editarEmpleado() {
+	public boolean editarEmpleado() {
 		try {
 			if (idEmpleadoEditando == -1) {
 				System.out.println("No hay empleado seleccionado para editar");
-				return;
+				return false;
 			}
 
 			String nombre = panel_empleados.getTfNombre().getText();
@@ -286,7 +288,7 @@ public class Control_ediciones {
 
 			if (nombre.isEmpty() || apellidos.isEmpty() || usuario.isEmpty() || contrasena.isEmpty()) {
 				System.out.println("Campos vacios en el formulario de empleado");
-				return;
+				return false;
 			}
 
 			if (panel_empleados.getRdbtnAprendiz().isSelected()) {
@@ -312,6 +314,7 @@ public class Control_ediciones {
 				System.out.println("Empleado modificado correctamente");
 				idEmpleadoEditando = -1;
 				Utilidades.limpiarFormularioEmpleado(panel_empleados);
+				return true;
 			} else {
 				//String con el mensaje que se mostrara al crear la cita
 				String mensaje = "Error al modificar el empleado \n Verifique que todos los campos estás rellenos.";
@@ -325,6 +328,7 @@ public class Control_ediciones {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	/**
@@ -332,11 +336,11 @@ public class Control_ediciones {
 	 * 
 	 * @see ConsultasTaller#modificarTaller(int, String, String)
 	 */
-	public void editarTaller() {
+	public boolean editarTaller() {
 		try {
 			if (idTallerEditando == -1) {
 				System.out.println("ERROR: No hay taller seleccionado para editar");
-				return;
+				return false;
 			}
 
 			String tipo = "";
@@ -344,7 +348,7 @@ public class Control_ediciones {
 
 			if (nombre.isEmpty()) {
 				System.out.println("ERROR: El nombre del taller no puede estar vacío");
-				return;
+				return false;
 			}
 			
 			// obtencion datos del radio button
@@ -371,6 +375,7 @@ public class Control_ediciones {
 				System.out.println("Taller modificado correctamente");
 				idTallerEditando = -1;
 				Utilidades.limpiarFormularioTaller(panel_talleres);
+				return  true;
 			} else {
 				//String con el mensaje que se mostrara al crear la cita
 				String mensaje = "Error al modificar el taller \n Verifique que todos los campos estás rellenos.";
@@ -384,6 +389,7 @@ public class Control_ediciones {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	/**

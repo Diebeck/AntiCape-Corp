@@ -266,4 +266,36 @@ public class ConsultasCita {
 		}
 		return citas;
 	}
+	
+	/**
+	 * Metodo que arroja las citas en base a su encargado 
+	 * para el modelado de operaciones del oficial
+	 * 
+	 * @param id del empleado
+	 * @return ArrayList con todas las citas relacionadas a ese id
+	 */
+	public ArrayList<Cita> citasOficial(int id){
+		ArrayList<Cita> citas = new ArrayList <>();
+		String query = "SELECT * FROM Citas WHERE id_encargado = ?";
+		
+		try(PreparedStatement stmt = instance.prepareStatement(query)){
+			stmt.setInt(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			while(rs.next()) {
+				Cita cita = new Cita(rs.getInt(1), rs.getString(2), rs.getString(3),
+						rs.getString(4), rs.getInt(5), rs.getInt(6), rs.getInt(7),
+						rs.getInt(8));
+				citas.add(cita);
+			}
+			
+			return citas;
+			
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return citas;
+	}
 }

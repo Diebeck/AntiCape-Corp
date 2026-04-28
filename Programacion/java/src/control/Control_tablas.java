@@ -358,4 +358,39 @@ public class Control_tablas {
 		}
 		panel_home.getTablaClientes().setModel(tableModel);
 	}
+	
+	/**
+	 * Metodo para rellenar las tablas del oficial 
+	 * y restringir su edicion 
+	 * 
+	 * @param id id del oficial
+	 */
+	public void cargarCitasOficial(int id) {
+        ArrayList<Cita> citas = consultas_cita.citasOficial(id); 
+        String[] columnas = {"Encargado", "Fecha", "Hora", "Taller", "Cliente", "Traje"};
+        DefaultTableModel tableModel = crearModelo(columnas, panel_x.getTable());
+        tableModel.setRowCount(0);
+        
+        if (citas != null) {
+            for (Cita n : citas) {
+                String nombreCliente = ids.obtenerNombreCliente(n.getId_cliente());
+                String nombreEncargado = ids.obtenerNombreEmpleado(n.getId_encargado());
+                String nombreTaller = ids.obtenerNombreTaller(n.getId_taller());
+                String nombreTraje = ids.obtenerNombreTraje(n.getId_traje());
+                
+                String hora = n.getHora().substring(0,5);
+                
+                tableModel.addRow(new Object[]{
+                	nombreEncargado,
+                	n.getFecha(),
+                	hora,
+                	nombreTaller,
+                	nombreCliente, 
+                	nombreTraje
+                });
+            }
+        }
+        panel_x.getTable().setModel(tableModel);
+        panel_x.setEstado("citas");
+    }
 }

@@ -181,7 +181,8 @@ public class Control_creacion {
 			String traje = (String) panel_cita.getCbTrajes().getSelectedItem();
 			String encargado = (String) panel_cita.getCbEncargado().getSelectedItem();
 			String fecha = (String) panel_cita.getDpFecha().getDateStringOrEmptyString();
-			String hora = (String) panel_cita.getTpHora().getTimeStringOrSuppliedString("n/a");
+			//este paso a string asegura de que si no hay una hora, el string se llenara con la cadena "n/a"
+			String hora = panel_cita.getTpHora().getTimeStringOrSuppliedString("n/a");
 			String asistenteUno = (String) panel_cita.getCbAyudante1().getSelectedItem();
 			String asistenteDos = (String) panel_cita.getCbAyudante2().getSelectedItem();
 			
@@ -274,7 +275,7 @@ public class Control_creacion {
 	 * @see Acceso_BD#crearCliente(String, String, String)
 	 * @see Acceso_BD#crearTraje(String, String, String)
 	 */
-	public void crearCliente() {
+	public boolean crearCliente() {
 		try {
 			String nombre = panel_cliente.getTfNombre().getText();
 			String colores = panel_cliente.getTfColores().getText();
@@ -292,7 +293,7 @@ public class Control_creacion {
 			if (nombre.isEmpty() || colores.isEmpty() || superpoder.isEmpty() || nomTraje.isEmpty() || alineacion.isBlank()) {
 				String mensaje = "Error al crear el cliente \n Asegurese de que todos los campos esten rellenos";
 				confirm.mostrarError("Error", mensaje);
-				return;
+				return false;
 			}
 
 			if (panel_cliente.getRdbtnDiseno().isSelected()) {
@@ -320,23 +321,22 @@ public class Control_creacion {
 					String mensaje = "Error al crear el cliente \n Asegurese de que todos los campos esten rellenos";
 					confirm.mostrarError("Error", mensaje);
 					System.out.println("Fallo al crear el traje");
-					return;
 				}
 			} else {
 				String mensaje = "Error al crear el cliente \n Asegurese de que todos los campos esten rellenos";
 				confirm.mostrarError("Error", mensaje);
-				return;
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	/**
 	 * Metodo que controla la creacion de un taller desde la aplicacion 
 	 */
-	public void crearTaller() {
+	public boolean crearTaller() {
 	    try {
 	        boolean exito = false;
 	        String tipo = "";
@@ -345,7 +345,7 @@ public class Control_creacion {
 	        if (nombre.isEmpty()) {
 	        	String mensaje = "Error al crear un taller \n Verifique que todos los campos estan rellenos";
 	        	confirm.mostrarError("Error", mensaje);
-	            return;
+	        	return false;
 	        }
 	        
 	        if (panel_taller.getRdbtnCostura().isSelected()) {
@@ -366,6 +366,7 @@ public class Control_creacion {
 	        	confirm.mostrarExito("Exito", mensaje);
 	            System.out.println("Creacion de taller exitosa");
 	            Utilidades.limpiarFormularioTaller(panel_taller);
+	            return true;
 	        } else {
 	        	String mensaje = "Error al crear un taller \n Verifique que todos los campos estan rellenos";
 	        	confirm.mostrarError("Error", mensaje);
@@ -375,13 +376,14 @@ public class Control_creacion {
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	    }
+	    return false;
 	}
 	
 	/**
 	 * Metodo para crear un empleado en base a los datos del formulario
 	 * en la aplicacion 
 	 */
-	public void crearEmpleado() {
+	public boolean crearEmpleado() {
 		try {
 			boolean exito = false;
 			String nombre = panel_empleados.getTfNombre().getText();
@@ -400,6 +402,7 @@ public class Control_creacion {
 			
 			if (!nombre.isEmpty() && !apellido.isEmpty() && !usuario.isEmpty() && !contraseña.isEmpty() && contraseña != null) {
 				exito = consultas_empleado.crearEmpleado(nombre, apellido, usuario, categoria, contraseña);
+				return false;
 			}
 			
 			if (exito) {
@@ -409,6 +412,7 @@ public class Control_creacion {
 				
 				confirm.mostrarExito("Exito", mensaje);
 				Utilidades.limpiarFormularioEmpleado(panel_empleados);
+				return true;
 			} else {
 				String mensaje = "Error al crear el empleado \n Asegurese que todos los campos esten rellenos";
 				confirm.mostrarError("Error", mensaje);
@@ -418,6 +422,7 @@ public class Control_creacion {
 		} catch (Exception w) {
 			w.printStackTrace();
 		}
+		return false;
 	}
 	
 	

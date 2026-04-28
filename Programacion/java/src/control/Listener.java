@@ -54,7 +54,7 @@ public class Listener implements ActionListener {
 		vent.cambiarCajaNav(panel_nav_oficial);
 		panel_cuenta.getLbl_nombreEmpleado().setText(sesion.getNombre());
 		panel_cuenta.getLbl_categoria().setText(sesion.getCategoria());
-		controladorTablas.cargarCitas();
+		controladorTablas.cargarCitasOficial(sesion.getId_empleado());
 		controladorTablas.citasRecientes();
 		controladorTablas.cargarOcupacionTalleres();
 	}
@@ -118,7 +118,11 @@ public class Listener implements ActionListener {
 		} else if (e.getSource() == panel_citas.getBtn_homeCitas()) {
 			vent.cambiarCajaPrimario(panel_x);
 			if (panel_x.getEstado().equals("citas")) {
-				controladorTablas.cargarCitas();
+				if(sesion.getCategoria().toLowerCase().equals("oficial")) {
+					controladorTablas.cargarCitasOficial(sesion.getId_empleado());
+				} else{
+					controladorTablas.cargarCitas();
+				}
 			}
 			
 			//Bloque else if creacion 
@@ -128,9 +132,9 @@ public class Listener implements ActionListener {
 			if (panel_citas.getModo().equals("Crear")) {
 				exito = controladorCreacion.crearCita();
 			} else {
-				controladorEdiciones.editarCita();
+				exito = controladorEdiciones.editarCita();
 			}
-			// Recargar tablas
+			// Recargar tablas y devolver a home solo si se crea exitosamente
 			controladorTablas.cargarCitas();
 			controladorTablas.citasRecientes();
 			controladorTablas.cargarOcupacionTalleres();
@@ -141,37 +145,47 @@ public class Listener implements ActionListener {
 			
 		} else if (e.getSource() == panel_clientes.getBtn_cCliente()) {
 			// Boton confirmar en clientes
+			boolean exito =  false;
 			if (panel_clientes.getModo().equals("Crear")) {
-				controladorCreacion.crearCliente();
+				exito =  controladorCreacion.crearCliente();
 			} else {
-				controladorEdiciones.editarCliente();
+				exito = controladorEdiciones.editarCliente();
 			}
-			// Recargar tablas
+			// Recargar tablas y devolver a home solo si se crea exitosamente
 			controladorTablas.cargarClientes();
-			vent.cambiarCajaPrimario(panel_x);
+			if (exito) {
+				vent.cambiarCajaPrimario(panel_x);
+			}
 			
 		} else if (e.getSource() == panel_talleres.getBtn_cTaller()) {
+			boolean exito = false;
 			// Boton confirmar en talleres
 			if (panel_talleres.getModo().equals("Crear")) {
-				controladorCreacion.crearTaller();
+				exito = controladorCreacion.crearTaller();
 			} else {
-				controladorEdiciones.editarTaller();
+				exito = controladorEdiciones.editarTaller();
 			}
+			
 			// Recargar tablas
 			controladorTablas.cargarTalleres();
-			vent.cambiarCajaPrimario(panel_x);
+			if (exito) {
+				vent.cambiarCajaPrimario(panel_x);	
+			}
+			
 			
 		} else if (e.getSource() == panel_empleados.getBtn_cEmpleado()) {
+			boolean exito = false;
 			// Boton confirmar en empleados
 			if (panel_empleados.getModo().equals("Crear")) {
-				controladorCreacion.crearEmpleado();
+				exito = controladorCreacion.crearEmpleado();
 			} else {
-				controladorEdiciones.editarEmpleado();
+				exito = controladorEdiciones.editarEmpleado();
 			}
 			// Recargar tablas
 			controladorTablas.cargarEmpleados();
-			vent.cambiarCajaPrimario(panel_x);
-			
+			if (exito) {
+				vent.cambiarCajaPrimario(panel_x);	
+			}
 		}
 		
 		// Eventos para los botones que se obtienen con un String
@@ -210,9 +224,14 @@ public class Listener implements ActionListener {
 			break;
 		
 		case "Citas":
-		    vent.cambiarCajaPrimario(panel_x);
-		    controladorTablas.cargarCitas();
-		    break;
+	        vent.cambiarCajaPrimario(panel_x);
+	        // Cargado de citas de oficial
+	        if (sesion != null && "Oficial".equals(sesion.getCategoria())) {
+	            controladorTablas.cargarCitasOficial(sesion.getId_empleado());
+	        } else {
+	            controladorTablas.cargarCitas();
+	        }
+	        break;
 			
 		case "Clientes":
 			vent.cambiarCajaPrimario(panel_x);
@@ -300,7 +319,11 @@ public class Listener implements ActionListener {
 			if (panel_x.getEstado().equals("citas")) {
 				boolean exito = controladorEliminaciones.eliminarCita();
 				if (exito) {
-					controladorTablas.cargarCitas();
+					if(sesion.getCategoria().toLowerCase().equals("oficial")) {
+						controladorTablas.cargarCitasOficial(sesion.getId_empleado());
+					} else {
+						controladorTablas.cargarCitas();
+					}
 					controladorTablas.citasRecientes();
 					controladorTablas.cargarOcupacionTalleres();
 				}
