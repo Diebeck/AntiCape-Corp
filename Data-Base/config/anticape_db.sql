@@ -84,16 +84,16 @@ INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES
 
 -- Trajes
 INSERT INTO Traje(id_cliente, nombre, estado) VALUES 
-(001, 'principal', 'taller'),
-(001, 'específico', 'diseño'),
-(003, 'principal', 'costura'),
-(004, 'específico', 'taller'),
-(005, 'principal', 'diseño'),
-(006, 'específico', 'costura'),
-(007, 'principal', 'taller'),
-(008, 'específico', 'diseño'),
-(009, 'principal', 'costura'),
-(010, 'específico', 'taller');
+(001, 'Hombre araña', 'taller'),
+(001, 'El imantado', 'diseño'),
+(003, 'Volador', 'costura'),
+(004, 'La armadura', 'taller'),
+(005, 'Superfuerza', 'diseño'),
+(006, 'Superflash', 'costura'),
+(007, 'El martillo', 'taller'),
+(008, 'ElasticSuit', 'diseño'),
+(009, 'AntiDisturbios', 'costura'),
+(010, 'Beyond', 'taller');
 
 -- Talleres
 INSERT INTO Taller(id_taller, nombre_sala, tipo_sala) VALUES 
