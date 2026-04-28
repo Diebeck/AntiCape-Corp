@@ -181,7 +181,7 @@ public class Control_creacion {
 			String traje = (String) panel_cita.getCbTrajes().getSelectedItem();
 			String encargado = (String) panel_cita.getCbEncargado().getSelectedItem();
 			String fecha = (String) panel_cita.getDpFecha().getDateStringOrEmptyString();
-			String hora = (String) panel_cita.getTpHora().getTimeStringOrEmptyString();
+			String hora = (String) panel_cita.getTpHora().getTimeStringOrSuppliedString("n/a");
 			String asistenteUno = (String) panel_cita.getCbAyudante1().getSelectedItem();
 			String asistenteDos = (String) panel_cita.getCbAyudante2().getSelectedItem();
 			
@@ -189,7 +189,12 @@ public class Control_creacion {
 			int duracion = (int) panel_cita.getSpDuracion().getValue();
 
 			// Validar que no haya campos vacíos
-			if (cliente == null || taller == null || traje == null || encargado == null || fecha == null || hora == null) {
+			if (cliente == null || taller == null || traje == null || encargado == null || fecha == null || "n/a".equals(hora)) {
+				String error = "No se pudo realizar la creacion de la cita" + "\n" +
+			"Verifique que todos los campos se hayan rellenado";
+				
+				confirm.mostrarError("Error", error);
+				System.out.println("ERROR: Fallo al crear la cita en la base de datos");
 				System.out.println("ERROR: Campos vacíos en el formulario");
 				return;
 			}
@@ -199,7 +204,7 @@ public class Control_creacion {
 				System.out.println("ERROR: El cliente no tiene trajes disponibles");
 				return;
 			}
-
+			
 			// Llamar al metodo crearCita del modelo que devuelve el id de la cita
 			int exito = consultas_cita.crearCita(fecha, hora, duracion, cliente, encargado, taller, traje);
 			if (exito > 0) {
@@ -445,9 +450,19 @@ public class Control_creacion {
 	            rdbtnHeroe, rdbtnVillano
 	        };	   
 	    
-	    int botonPulsado = JOptionPane.showConfirmDialog(null, diseñoFormulario, "Datos del nuevo cliente", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+	    Object[] botones = {"Cancelar", "Aceptar"}; // Cancelar a la izquierda
+	    int botonPulsado = JOptionPane.showOptionDialog(
+	        null,
+	        diseñoFormulario,
+	        "Datos del nuevo cliente",
+	        JOptionPane.OK_CANCEL_OPTION,
+	        JOptionPane.INFORMATION_MESSAGE,
+	        null,
+	        botones,
+	        botones[1] // botón por defecto al pulsar Enter
+	    );
 	    
-	    if (botonPulsado == JOptionPane.OK_OPTION) {
+	    if (botonPulsado == 1) {
 	    	
 	    	// Almacenado de los datos
 	    	String nombreGuardado = nombre.getText().trim();
@@ -538,9 +553,20 @@ public class Control_creacion {
 	            "Nombre:", nombre
 	        };	   
 	    
-	    int botonPulsado = JOptionPane.showConfirmDialog(null, diseñoFormulario, "Datos del nuevo traje", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+	    Object[] botones = {"Cancelar", "Aceptar"}; // Cancelar a la izquierda
+	    int botonPulsado = JOptionPane.showOptionDialog(
+	        null,
+	        diseñoFormulario,
+	        "Datos del nuevo traje",
+	        JOptionPane.OK_CANCEL_OPTION,
+	        JOptionPane.INFORMATION_MESSAGE,
+	        null,
+	        botones,
+	        botones[1] // botón por defecto al pulsar Enter
+	    );
 	    
-	    if (botonPulsado == JOptionPane.OK_OPTION) {
+	    	    
+	    if (botonPulsado == 1) {
 	    	
 	    	String clienteGuardado = (String) cliente.getSelectedItem();
 		    String nombreGuardado = nombre.getText();

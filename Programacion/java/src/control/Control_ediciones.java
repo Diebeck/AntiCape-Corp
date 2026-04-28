@@ -18,6 +18,7 @@ import model.ConsultasEmpleado;
 import model.ConsultasTaller;
 import model.ConsultasTraje;
 import model.ObtencionID;
+import view.Confirmaciones;
 import view.Panel_citas;
 import view.Panel_clientes;
 import view.Panel_empleados;
@@ -41,6 +42,7 @@ public class Control_ediciones {
 	private ConsultasEmpleado consultas_empleado;
 	private ConsultasTraje consultas_traje;
 	private ObtencionID ids;
+	private Confirmaciones confirm;
 	
 	// Variables internas para guardar los IDs
 	private int idCitaEditando = -1;
@@ -65,6 +67,7 @@ public class Control_ediciones {
 		this.consultas_empleado = new ConsultasEmpleado(conexion);
 		this.consultas_traje = new ConsultasTraje(conexion);
 		this.ids = new ObtencionID(conexion);
+		this.confirm = new Confirmaciones();
 	}
 
 	/**
@@ -140,7 +143,7 @@ public class Control_ediciones {
 	        boolean exito = consultas_cita.modificarCita(idCitaEditando, fecha, hora, duracion, 
 	                                                      cliente, encargado, traje, taller);
 
-	        if (exito) {
+	        if (exito) {      	
 	            // Actualizacion asistentes
 	            
 	            // Eliminar asistentes que ya no están
@@ -157,10 +160,29 @@ public class Control_ediciones {
 	                }
 	            }
 	            
+	          //String con el mensaje que se mostrara al crear la cita
+				String mensaje = "Cita modificada exitosamente" + "\n" +
+				"Fecha: " + fecha + "\n" +
+				"Hora: " + hora + "\n" +
+				"Duración: " + duracion +  "\n" +
+				"Cliente: " + cliente + "\n" +
+				"Encargado: " + encargado + "\n" +
+				"Traje: " + traje + "\n" +
+				"Taller: " + taller + "\n";
+				
+				//invocacion del formato
+				confirm.mostrarExito("Cita modificada", mensaje);
+	            
 	            System.out.println("Cita modificada correctamente");
 	            idCitaEditando = -1;
 	            Utilidades.limpiarFormularioCitas(panel_citas);
 	        } else {
+	        	//String con el mensaje que se mostrara al crear la cita
+				String mensaje = "Error al modificar la cita \n Verifique que todos los campos estás rellenos.";
+				
+				//invocacion del formato
+				confirm.mostrarError("Error", mensaje);
+	        	
 	            System.out.println("Fallo al modificar la cita");
 	        }
 
@@ -213,17 +235,34 @@ public class Control_ediciones {
 					nombreTrajeActual, nomTraje, estado);
 
 			if (exito) {
+				//String con el mensaje que se mostrara al crear la cita
+				String mensaje = "Cliente modificado exitosamente" + "\n" +
+				"Nombre: " + nombre + "\n" +
+				"Colores: " + colores + "\n" +
+				"Superpoderes: " + superpoder;
+				
+				//invocacion del formato
+				confirm.mostrarExito("Cliente modificado", mensaje);
+				
 				System.out.println("Cliente modificado correctamente");
 				idClienteEditando = -1;
 				nombreTrajeActual = null;
 				Utilidades.limpiarFormularioCliente(panel_clientes);
 			} else {
+				//String con el mensaje que se mostrara al crear la cita
+				String mensaje = "Error al modificar el cliente \n Verifique que todos los campos estás rellenos.";
+				
+				//invocacion del formato
+				confirm.mostrarError("Error", mensaje);
+				
 				System.out.println("Fallo al modificar el cliente");
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 	}
 
 	/**
@@ -261,10 +300,25 @@ public class Control_ediciones {
 			boolean exito = consultas_empleado.modificarEmpleado(idEmpleadoEditando, nombre, apellidos, usuario, categoria, contrasena);
 
 			if (exito) {
+				//String con el mensaje que se mostrara al crear la cita
+				String mensaje = "Empleado modificado exitosamente" + "\n" +
+				"Nombre: " + nombre + "\n" +
+				"Usuario: " + usuario + "\n" +
+				"Categoría: " + categoria;
+				
+				//invocacion del formato
+				confirm.mostrarExito("Empleado modificado", mensaje);
+				
 				System.out.println("Empleado modificado correctamente");
 				idEmpleadoEditando = -1;
 				Utilidades.limpiarFormularioEmpleado(panel_empleados);
 			} else {
+				//String con el mensaje que se mostrara al crear la cita
+				String mensaje = "Error al modificar el empleado \n Verifique que todos los campos estás rellenos.";
+				
+				//invocacion del formato
+				confirm.mostrarError("Error", mensaje);
+				
 				System.out.println("Fallo al modificar el empleado");
 			}
 
@@ -306,10 +360,24 @@ public class Control_ediciones {
 			boolean exito = consultas_taller.modificarTaller(idTallerEditando, tipo, nombre);
 
 			if (exito) {
+				//String con el mensaje que se mostrara al crear la cita
+				String mensaje = "Taller modificado exitosamente" + "\n" +
+				"Nombre: " + nombre + "\n" +
+				"Tipo de Taller: " + tipo;
+				
+				//invocacion del formato
+				confirm.mostrarExito("Taller modificado", mensaje);
+				
 				System.out.println("Taller modificado correctamente");
 				idTallerEditando = -1;
 				Utilidades.limpiarFormularioTaller(panel_talleres);
 			} else {
+				//String con el mensaje que se mostrara al crear la cita
+				String mensaje = "Error al modificar el taller \n Verifique que todos los campos estás rellenos.";
+				
+				//invocacion del formato
+				confirm.mostrarError("Error", mensaje);
+				
 				System.out.println("Fallo al modificar el taller");
 			}
 
