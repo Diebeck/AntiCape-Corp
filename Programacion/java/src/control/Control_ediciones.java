@@ -587,10 +587,14 @@ public class Control_ediciones {
 	 * Metodo de la ventana emergente de editar el estado de un traje
 	 */
 	public void modificarTrajeVentana(Panel_clientes panel_clientes, Object[] datosCliente) {
+		
+	    // Obtencion del nombre del traje seleccionado actualmente en el combo box
+	    String nombreTrajeActual = (String) panel_clientes.getComboTrajes().getSelectedItem();
 	    
 		//almacenado del id del cliente antes de cualquier cambio
 	    int idClienteRelacionado = ids.obtenerIdCliente((String) datosCliente[1]);
 	    String estadoAnterior = ids.obtenerEstado((String) datosCliente [1], nombreTrajeActual);
+
 	    
 	    JTextField nombre = new JTextField();
 	    nombre.setText((String) panel_clientes.getComboTrajes().getSelectedItem());
@@ -637,14 +641,14 @@ public class Control_ediciones {
 	        null, 
 	        diseñoFormulario, 
 	        "Editar traje", 
-	        JOptionPane.OK_CANCEL_OPTION,
+	        JOptionPane.YES_NO_OPTION,
 	        JOptionPane.INFORMATION_MESSAGE,
 	        null,
 	        botones,
 	        botones[1]
 	    );
 	    
-	    if (botonPulsado == JOptionPane.OK_OPTION) {
+	    if (botonPulsado == 1) {
 	        String estado = "";
 	        if (rdbtnDiseño.isSelected()) estado = "diseño";
 	        else if (rdbtnCostura.isSelected()) estado = "costura";
@@ -659,7 +663,7 @@ public class Control_ediciones {
 	        
 	        boolean exito = consultas_traje.modificarTraje(
 	            idClienteRelacionado, 
-	            (String) panel_clientes.getComboTrajes().getSelectedItem(), 
+	            nombreTrajeActual, 
 	            nombreGuardado, 
 	            estado
 	        );
