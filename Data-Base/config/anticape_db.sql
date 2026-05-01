@@ -69,6 +69,27 @@ ALTER TABLE Asistencia ADD FOREIGN KEY (id_empleado) REFERENCES Empleado (id_emp
 -- Si se elimina una cita, se eliminan sus registros en asistencia
 ALTER TABLE Asistencia ADD FOREIGN KEY (id_cita) REFERENCES Citas (id_cita) ON DELETE CASCADE;
 
+-- Constrains de logica del negocio para evitar duplicados!!!
+
+-- Clientes con nombre único
+ALTER TABLE Cliente ADD CONSTRAINT uk_cliente_nombre UNIQUE (nombre);
+
+-- Empleado con apodo único
+ALTER TABLE Empleado ADD CONSTRAINT uk_empleado_apodo UNIQUE (apodo);
+
+-- Talleres con nombre único
+ALTER TABLE Taller ADD CONSTRAINT uk_taller_nombre UNIQUE (nombre_sala);
+
+-- para que un cliente no pueda tener dos trajes con el mismo nombre
+ALTER TABLE Traje ADD CONSTRAINT uk_cliente_traje UNIQUE (id_cliente, nombre);
+
+--  empleado que no pueda estar dos veces en la misma cita como asistente
+ALTER TABLE Asistencia ADD CONSTRAINT uk_cita_empleado UNIQUE (id_cita, id_empleado);
+
+--  evitar citas duplicadas (mismo cliente, mismo taller, misma fecha y hora)
+ALTER TABLE Citas ADD CONSTRAINT uk_cita_cliente_taller_fecha_hora 
+UNIQUE (id_cliente, id_taller, fecha, hora);
+
 -- Clientes
 INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES 
 (001, 'Spiderman', 'Rojo', 'Trepar paredes, sentido arácnido y lanzar telarañas', 'Heroe'),
@@ -135,3 +156,23 @@ INSERT INTO Asistencia (id_empleado, id_cita) VALUES
 (007, 3), (009, 3),
 (008, 4), (010, 4),
 (006, 5), (011, 5);
+
+-- Cree un trigger para manejar que no se pueda eliminar a Edna de la base de datos 
+-- Delimeter cambia el signo con el que se termina una linea en sql
+-- se usa en triggers para evitar errores cuando se ejecuta un script con muchas sentencias
+DELIMITER $$
+CREATE TRIGGER eliminacion_edna
+BEFORE DELETE ON Empleado
+FOR EACH ROW
+BEGIN
+    IF OLD.id_empleado = 1 AND OLD.nombre = 'Edna' THEN
+		-- Signal SQLSTATE se usa para manejar y arrojar errores personalizados
+        -- en este caso '45000' es de la categoria de error de usuario 
+        SIGNAL SQLSTATE '45000' 
+        -- este es el mensaje personalizado 
+        SET MESSAGE_TEXT = 'No se puede eliminar a la maestra Edna';
+    END IF;
+-- Final delrigger con el nuevo delimeter  
+END$$
+-- final del rango de actuacion del delimeter 
+DELIMITER ;

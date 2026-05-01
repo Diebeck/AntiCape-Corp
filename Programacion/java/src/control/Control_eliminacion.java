@@ -172,9 +172,12 @@ public class Control_eliminacion {
 		if (exito) {
 			JOptionPane.showMessageDialog(null, "Empleado eliminado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(null, "No se puede eliminar un empleado con una cita asignada", "Error", JOptionPane.ERROR_MESSAGE);
+			if (id == 1 || nombre.equals("Edna")) {
+				JOptionPane.showMessageDialog(null, "La maestra Edna no puede ser eliminada", "Error", JOptionPane.ERROR_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "Error al eliminar el empleado \n Verifique que no tenga una cita asignada", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		}
-
 		return exito;
 	}
 
@@ -207,7 +210,7 @@ public class Control_eliminacion {
 		if (exito) {
 			JOptionPane.showMessageDialog(null, "Taller eliminado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
 		} else {
-			JOptionPane.showMessageDialog(null, "Error al eliminar el taller", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error al eliminar el taller \n verifique que este no tenga citas asignadas", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 
 		return exito;

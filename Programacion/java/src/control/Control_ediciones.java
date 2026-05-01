@@ -9,6 +9,7 @@ package control;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 import model.Acceso_BD;
@@ -73,6 +74,7 @@ public class Control_ediciones {
 	/**
 	 * Metodo que devuelve un array con los elementos 
 	 * de la fila seleccionada en una tabla
+	 * 
 	 * @return
 	 */
 	public Object[] getFilaSeleccionada() {
@@ -88,7 +90,7 @@ public class Control_ediciones {
 			}
 			return fila;
 		}
-		System.out.println("No hay ninguna fila seleccionada");
+		JOptionPane.showMessageDialog(null, "No hay ninguna fila seleccionada", "Error", JOptionPane.ERROR_MESSAGE);
 		return null;
 	}
 
@@ -179,7 +181,7 @@ public class Control_ediciones {
 	            return true;
 	        } else {
 	        	//String con el mensaje que se mostrara al crear la cita
-				String mensaje = "Error al modificar la cita \n Verifique que todos los campos estás rellenos.";
+				String mensaje = "Error al modificar la cita \n Verifique que todos los campos estás rellenos";
 				
 				//invocacion del formato
 				confirm.mostrarError("Error", mensaje);
