@@ -78,4 +78,37 @@ public class Utilidades {
 		panel_empleados.getTfUsuario().setText("");
 		panel_empleados.getRdbtnAprendiz().setSelected(true);
 	}
+	
+	/**
+	 * Metodo para cambiar el aspecto del panel de cliente segun el modo elegido
+	 * 
+	 * @param panel_clientes panel a modificar
+	 * @param modo String con el modo, puede ser crear / modificar
+	 */
+	public static void estadoEdicionCliente(Panel_clientes panel_clientes, String modo) {
+		if (modo.equals("crear")) {
+			//ocultar apartados de edicion
+			panel_clientes.getBtnEditarTraje().setVisible(false);
+			panel_clientes.getComboTrajes().setVisible(false);
+			
+			// mostrar apartados de creacion
+			panel_clientes.getTfNombreT().setVisible(true );
+			panel_clientes.getLblEstado().setVisible(true);
+			panel_clientes.getRdbtnDiseno().setVisible(true);
+			panel_clientes.getRdbtnCostura().setVisible(true);
+			panel_clientes.getRdbtnTaller().setVisible(true);
+			
+		} else if (modo.equals("modificar")) {
+			//mostrar apartados de edicion
+			panel_clientes.getBtnEditarTraje().setVisible(true);
+			panel_clientes.getComboTrajes().setVisible(true);
+			
+			// the samee
+			panel_clientes.getTfNombreT().setVisible(false);
+			panel_clientes.getLblEstado().setVisible(false);
+			panel_clientes.getRdbtnDiseno().setVisible(false);
+			panel_clientes.getRdbtnCostura().setVisible(false);
+			panel_clientes.getRdbtnTaller().setVisible(false);
+		}
+	}
 }

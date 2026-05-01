@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JRadioButton;
+import javax.swing.JComboBox;
 
 @SuppressWarnings("serial")
 public class Panel_clientes extends JPanel {
@@ -37,6 +38,10 @@ public class Panel_clientes extends JPanel {
 	private ButtonGroup alineacion;
 	private JRadioButton rdbtnHeroe;
 	private JRadioButton rdbtnVillano;
+	private JButton btnEditarTraje;
+	@SuppressWarnings("rawtypes")
+	private JComboBox comboTrajes;
+
 	
 	// El modo determina que accion se va a hacer (crear / modificar)
 	String modo = "Crear";
@@ -57,6 +62,7 @@ public class Panel_clientes extends JPanel {
 		return modo;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public Panel_clientes(Listener list) {
 		setLayout(null);
 		setSize(723, 545);
@@ -127,18 +133,18 @@ public class Panel_clientes extends JPanel {
 		lbl_traje.setForeground(Color.BLACK);
 		lbl_traje.setFont(new Font("Century Schoolbook", Font.ITALIC, 24));
 		lbl_traje.setBackground(new Color(76, 17, 48));
-		lbl_traje.setBounds(38, 275, 437, 52);
+		lbl_traje.setBounds(38, 287, 437, 52);
 		add(lbl_traje);
 		
 		tfNombreT = new JTextField();
 		tfNombreT.setFont(new Font("Century Schoolbook", Font.PLAIN, 15));
 		tfNombreT.setColumns(10);
-		tfNombreT.setBounds(168, 337, 507, 25);
+		tfNombreT.setBounds(168, 348, 253, 25);
 		add(tfNombreT);
 		
 		lblNombreT = new JLabel("Nombre:");
 		lblNombreT.setFont(new Font("Century Schoolbook", Font.PLAIN, 18));
-		lblNombreT.setBounds(38, 338, 87, 20);
+		lblNombreT.setBounds(38, 349, 87, 20);
 		add(lblNombreT);
 		
 		lblEstado = new JLabel("Estado:");
@@ -180,7 +186,20 @@ public class Panel_clientes extends JPanel {
 		add(rdbtnVillano);
 		alineacion.add(rdbtnVillano);
 		
+		btnEditarTraje = new JButton("Editar traje");
+		btnEditarTraje.setFont(new Font("Century Schoolbook", Font.PLAIN, 13));
+		btnEditarTraje.setForeground(new Color(255, 255, 255));
+		btnEditarTraje.setBackground(new Color(74, 17, 48));
+		btnEditarTraje.setBounds(454, 349, 221, 32);
+		add(btnEditarTraje);
+		
+		comboTrajes = new JComboBox();
+		comboTrajes.setFont(new Font("Century Schoolbook", Font.PLAIN, 13));
+		comboTrajes.setBounds(168, 349, 253, 28);
+		add(comboTrajes);
+		
 		btn_cCliente.addActionListener(list);
+		btnEditarTraje.addActionListener(list);
 		
 		
 	}
@@ -234,6 +253,51 @@ public class Panel_clientes extends JPanel {
 
 	public JRadioButton getRdbtnVillano() {
 		return rdbtnVillano;
+	}
+
+	public JLabel getLblNombre() {
+		return lblNombre;
+	}
+
+	public JLabel getLbl_cliente() {
+		return lbl_cliente;
+	}
+
+	public JLabel getLblColores() {
+		return lblColores;
+	}
+
+	public JLabel getLblSuperpoder() {
+		return lblSuperpoder;
+	}
+
+	public JLabel getLbl_traje() {
+		return lbl_traje;
+	}
+
+	public JLabel getLblNombreT() {
+		return lblNombreT;
+	}
+
+	public JLabel getLblEstado() {
+		return lblEstado;
+	}
+
+	public ButtonGroup getBg() {
+		return bg;
+	}
+
+	public ButtonGroup getAlineacion() {
+		return alineacion;
+	}
+
+	public JButton getBtnEditarTraje() {
+		return btnEditarTraje;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public JComboBox getComboTrajes() {
+		return comboTrajes;
 	}
 	
 	

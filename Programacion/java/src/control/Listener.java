@@ -255,6 +255,8 @@ public class Listener implements ActionListener {
 				controladorCreacion.formularioCitas();
 				panel_citas.setModo("Crear");
 			} else if (panel_x.getEstado().equals("clientes")) {
+				// para ocultar el boton de editar traje y el desplegable de trajes
+				Utilidades.estadoEdicionCliente(panel_clientes, "crear");
 				//barrido del formulario de clientes para eliminar residuos de modeificacion
 				Utilidades.limpiarFormularioCliente(panel_clientes);
 				vent.cambiarCajaPrimario(panel_clientes);
@@ -285,6 +287,8 @@ public class Listener implements ActionListener {
 					System.out.println("Seleccione una fila para modificar");
 				}
 			} else if (panel_x.getEstado().equals("clientes")) {
+				//ocultar la creacion de traje para pasar al estado de modificado
+				Utilidades.estadoEdicionCliente(panel_clientes, "modificar");
 				Object[] fila = controladorEdiciones.getFilaSeleccionada();
 				if (fila != null) {
 					vent.cambiarCajaPrimario(panel_clientes);
@@ -345,7 +349,8 @@ public class Listener implements ActionListener {
 			}
 
 			break;
-			
+		
+		// casos de las ventanas emergentes en medio de creaciones 
 		case "Nuevo Cliente":
 			controladorCreacion.crearClienteVentana();
 			break;
@@ -353,7 +358,9 @@ public class Listener implements ActionListener {
 		case "Nuevo Traje":
 			controladorCreacion.crearTrajeVentana();
 			break;
-			
+		case "Editar traje":
+			Object[] fila = controladorEdiciones.getFilaSeleccionada();
+			controladorEdiciones.modificarTrajeVentana(panel_clientes, fila);
 		}
 	}
 	

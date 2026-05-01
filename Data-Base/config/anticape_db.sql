@@ -78,7 +78,7 @@ ALTER TABLE Cliente ADD CONSTRAINT uk_cliente_nombre UNIQUE (nombre);
 ALTER TABLE Empleado ADD CONSTRAINT uk_empleado_apodo UNIQUE (apodo);
 
 -- Talleres con nombre único
-ALTER TABLE Taller ADD CONSTRAINT uk_taller_nombre UNIQUE (nombre_sala);
+ALTER TABLE Taller ADD CONSTRAINT uk_taller UNIQUE (nombre_sala, tipo_sala);
 
 -- para que un cliente no pueda tener dos trajes con el mismo nombre
 ALTER TABLE Traje ADD CONSTRAINT uk_cliente_traje UNIQUE (id_cliente, nombre);

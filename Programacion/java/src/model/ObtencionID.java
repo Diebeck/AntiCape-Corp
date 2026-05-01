@@ -141,20 +141,18 @@ public class ObtencionID {
 	 * @return int con el valor del traje encontrado (-1 si no se encuentra)
 	 */
 	protected int obtenerIdTraje(String nombreCliente, String nombreTraje) {
-		String query = "SELECT t.id_traje FROM Traje t " + "JOIN Cliente c ON t.id_cliente = c.id_cliente "
-				+ "WHERE c.nombre = ? AND t.nombre = ?";
-		try (PreparedStatement pstmt = instance.prepareStatement(query)) {
-			pstmt.setString(1, nombreCliente);
-			pstmt.setString(2, nombreTraje);
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				return rs.getInt("id_traje");
-			}
-			rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return -1;
+	    String query = "SELECT id_traje FROM Traje WHERE id_cliente = (SELECT id_cliente FROM Cliente WHERE nombre = ?) AND nombre = ?";
+	    try (PreparedStatement pstmt = instance.prepareStatement(query)) {
+	        pstmt.setString(1, nombreCliente);
+	        pstmt.setString(2, nombreTraje);
+	        ResultSet rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            return rs.getInt("id_traje");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return -1;
 	}
 	
 	/**
@@ -265,5 +263,30 @@ public class ObtencionID {
 	        e.printStackTrace();
 	    }
 	    return "Desconocido";
+	}
+	
+	/**
+	 * Metodo para obtener el estado de un traje
+	 * 
+	 * @param cliente cliente asociado al traje
+	 * @param traje nombre del traje a buscar
+	 * @return string con el estado del traje (diseño, costura, taller)
+	 */
+	public String obtenerEstado(String cliente, String traje) {
+		int id = obtenerIdTraje(cliente, traje);
+		
+		String query = "SELECT estado FROM Traje WHERE id_traje = ?";
+		try(PreparedStatement stmt = instance.prepareStatement(query)){
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

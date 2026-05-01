@@ -26,7 +26,7 @@ public class ConsultasTraje {
 	 * el sistema
 	 * 
 	 * @param nombre del usuario que tiene asociado los trajes
-	 * @return ArrayList de objetos de tipo empleado
+	 * @return ArrayList de objetos de tipo traje
 	 */
 	public ArrayList<Traje> mostrarTrajes(String nombre) {
 		ArrayList<Traje> trajes = new ArrayList<>();
