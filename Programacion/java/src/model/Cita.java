@@ -75,4 +75,26 @@ public class Cita {
 	public String getHora(){
 		return hora;
 	}
+	
+	/** Devuelve la hora de la cita como un int
+	 * @return la hora de la hora
+	 */
+	public int getHoraInt() {
+		String[] tiempos = hora.split(":");
+		return Integer.parseInt(tiempos[0]);
+	}
+	/** Devuelve el minuto de la cita como un int
+	 * @return el minuto de la hora
+	 */
+	public int getMinutoInt() {
+		String[] tiempos = hora.split(":");
+		return Integer.parseInt(tiempos[1]);
+	}
+	
+	/** Devuelve la duracion como un int
+	 * @return la duracion
+	 */
+	public int getDuracionInt() {
+		return Integer.parseInt(duracion.substring(0, 1));
+	}
 }

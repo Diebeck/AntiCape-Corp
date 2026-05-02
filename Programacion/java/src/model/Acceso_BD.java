@@ -9,14 +9,14 @@ package model;
 import java.sql.*;
 
 /**
- * Clase que moldea el acceso a base de datos y todos sus metodos de consultas
+ * Clase que modela el acceso a base de datos y todos sus metodos de consultas
  */
 public class Acceso_BD {
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String url = "jdbc:mysql://localhost/AntiCape_db";
 	private Connection connection = null;
 	private String user_db = "root";
-	private String password_db = "Rokokoso0812";
+	private String password_db = "root";
 	
 	/*
 	 * instancia de la coneccion pivada para compartir
@@ -25,8 +25,7 @@ public class Acceso_BD {
 	private static Acceso_BD instancia = null;
 
 	/**
-	 * Constructor
-	 * que prende la conexion con la base de datos
+	 * Constructor que prende la conexion con la base de datos
 	 */
 	private Acceso_BD() {
 		getConexion();

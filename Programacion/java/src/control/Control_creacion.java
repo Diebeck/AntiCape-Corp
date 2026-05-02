@@ -188,12 +188,80 @@ public class Control_creacion {
 			
 			// Obtener duracion de la cita
 			int duracion = (int) panel_cita.getSpDuracion().getValue();
-
+			
+			// Validar que no solape con ninguna otra cita, y que no se vean heroes y villanos
+			for (Cita c : consultas_cita.mostradoCitas()) {
+				// Si esta en el mismo dia y mismo taller
+				if (c.getFecha().equals(fecha) && c.getId_taller() == ids.obtenerIdTaller(taller)) {
+					// convierte la hora en un timestamp numerico del dia
+					String[] tiempos = hora.split(":");
+					// timestamps cita creada
+					double t1 = Double.parseDouble(tiempos[0]) + Double.parseDouble(tiempos[1])/60;
+					double t1f = t1 + duracion;
+					
+					// timestamps cita comprobada
+					double t2 = c.getHoraInt() + ((double) c.getMinutoInt())/60;
+					double t2f = t2 + c.getDuracionInt();
+					
+					// Comprobacion de solapacion
+					boolean solapan = false;
+					// si el comienzo de la cita creada esta entre la cita comprobada...
+					if (t1 > t2 && t1 < t2f) {
+						solapan = true;
+					// si el final de la cita creada esta entre la cita comprobada...
+					} else if (t1f > t2 && t1f < t2f) {
+						solapan = true;
+					// si el comienzo de la cita comprobada esta entre la cita creada...
+					} else if (t2 > t1 && t2 < t1f) {
+						solapan = true;
+					// si el final de la cita comprobada esta entre la cita creada...
+					} else if (t2f > t1 && t2f < t1f) {
+						solapan = true;
+					}
+					
+					if (solapan) {
+						String error = "No se pudo realizar la creacion de la cita" + "\n" +
+								"Dos citas no pueden solaparse";
+						confirm.mostrarError("Error", error);
+						System.out.println("ERROR: Fallo al crear la cita en la base de datos");
+						System.out.println("ERROR: Solapación de citas");
+						return false;
+					}
+					
+					// Comprobacion de superheroes y villanos
+					// CAMBIAR ESTOS VALORES (comprobar por codigo el tipo de cada cliente, estos son valores de prueba)
+					String tcCreado = "villano";
+					String tcComprobado = "superheroe";
+					
+					// Si los dos son diferentes...
+					if (!tcCreado.equals(tcComprobado)) {
+						boolean pelea = false;
+						// Si el final de la cita creada esta a menos de una hora del comienzo de la cita comprobada...
+						if (Math.abs(t1f - t2) < 1) {
+							pelea = true;
+						// Si el comienzo de la cita creada esta a menos de una hora del final de la cita comprobada...
+						} else if (Math.abs(t1 - t2f) < 1) {
+							pelea = true;
+						}
+						
+						if (pelea) {
+							String error = "No se pudo realizar la creacion de la cita" + "\n" +
+									"Hay menos de una hora entre citas de villano y superheroe y se podrian ver!";
+							confirm.mostrarError("Error", error);
+							System.out.println("ERROR: Fallo al crear la cita en la base de datos");
+							System.out.println("ERROR: Citas de villano y superheroe demasiado cercanas");
+							return false;
+						}
+					}
+					
+					
+				}
+			}
+			
 			// Validar que no haya campos vacíos
 			if (cliente == null || taller == null || traje == null || encargado == null || fecha == null || "n/a".equals(hora)) {
 				String error = "No se pudo realizar la creacion de la cita" + "\n" +
-			"Verifique que todos los campos se hayan rellenado";
-				
+						"Verifique que todos los campos se hayan rellenado";
 				confirm.mostrarError("Error", error);
 				System.out.println("ERROR: Fallo al crear la cita en la base de datos");
 				System.out.println("ERROR: Campos vacíos en el formulario");
@@ -205,6 +273,8 @@ public class Control_creacion {
 				System.out.println("ERROR: El cliente no tiene trajes disponibles");
 				return false;
 			}
+			
+			
 			
 			// Llamar al metodo crearCita del modelo que devuelve el id de la cita
 			int exito = consultas_cita.crearCita(fecha, hora, duracion, cliente, encargado, taller, traje);
