@@ -231,7 +231,7 @@ public class Control_ediciones {
 			}
 
 			// invocacion de la modificacion
-			boolean exito = consultas_cliente.modificarCliente(idClienteEditando, nombre, colores, superpoder);
+			boolean exito = consultas_cliente.modificarCliente(idClienteEditando, nombre, colores, superpoder, alineacion);
 
 			if (exito) {
 				// String con el mensaje que se mostrara al crear la cita

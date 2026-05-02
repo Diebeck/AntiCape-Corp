@@ -65,10 +65,10 @@ public class Control_creacion {
 	/**
 	 * Metodo que rellena el formulario de creacion de citas
 	 * 
-	 * @see Acceso_BD#mostradoCitas()
-	 * @see Acceso_BD#mostrarClientes()
-	 * @see Acceso_BD#mostrarEmpleados()
-	 * @see Acceso_BD#mostrarTalleres()
+	 * @see ConsultasCita#mostradoCitas()
+	 * @see ConsultasCliente#mostrarClientes()
+	 * @see ConsultasEmpleado#mostrarEmpleados()
+	 * @see ConsultasTaller#mostrarTalleres()
 	 * @see #cargarTrajesPorCliente()
 	 */
 	@SuppressWarnings("unchecked")
@@ -172,6 +172,12 @@ public class Control_creacion {
 	 * 
 	 * cuenta con diversos prints de debug para implementar despues las ventanas
 	 * emergentes
+	 * @see ObtencionID#obtenerIdTaller(String)
+	 * @see ConsultasCita#mostradoCitas()
+	 * @see ConsultasCliente#alineacionCliente(int)
+	 * @see ConsultasCita#crearCita(String, String, int, String, String, String, String)
+	 * @see ObtencionID#obtenerIdEmpleado(String)
+	 * @see Utilidades#limpiarFormularioCitas(Panel_citas)
 	 */
 	public boolean crearCita() {
 		try {
@@ -229,18 +235,17 @@ public class Control_creacion {
 					}
 					
 					// Comprobacion de superheroes y villanos
-					// CAMBIAR ESTOS VALORES (comprobar por codigo el tipo de cada cliente, estos son valores de prueba)
-					String tcCreado = "villano";
-					String tcComprobado = "superheroe";
+					String tcCreado = consultas_cliente.alineacionCliente(c.getId_cliente());
+					String tcComprobado = consultas_cliente.alineacionCliente(ids.obtenerIdCliente(cliente));
 					
 					// Si los dos son diferentes...
 					if (!tcCreado.equals(tcComprobado)) {
 						boolean pelea = false;
 						// Si el final de la cita creada esta a menos de una hora del comienzo de la cita comprobada...
-						if (Math.abs(t1f - t2) < 1) {
+						if (Math.abs(t1f - t2) <= 1) {
 							pelea = true;
 						// Si el comienzo de la cita creada esta a menos de una hora del final de la cita comprobada...
-						} else if (Math.abs(t1 - t2f) < 1) {
+						} else if (Math.abs(t1 - t2f) <= 1) {
 							pelea = true;
 						}
 						
@@ -281,7 +286,7 @@ public class Control_creacion {
 			if (exito > 0) {
 				
 				//bloques de añadido de asistenetes a la cita
-				if ("Sin ayudante".equals(asistenteUno)) {
+				if (asistenteUno != null && !"Sin ayudante".equals(asistenteUno)) {
 					int asistenteId = ids.obtenerIdEmpleado(asistenteUno);
 					
 					//validacion de existencia del asistente

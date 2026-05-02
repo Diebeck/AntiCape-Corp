@@ -88,15 +88,16 @@ public class ConsultasCliente {
 	 * @param superpoder nuevo superpoder
 	 * @return true si se modificó correctamente, false si no
 	 */
-	public boolean modificarCliente(int id, String nombre, String colores, String superpoder) {
-		String query = "UPDATE Cliente SET nombre = ?, colores = ?, superpoder = ? WHERE id_cliente = ?";
+	public boolean modificarCliente(int id, String nombre, String colores, String superpoder, String alineacion) {
+		String query = "UPDATE Cliente SET nombre = ?, colores = ?, superpoder = ?, alineacion = ? WHERE id_cliente = ?";
 
 		try (PreparedStatement stmt = instance.prepareStatement(query)) {
 
 			stmt.setString(1, nombre);
 			stmt.setString(2, colores);
 			stmt.setString(3, superpoder);
-			stmt.setInt(4, id);
+			stmt.setString(4, alineacion);
+			stmt.setInt(5, id);
 
 			int filasAfectadas = stmt.executeUpdate();
 
@@ -112,38 +113,6 @@ public class ConsultasCliente {
 		return false;
 	}
 
-	/**
-	 * Metodo para modificar un cliente y su traje simultáneamente
-	 * 
-	 * @param idCliente         ID del cliente a modificar
-	 * @param nombre            nuevo nombre del cliente
-	 * @param colores           nuevos colores
-	 * @param superpoder        nuevo superpoder
-	 * @param nombreTrajeActual nombre actual del traje
-	 * @param nombreTrajeNuevo  nuevo nombre del traje
-	 * @param estadoTraje       nuevo estado del traje
-	 * @return true si se modificó correctamente, false si no
-	 */
-	public boolean modificarClienteConTraje(int idCliente, String nombre, String colores, String superpoder,
-			String nombreTrajeActual, String nombreTrajeNuevo, String estadoTraje) {
-
-		boolean exitoCliente = modificarCliente(idCliente, nombre, colores, superpoder);
-
-		if (exitoCliente) {
-			boolean exitoTraje = consultas_traje.modificarTraje(idCliente, nombreTrajeActual, nombreTrajeNuevo, estadoTraje);
-			if (exitoTraje) {
-				System.out.println("Cliente y traje modificados exitosamente");
-				return true;
-			} else {
-				System.out.println("Cliente modificado pero fallo al modificar el traje");
-			}
-		} else {
-			System.out.println("Fallo al modificar el cliente");
-		}
-
-		return false;
-	}
-	
 
 	/**
 	 * Metodo para eliminar un cliente y su traje asociado
@@ -171,5 +140,30 @@ public class ConsultasCliente {
 	    }
 	    
 	    return false;
+	}
+	
+	/**
+	 * Metodo que devuelve la alineacion (Heroe / Villano) 
+	 * de un cliente en la base de datos 
+	 * 
+	 * @param id identificador del cliente 
+	 * @return String con su alineacion
+	 */
+	public String alineacionCliente(int id) {
+	    
+	    String query = "SELECT alineacion FROM Cliente WHERE id_cliente = ?";
+	    
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        stmt.setInt(1, id);
+	        
+	        try (ResultSet resultado = stmt.executeQuery()) {  
+	            if (resultado.next()) {
+	                return resultado.getString("alineacion");  
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return null;
 	}
 }
