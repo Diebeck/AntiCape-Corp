@@ -238,14 +238,20 @@ public class Control_creacion {
 					String tcCreado = consultas_cliente.alineacionCliente(c.getId_cliente());
 					String tcComprobado = consultas_cliente.alineacionCliente(ids.obtenerIdCliente(cliente));
 					
+//					System.out.println("tcCreado: '" + tcCreado + "'");
+//					System.out.println("tcComprobado: '" + tcComprobado + "'");
+//					System.out.println("¿Iguales? " + tcCreado.equals(tcComprobado));
+//					System.out.println("t1f - t2: " + Math.abs(t1f - t2));
+//					System.out.println("t1 - t2f: " + Math.abs(t1 - t2f));
+					
 					// Si los dos son diferentes...
 					if (!tcCreado.equals(tcComprobado)) {
 						boolean pelea = false;
 						// Si el final de la cita creada esta a menos de una hora del comienzo de la cita comprobada...
-						if (Math.abs(t1f - t2) <= 1) {
+						if (Math.abs(t1f - t2) < 1) {
 							pelea = true;
 						// Si el comienzo de la cita creada esta a menos de una hora del final de la cita comprobada...
-						} else if (Math.abs(t1 - t2f) <= 1) {
+						} else if (Math.abs(t1 - t2f) < 1) {
 							pelea = true;
 						}
 						

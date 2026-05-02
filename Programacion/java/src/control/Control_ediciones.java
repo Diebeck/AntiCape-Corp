@@ -21,6 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import model.Acceso_BD;
+import model.Cita;
 import model.Cliente;
 import model.ConsultasCita;
 import model.ConsultasCliente;
@@ -108,98 +109,150 @@ public class Control_ediciones {
 	 * Edicion de cita manteniendo los asistentes que no han cambiado
 	 */
 	public boolean editarCita() {
-		try {
+	    try {
 
-			/*
-			 * si en el listener principal se cambia el estado del id de la cita
-			 * seleccionada esta clausula if no se activa
-			 */
-			if (idCitaEditando == -1) {
-				System.out.println("No hay cita seleccionada para editar");
-				return false;
-			}
+	        if (idCitaEditando == -1) {
+	            System.out.println("No hay cita seleccionada para editar");
+	            return false;
+	        }
 
-			// Obtencion datos del formulario
-			String cliente = (String) panel_citas.getCbCliente().getSelectedItem();
-			String taller = (String) panel_citas.getCbTaller().getSelectedItem();
-			String traje = (String) panel_citas.getCbTrajes().getSelectedItem();
-			String encargado = (String) panel_citas.getCbEncargado().getSelectedItem();
-			String fecha = panel_citas.getDpFecha().getDateStringOrEmptyString();
-			String hora = panel_citas.getTpHora().getTimeStringOrEmptyString();
-			int duracion = (int) panel_citas.getSpDuracion().getValue();
-			String asistenteUno = (String) panel_citas.getCbAyudante1().getSelectedItem();
-			String asistenteDos = (String) panel_citas.getCbAyudante2().getSelectedItem();
+	        // Obtencion datos del formulario
+	        String cliente = (String) panel_citas.getCbCliente().getSelectedItem();
+	        String taller = (String) panel_citas.getCbTaller().getSelectedItem();
+	        String traje = (String) panel_citas.getCbTrajes().getSelectedItem();
+	        String encargado = (String) panel_citas.getCbEncargado().getSelectedItem();
+	        String fecha = panel_citas.getDpFecha().getDateStringOrEmptyString();
+	        String hora = panel_citas.getTpHora().getTimeStringOrEmptyString();
+	        int duracion = (int) panel_citas.getSpDuracion().getValue();
+	        String asistenteUno = (String) panel_citas.getCbAyudante1().getSelectedItem();
+	        String asistenteDos = (String) panel_citas.getCbAyudante2().getSelectedItem();
 
-			// Validacion de los datos
-			if (cliente == null || taller == null || traje == null || encargado == null || fecha.isEmpty()
-					|| hora.isEmpty()) {
-				System.out.println("Campos vacíos en el formulario");
-				return false;
-			}
+	        // Validacion de los datos
+	        if (cliente == null || taller == null || traje == null || encargado == null || fecha.isEmpty() || hora.isEmpty()) {
+	            System.out.println("Campos vacíos en el formulario");
+	            return false;
+	        }
 
-			// Obtener asistentes actuales
-			ArrayList<Integer> asistentesActuales = ids.idsAsignados(idCitaEditando);
+	        // Validar que no haya seleccionado "Sin trajes disponibles"
+	        if (traje.equals("Sin trajes disponibles")) {
+	            System.out.println("ERROR: El cliente no tiene trajes disponibles");
+	            return false;
+	        }
 
-			// Obtener nuevos asistentes
-			ArrayList<Integer> nuevosAsistentes = new ArrayList<>();
-			if (asistenteUno != null && !"Sin ayudante".equals(asistenteUno)) {
-				int id = ids.obtenerIdEmpleado(asistenteUno);
-				if (id != -1)
-					nuevosAsistentes.add(id);
-			}
-			if (asistenteDos != null && !"Sin ayudante".equals(asistenteDos)) {
-				int id = ids.obtenerIdEmpleado(asistenteDos);
-				if (id != -1)
-					nuevosAsistentes.add(id);
-			}
+	        for (Cita c : consultas_cita.mostradoCitas()) {
+	            // Saltar la cita que se está editando
+	            if (c.getId_cita() == idCitaEditando) {
+	                continue;
+	            }
+	            
+	            // Si esta en el mismo dia y mismo taller
+	            if (c.getFecha().equals(fecha) && c.getId_taller() == ids.obtenerIdTaller(taller)) {
+	                
+	                // Convertir hora a timestamp numérico
+	                String[] tiempos = hora.split(":");
+	                double t1 = Double.parseDouble(tiempos[0]) + Double.parseDouble(tiempos[1]) / 60;
+	                double t1f = t1 + duracion;
+	                
+	                // Tiempos de la cita existente
+	                double t2 = c.getHoraInt() + ((double) c.getMinutoInt()) / 60;
+	                double t2f = t2 + c.getDuracionInt();
+	                
+	                // Comprobación de solapamiento
+	                boolean solapan = (t1 > t2 && t1 < t2f) || (t1f > t2 && t1f < t2f) ||(t2 > t1 && t2 < t1f) ||(t2f > t1 && t2f < t1f);
+	                
+	                if (solapan) {
+	                    String error = "No se pudo realizar la modificacion de la cita\n" +
+	                                   "Dos citas no pueden solaparse";
+	                    confirm.mostrarError("Error", error);
+	                    System.out.println("ERROR: Solapación de citas");
+	                    return false;
+	                }
+	                
+	                // Comprobación de héroes y villanos
+	                String tcCreado = consultas_cliente.alineacionCliente(c.getId_cliente());
+	                String tcComprobado = consultas_cliente.alineacionCliente(ids.obtenerIdCliente(cliente));
 
-			// Modificacion de la cita
-			boolean exito = consultas_cita.modificarCita(idCitaEditando, fecha, hora, duracion, cliente, encargado,
-					traje, taller);
+	                // Si los dos son diferentes (héroe vs villano)
+	                if (tcCreado != null && tcComprobado != null && !tcCreado.equals(tcComprobado)) {
+	                    boolean pelea = false;
+	                    // Si el final de la cita está a menos de una hora del comienzo de la otra
+	                    if (Math.abs(t1f - t2) < 1) {
+	                        pelea = true;
+	                    // Si el comienzo de la cita está a menos de una hora del final de la otra
+	                    } else if (Math.abs(t1 - t2f) < 1) {
+	                        pelea = true;
+	                    }
+	                    
+	                    if (pelea) {
+	                        String error = "No se pudo realizar la modificacion de la cita\n" +
+	                                       "Hay menos de una hora entre citas de villano y superheroe";
+	                        confirm.mostrarError("Error", error);
+	                        System.out.println("ERROR: Citas de villano y superheroe demasiado cercanas");
+	                        return false;
+	                    }
+	                }
+	            }
+	        }
 
-			if (exito) {
-				// Actualizacion asistentes
+	        // Obtener asistentes actuales
+	        ArrayList<Integer> asistentesActuales = ids.idsAsignados(idCitaEditando);
 
-				// Eliminar asistentes que ya no están
-				for (int idActual : asistentesActuales) {
-					if (!nuevosAsistentes.contains(idActual)) {
-						consultas_empleado.eliminarAsistencia(idCitaEditando, idActual);
-					}
-				}
+	        // Obtener nuevos asistentes
+	        ArrayList<Integer> nuevosAsistentes = new ArrayList<>();
+	        if (asistenteUno != null && !"Sin ayudante".equals(asistenteUno)) {
+	            int id = ids.obtenerIdEmpleado(asistenteUno);
+	            if (id != -1)
+	                nuevosAsistentes.add(id);
+	        }
+	        if (asistenteDos != null && !"Sin ayudante".equals(asistenteDos)) {
+	            int id = ids.obtenerIdEmpleado(asistenteDos);
+	            if (id != -1)
+	                nuevosAsistentes.add(id);
+	        }
 
-				// Añadir nuevos asistentes
-				for (int idNuevo : nuevosAsistentes) {
-					if (!asistentesActuales.contains(idNuevo)) {
-						consultas_empleado.asignacion(idCitaEditando, idNuevo);
-					}
-				}
+	        // Modificacion de la cita
+	        boolean exito = consultas_cita.modificarCita(idCitaEditando, fecha, hora, duracion, cliente, encargado, traje, taller);
 
-				// String con el mensaje que se mostrara al crear la cita
-				String mensaje = "Cita modificada exitosamente" + "\n" + "Fecha: " + fecha + "\n" + "Hora: " + hora
-						+ "\n" + "Duración: " + duracion + "\n" + "Cliente: " + cliente + "\n" + "Encargado: "
-						+ encargado + "\n" + "Traje: " + traje + "\n" + "Taller: " + taller + "\n";
+	        if (exito) {
+	            // Actualizacion asistentes
+	            // Eliminar asistentes que ya no están
+	            for (int idActual : asistentesActuales) {
+	                if (!nuevosAsistentes.contains(idActual)) {
+	                    consultas_empleado.eliminarAsistencia(idCitaEditando, idActual);
+	                }
+	            }
 
-				// invocacion del formato
-				confirm.mostrarExito("Cita modificada", mensaje);
+	            // Añadir nuevos asistentes
+	            for (int idNuevo : nuevosAsistentes) {
+	                if (!asistentesActuales.contains(idNuevo)) {
+	                    consultas_empleado.asignacion(idCitaEditando, idNuevo);
+	                }
+	            }
 
-				System.out.println("Cita modificada correctamente");
-				idCitaEditando = -1;
-				Utilidades.limpiarFormularioCitas(panel_citas);
-				return true;
-			} else {
-				// String con el mensaje que se mostrara al crear la cita
-				String mensaje = "Error al modificar la cita \n Verifique que todos los campos estás rellenos";
+	            String mensaje = "Cita modificada exitosamente\n" +
+	                             "Fecha: " + fecha + "\n" +
+	                             "Hora: " + hora + "\n" +
+	                             "Duración: " + duracion + "\n" +
+	                             "Cliente: " + cliente + "\n" +
+	                             "Encargado: " + encargado + "\n" +
+	                             "Traje: " + traje + "\n" +
+	                             "Taller: " + taller;
 
-				// invocacion del formato
-				confirm.mostrarError("Error", mensaje);
+	            confirm.mostrarExito("Cita modificada", mensaje);
+	            System.out.println("Cita modificada correctamente");
+	            idCitaEditando = -1;
+	            Utilidades.limpiarFormularioCitas(panel_citas);
+	            return true;
+	        } else {
+	            String mensaje = "Error al modificar la cita\nVerifique que todos los campos estén rellenos";
+	            confirm.mostrarError("Error", mensaje);
+	            System.out.println("Fallo al modificar la cita");
+	        }
 
-				System.out.println("Fallo al modificar la cita");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
 	}
 
 	/**
