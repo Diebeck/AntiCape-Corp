@@ -12,8 +12,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -22,7 +20,6 @@ import javax.swing.JTextField;
 
 import model.Acceso_BD;
 import model.Cita;
-import model.Cliente;
 import model.ConsultasCita;
 import model.ConsultasCliente;
 import model.ConsultasEmpleado;

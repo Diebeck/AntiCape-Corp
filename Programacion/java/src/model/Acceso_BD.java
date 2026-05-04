@@ -16,7 +16,7 @@ public class Acceso_BD {
 	private String url = "jdbc:mysql://localhost/AntiCape_db";
 	private Connection connection = null;
 	private String user_db = "root";
-	private String password_db = "1941";
+	private String password_db = "root";
 	
 	/*
 	 * instancia de la coneccion pivada para compartir

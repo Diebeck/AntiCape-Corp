@@ -102,7 +102,7 @@ public class ConsultasCita {
 				return -1;
 			}
 
-			// btencion id del empleado por su nombre
+			// Obtencion id del empleado por su nombre
 			int idEncargado = ids.obtenerIdEmpleado(encargado);
 			if (idEncargado == -1) {
 				System.out.println("Empleado no encontrado: " + encargado);
