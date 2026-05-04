@@ -9,7 +9,6 @@ package model;
 import java.sql.*;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
 
 /**
  * Clase que contiene los metodos que realizan 

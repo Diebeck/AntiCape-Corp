@@ -34,12 +34,21 @@ public class Listener implements ActionListener {
 	private Control_ediciones controladorEdiciones = new Control_ediciones(panel_x, panel_citas, panel_clientes, panel_empleados, panel_talleres);
 	private Control_eliminacion controladorEliminaciones = new Control_eliminacion(panel_x);
 	
+	/**
+	 * Metodo para invocar la ventana en el main
+	 * 
+	 * @param vent ventana a ser invocada 
+	 */
 	public void setVentana(Ventana vent) {
 		this.vent = vent;
 		vent.cambiarCajaPrimario(panel_login);
 		vent.cambiarCajaNav(panel_logo);
 	}
 	
+	/**
+	 * Metodo para inicalizar las ventanas que componen 
+	 * la aplicacion en su version maestra 
+	 */
 	private void iniciarMaestro() {
 		vent.cambiarCajaPrimario(panel_home);
 		vent.cambiarCajaNav(panel_nav_maestro);
@@ -49,6 +58,10 @@ public class Listener implements ActionListener {
 		controladorTablas.cargarOcupacionTalleres();
 	}
 	
+	/**
+	 * Metodo para inicalizar las ventanas que componen 
+	 * la aplicacion en su version modificada para un oficial
+	 */
 	private void iniciarOficial() {
 		vent.cambiarCajaPrimario(panel_x);
 		vent.cambiarCajaNav(panel_nav_oficial);
@@ -59,6 +72,10 @@ public class Listener implements ActionListener {
 		controladorTablas.cargarOcupacionTalleres();
 	}
 	
+	/**
+	 * Metodo para inicalizar las ventanas que componen 
+	 * la aplicacion en su version modificada para un oficial
+	 */
 	private void iniciarAprendiz() {
 		vent.cambiarCajaPrimario(panel_prim_aprendiz);
 		vent.cambiarCajaNav(panel_nav_aprendiz);

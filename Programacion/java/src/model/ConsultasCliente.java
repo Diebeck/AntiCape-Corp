@@ -16,11 +16,9 @@ import java.util.*;
  */
 public class ConsultasCliente {
 	private Connection instance;
-	private ConsultasTraje consultas_traje;
-
 	public ConsultasCliente(Connection modelo) {
 		this.instance = modelo;
-		this.consultas_traje = new ConsultasTraje(modelo);
+		new ConsultasTraje(modelo);
 	}
 
 	/**
