@@ -113,18 +113,18 @@ public class Panel_talleres extends JPanel {
 		txtNombre.setColumns(10);
 		
 		JLabel iconDiseño = new JLabel("");
-		iconDiseño.setIcon(Ventana.escalarImagen("/img/diseño.png", 80, 80));
-		iconDiseño.setBounds(38, 262, 102, 95);
+		iconDiseño.setIcon(Ventana.escalarImagen("/img/diseño.png", 70, 70));
+		iconDiseño.setBounds(50, 269, 80, 88);
 		add(iconDiseño);
 		
 		iconCostura = new JLabel("");
-		iconCostura.setIcon(Ventana.escalarImagen("/img/costura.png", 80, 80));
-		iconCostura.setBounds(222, 262, 102, 95);
+		iconCostura.setIcon(Ventana.escalarImagen("/img/costura.png", 85, 85));
+		iconCostura.setBounds(239, 269, 80, 88);
 		add(iconCostura);
 		
 		iconPruebas = new JLabel("");
 		iconPruebas.setIcon(Ventana.escalarImagen("/img/pruebas.png", 80, 80));
-		iconPruebas.setBounds(401, 274, 103, 77);
+		iconPruebas.setBounds(415, 280, 80, 77);
 		add(iconPruebas);
 		btn_cTaller.addActionListener(list);
 	}
