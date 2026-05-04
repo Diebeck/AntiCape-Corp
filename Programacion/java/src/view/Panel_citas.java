@@ -1,3 +1,9 @@
+/**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
 package view;
 
 import control.Listener;
@@ -25,6 +31,9 @@ import com.github.lgooddatepicker.components.TimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 import com.github.lgooddatepicker.optionalusertools.TimeVetoPolicy;
 
+/**
+ * Clase que modela la ventana de citas
+ */
 @SuppressWarnings("serial")
 public class Panel_citas extends JPanel {
 	

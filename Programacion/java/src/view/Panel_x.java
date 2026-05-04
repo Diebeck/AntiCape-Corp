@@ -1,3 +1,9 @@
+/**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
 package view;
 
 import control.Listener;
@@ -9,6 +15,9 @@ import java.awt.GridLayout;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 
+/**
+ * Clase que modela los botones de navegacion del programa 
+ */
 @SuppressWarnings("serial")
 public class Panel_x extends JPanel {
 	

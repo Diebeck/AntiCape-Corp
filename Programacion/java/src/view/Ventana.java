@@ -1,3 +1,9 @@
+/**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
 package view;
 
 import control.Listener;
@@ -12,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
 
+/**
+ * Clase que modela la estructura general del programa 
+ */
 @SuppressWarnings("serial")
 public class Ventana extends JFrame {
 

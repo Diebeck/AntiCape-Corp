@@ -1,5 +1,14 @@
+/**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
 package view;
 
+/**
+ * Clase que modela el segmento del logo en el panel del login 
+ */
 import control.Listener;
 
 import java.awt.Color;

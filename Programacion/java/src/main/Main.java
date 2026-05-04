@@ -1,3 +1,9 @@
+/**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
 package main;
 
 import control.Listener;

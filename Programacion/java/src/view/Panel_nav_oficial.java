@@ -1,3 +1,9 @@
+/**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
 package view;
 
 import control.Listener;
@@ -9,6 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+/**
+ * Clase que modela el panel de navegacion del oficial
+ */
 @SuppressWarnings("serial")
 public class Panel_nav_oficial extends JPanel {
 

@@ -14,6 +14,9 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 
+/**
+ * Clase que modela la ventana de inicio de sesion 
+ */
 @SuppressWarnings("serial")
 public class Panel_login extends JPanel {
 	

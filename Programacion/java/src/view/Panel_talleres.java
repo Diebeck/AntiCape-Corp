@@ -1,3 +1,9 @@
+/**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
 package view;
 
 import control.Listener;
@@ -7,6 +13,9 @@ import java.awt.Font;
 
 import javax.swing.*;
 
+/**
+ * Clase que modela la ventana de taller
+ */
 @SuppressWarnings("serial")
 public class Panel_talleres extends JPanel {
 	

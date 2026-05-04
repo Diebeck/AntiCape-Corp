@@ -1,12 +1,16 @@
 /**
- * 
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
  */
 package view;
 
 import javax.swing.JOptionPane;
 
 /**
- * 
+ * Clase que modela las plantillas 
+ * para las ventanad emergentes de confirmacion o error
  */
 public class Confirmaciones {
 

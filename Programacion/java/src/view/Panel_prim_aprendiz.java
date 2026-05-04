@@ -1,3 +1,9 @@
+/**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
 package view;
 
 import java.awt.Color;
@@ -10,6 +16,9 @@ import javax.swing.JTable;
 
 import control.Listener;
 
+/**
+ * Clase que modela la unica ventana del aprendiz
+ */
 @SuppressWarnings("serial")
 public class Panel_prim_aprendiz extends JPanel {
 	

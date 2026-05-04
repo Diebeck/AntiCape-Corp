@@ -1,3 +1,9 @@
+/**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
 package view;
 
 import control.Listener;
@@ -14,6 +20,9 @@ import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
+/**
+ * Clase que modela la ventana de empleados
+ */
 @SuppressWarnings("serial")
 public class Panel_empleados extends JPanel {
 	

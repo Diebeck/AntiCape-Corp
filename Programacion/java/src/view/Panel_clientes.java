@@ -1,3 +1,9 @@
+/**
+ * @author Breixo García Canovacas
+ * @author Robinson Tamayo Guerrero
+ * @author Romeo Rey Alonso
+ * @author Sara Cardeña Carpio 
+ */
 package view;
 
 import control.Listener;
@@ -14,6 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
 
+/**
+ * Clase que modela la ventana de clientes
+ */
 @SuppressWarnings("serial")
 public class Panel_clientes extends JPanel {
 	
