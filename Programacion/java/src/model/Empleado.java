@@ -7,7 +7,7 @@
 package model;
 
 /**
- * 
+ * Clase que modela la entidad de empleado en el sistema
  */
 public class Empleado {
 	private int id_empleado;

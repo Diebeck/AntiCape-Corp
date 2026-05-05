@@ -301,7 +301,7 @@ public class Control_tablas {
      * que muestra la ocupación de cada taller (nombre y número de citas)
      * 
      * @see #crearModelo(String[], JTable)
-     * @see Acceso_BD#ocupacionTaller()
+     * @see ConsultasTaller#ocupacionTaller()
      */
     public void cargarOcupacionTalleres() {
         ArrayList<String[]> ocupacionTalleres = consultas_taller.ocupacionTaller();
@@ -333,7 +333,7 @@ public class Control_tablas {
      * 
      * @param id id del aprendiz que inicia sesion
      * @see Acceso_BD#CitasRecientes()
-     * @see #crearModelo(String[])
+     * @see Control_tablas#crearModelo(String[])
      */
 	public void citasRecientesAprendiz(int id) {
 		ArrayList<Cita> citas = consultas_cita.citasAprendiz(id);

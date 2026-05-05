@@ -24,6 +24,7 @@ public class Cita {
 	 * 
 	 * @param id identificador unico de la cita 
 	 * @param fecha fecha de cita 
+	 * @param hora hora en la que se realizara la cita
 	 * @param duracion duracion (en horas) de la cita
 	 * @param id_c identificador del cliente a atender en la cita
 	 * @param id_e identificador del encargado de la cita

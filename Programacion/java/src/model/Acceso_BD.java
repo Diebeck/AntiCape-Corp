@@ -12,6 +12,9 @@ import java.sql.*;
  * Clase que modela el acceso a base de datos y todos sus metodos de consultas
  */
 public class Acceso_BD {
+	/**
+	 * Atributos necesarios para la conexion con la base de datos
+	 */
 	private String driver = "com.mysql.cj.jdbc.Driver";
 	private String url = "jdbc:mysql://localhost/AntiCape_db";
 	private Connection connection = null;
@@ -33,7 +36,8 @@ public class Acceso_BD {
 	
 	/**
 	 * Metodo que obtiene la instancia para conmpartir 
-	 * @return
+	 * 
+	 * @return objeto de tipo Acceso_BD
 	 */
 	public static Acceso_BD instancia() {
 		if (instancia == null) {
@@ -44,6 +48,8 @@ public class Acceso_BD {
 
 	/**	
 	 * Metodo que inicializa la conexion con la base de datos
+	 * 
+	 * @return Objeto de tipo Connetion de sql
 	 */
 	public Connection getConexion() {
 		try {
