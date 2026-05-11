@@ -76,7 +76,6 @@ public class Control_creacion {
 		// cargado de los arrays con los datos de la base de datos
 		ArrayList<Cliente> clientes = consultas_cliente.mostrarClientes();
 		ArrayList<Empleado> empleados = consultas_empleado.mostrarEmpleados();
-		ArrayList<Taller> talleres = consultas_taller.mostrarTalleres();
 		ArrayList<Empleado> asistentes = consultas_empleado.mostrarEmpleados();
 
 		// Limpiado de los combos para evitar duplicados
@@ -120,21 +119,25 @@ public class Control_creacion {
 			
 		}
 
-		// Llenado combo de talleres
-		if (talleres != null) {
-			for (Taller n : talleres) {
-				panel_cita.getCbTaller().addItem(n.getNombre_sala());
-			}
-		}
-
 		// Cargar los trajes del primer cliente seleccionado
 		cargarTrajesPorCliente();
+		
+		//cargar los talleres en base al traje 
+		cargarTallerPorTraje();
 
 		// Añadir listener para cuando cambie el cliente seleccionado 
 		panel_cita.getCbCliente().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				cargarTrajesPorCliente();
+			}
+		});
+		
+		//Este listener actualiza los talleres en el cambio de traje 
+		panel_cita.getCbTrajes().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed (ActionEvent e) {
+				cargarTallerPorTraje();
 			}
 		});
 	}
@@ -163,6 +166,30 @@ public class Control_creacion {
 			} else {
 				panel_cita.getCbTrajes().addItem("Sin trajes disponibles");
 				System.out.println("No hay trajes disponibles para: " + seleccion);
+			}
+		}
+	}
+	
+	/**
+	 * Metodo auxiliar que carga los talleres especificos para cada traje
+	 * dependiendo de su estado de diseño, costura o pruebas.
+	 */
+	@SuppressWarnings("unchecked")
+	private void cargarTallerPorTraje() {
+		String estado = ids.obtenerEstado(
+				(String) panel_cita.getCbCliente().getSelectedItem(),(String) panel_cita.getCbTrajes().getSelectedItem());
+		
+		if (estado != null) {
+			ArrayList <Taller> talleres = consultas_taller.mostrarTalleresTraje(estado);
+			
+			panel_cita.getCbTaller().removeAllItems();
+			
+			if (talleres != null) {
+				for (Taller n : talleres) {
+					panel_cita.getCbTaller().addItem(n.getNombre_sala());
+				}
+			} else {
+				panel_cita.getCbTaller().addItem("No hay talleres para este traje");
 			}
 		}
 	}

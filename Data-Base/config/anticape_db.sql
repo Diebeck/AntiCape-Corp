@@ -139,7 +139,9 @@ INSERT INTO Empleado(id_empleado, nombre, apellidos, apodo, categoria, contrase�
 (008, 'Javier', 'Luna Paredes', 'J.L.Paredes', 'Aprendiz', 'admin2004'),
 (009, 'Carmen', 'Reyes Flores', 'C.R.Flores', 'Maestro', 'admin1976'),
 (010, 'Miguel', 'Serrano Gil', 'M.S.Gil', 'Oficial', 'admin1988'),
-(011, 'Sofía', 'Cabrera Gómez', 'S.C.Gómez', 'Aprendiz', 'admin2005');
+(011, 'Sofía', 'Cabrera Gómez', 'S.C.Gómez', 'Aprendiz', 'admin2005'),
+(012, 'Expo', 'AntiCape-Corp', 'Anti-cape', 'Oficial', 'Anticape1205'),
+(013, 'Prueba', 'Becario', 'Anti-corp', 'Aprendiz', 'Anticape1205');
 
 -- Citas
 INSERT INTO Citas (id_cita, fecha, hora, duracion, id_cliente, id_encargado, id_taller, id_traje) VALUES 

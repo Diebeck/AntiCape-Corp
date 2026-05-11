@@ -46,6 +46,50 @@ public class ConsultasTaller {
 	}
 	
 	/**
+	 * Metodo que busca en la base de datos talleres en funcion del
+	 * estado de un traje 
+	 * 
+	 * @param estado estado del traje para el que se buscan talleres
+	 * @return Arraylist lista de los talleres para manejar ese estado
+	 */
+	public ArrayList<Taller> mostrarTalleresTraje(String estado) {
+	    ArrayList<Taller> talleres = new ArrayList<>();
+	    String query = "SELECT * FROM Taller WHERE tipo_sala = ?";
+
+	    try (PreparedStatement stmt = instance.prepareStatement(query)) {
+	        
+	        switch (estado.toLowerCase()){
+	            case "diseño":
+	                stmt.setString(1, "diseño");
+	                break;
+	            case "costura":
+	                stmt.setString(1, "costura");
+	                break;
+	            case "taller":
+	                stmt.setString(1, "pruebas");
+	                break;
+	        }
+
+	        try (ResultSet resultado = stmt.executeQuery()) {
+	            while (resultado.next()) {
+	                Taller taller = new Taller(
+	                    resultado.getInt(1), 
+	                    resultado.getString(2), 
+	                    resultado.getString(3)
+	                );
+	                talleres.add(taller);
+	            }
+	        }
+
+	        return talleres;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return new ArrayList<>();
+	    }
+	}
+
+	
+	/**
 	 * Metodo que obtiene el nombre del taller y su número de citas
 	 * 
 	 * @return ArrayList de arrays con [nombre_taller, numero_citas]

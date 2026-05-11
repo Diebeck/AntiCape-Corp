@@ -242,7 +242,7 @@ public class Control_tablas {
      * que muestra los datos de todos los talleres en el sistema
      * 
      * @see #crearModelo(String[])
-     * @see Acceso_BD#mostrarTalleres()
+     * @see ConsultasTaller#mostrarTalleres()
      */
     public void cargarTalleres() {
         ArrayList<Taller> talleres = consultas_taller.mostrarTalleres();
@@ -261,6 +261,7 @@ public class Control_tablas {
         panel_x.getTable().setModel(tableModel);
         panel_x.setEstado("talleres");
     }
+    
     
     /**
      * Metodo que rellena la tabla de citas recientes

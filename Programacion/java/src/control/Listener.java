@@ -158,7 +158,11 @@ public class Listener implements ActionListener {
 				exito = controladorEdiciones.editarCita();
 			}
 			// Recargar tablas y devolver a home solo si se crea exitosamente
-			controladorTablas.cargarCitas();
+			if (sesion.getCategoria().toLowerCase().equals("oficial")) {
+				controladorTablas.cargarCitasOficial(sesion.getId_empleado());
+			} else {
+				controladorTablas.cargarCitas();
+			}
 			controladorTablas.citasRecientes();
 			controladorTablas.cargarOcupacionTalleres();
 			if (exito) {
