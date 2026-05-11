@@ -103,18 +103,38 @@ INSERT INTO Cliente (id_cliente, nombre, colores, superpoder, alineacion) VALUES
 (009, 'Violet', 'Morado', 'Volverse invisible y crear campos de fuerza', 'Heroe'),
 (010, 'Capitana Marvel', 'Rojo', 'Volar, absorber energía y súper fuerza', 'Heroe');
 
--- Trajes
+-- Trajes 
 INSERT INTO Traje(id_cliente, nombre, estado) VALUES 
-(001, 'Hombre araña', 'taller'),
-(001, 'El imantado', 'diseño'),
-(003, 'Volador', 'costura'),
-(004, 'La armadura', 'taller'),
-(005, 'Superfuerza', 'diseño'),
-(006, 'Superflash', 'costura'),
-(007, 'El martillo', 'taller'),
-(008, 'ElasticSuit', 'diseño'),
-(009, 'AntiDisturbios', 'costura'),
-(010, 'Beyond', 'taller');
+(001, 'Simbionte', 'taller'),
+(001, 'Iron Spider', 'diseño'),
+(001, 'Stealth', 'costura'),
+(002, 'Hellbat', 'taller'),
+(002, 'Azrael', 'diseño'),
+(002, 'Bat-Robot', 'costura'),
+(003, 'Blanco', 'taller'),
+(003, 'Negro', 'diseño'),
+(003, 'Armadura', 'costura'),
+(004, 'Mark III', 'taller'),
+(004, 'Bleeding', 'diseño'),
+(004, 'Hulkbuster', 'costura'),
+(005, 'Maestro', 'taller'),
+(005, 'Joe Fixit', 'diseño'),
+(005, 'Gladiador', 'costura'),
+(006, 'Negro', 'taller'),
+(006, 'Blanco', 'diseño'),
+(006, 'Future', 'costura'),
+(007, 'Infinito', 'taller'),
+(007, 'Beta Ray', 'diseño'),
+(007, 'Rúnico', 'costura'),
+(008, 'Clásico', 'taller'),
+(008, 'Sigilo', 'diseño'),
+(008, 'Rescate', 'costura'),
+(009, 'Fase', 'taller'),
+(009, 'Force', 'diseño'),
+(009, 'Shadow', 'costura'),
+(010, 'Binary', 'taller'),
+(010, 'Maskless', 'diseño'),
+(010, 'War', 'costura');
 
 -- Talleres
 INSERT INTO Taller(id_taller, nombre_sala, tipo_sala) VALUES 
